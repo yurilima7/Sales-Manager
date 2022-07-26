@@ -64,11 +64,14 @@ flutter:
     - assets/images/sales manager.png
     - assets/icons/google.svg
     - assets/icons/facebook.svg
-    - assets/icons/carteira.png
-    - assets/icons/pessoa.png
-    - assets/icons/add pagamento.png
-    - assets/icons/clientes.png
-    - assets/icons/vendas.png
+    - assets/icons/carteira.svg
+    - assets/icons/pessoa.svg
+    - assets/icons/add pagamento.svg
+    - assets/icons/vendas.svg
+    - assets/icons/clientes.svg
+    - assets/icons/home.svg
+    - assets/icons/configurações.svg
+    - assets/icons/dados.svg
  
   #   - images/a_dot_ham.jpeg
 
