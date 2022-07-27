@@ -4,8 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 class BotaoAcesso extends StatelessWidget {
   final String caminho;
   final String titulo;
+  final String proximo;
 
-  const BotaoAcesso({required this.caminho, required this.titulo, Key? key}) : super(key: key);
+  const BotaoAcesso({required this.caminho, required this.titulo, Key? key, required this.proximo}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,10 @@ class BotaoAcesso extends StatelessWidget {
           width: MediaQuery.of(context).size.width * 0.11,
 
           child:  IconButton(
-            onPressed: () => {}, 
+            onPressed: () => {
+              Navigator.pushNamed(context, proximo)
+            },
+
             icon: SvgPicture.asset(
               caminho,
               height:MediaQuery.of(context).size.height * 0.25,

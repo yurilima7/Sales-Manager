@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sales_manager/screens/adicionar_cliente.dart';
+import 'package:sales_manager/screens/adicionar_produto.dart';
 import 'package:sales_manager/screens/criar_conta.dart';
 import 'package:sales_manager/screens/login.dart';
+import 'package:sales_manager/screens/opcao_venda.dart';
 import 'package:sales_manager/screens/principal.dart';
 
 main() => runApp(SalesManager());
@@ -26,7 +29,10 @@ class SalesManager extends StatelessWidget {
       routes: {
         '/login' : (context) => const Login(),
         '/criarConta' : (context) => const CriarConta(),
-        '/principal' : (context) => const Principal()
+        '/principal' : (context) => const Principal(),
+        '/opcaoDeVenda' : (context) => const OpcaoVenda(),
+        '/addCliente' : (context) => const AdicionarCliente(),
+        '/addProduto' :(context) => const AdicionarProduto()
       },
     );
   }

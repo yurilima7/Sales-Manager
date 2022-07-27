@@ -103,9 +103,9 @@ class Principal extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
             
-                      BotaoAcesso(caminho: 'assets/icons/vendas.svg', titulo: "Adicionar Vendas"),
-                      BotaoAcesso(caminho: 'assets/icons/add pagamento.svg', titulo: "Adicionar Pagamentos"),
-                      BotaoAcesso(caminho: 'assets/icons/clientes.svg', titulo: "Consultar Clientes"),
+                      BotaoAcesso(caminho: 'assets/icons/vendas.svg', titulo: "Adicionar Vendas", proximo: '/opcaoDeVenda'),
+                      BotaoAcesso(caminho: 'assets/icons/add pagamento.svg', titulo: "Adicionar Pagamentos", proximo: ''),
+                      BotaoAcesso(caminho: 'assets/icons/clientes.svg', titulo: "Consultar Clientes", proximo: ''),
                       
                     ],
                   ),

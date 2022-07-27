@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 class Botao extends StatelessWidget {
   final String titulo;
   final String proxima;
-  const Botao({required this.titulo, required this.proxima, Key? key})
+  final bool desempilha;
+
+  const Botao({required this.titulo, this.desempilha = false, required this.proxima, Key? key})
       : super(key: key);
 
   @override
@@ -20,11 +22,13 @@ class Botao extends StatelessWidget {
       height: MediaQuery.of(context).size.height *
           0.07, // definindo a altuta do botão
       child: ElevatedButton(
-          style: botaoDeSelecao,
-          onPressed: () {
-            Navigator.pushNamed(context, proxima);
-          },
-          child: Text(titulo),
+        style: botaoDeSelecao,
+        onPressed: () {
+         desempilha
+          ? Navigator.pushNamedAndRemoveUntil(context, proxima, (route) => false) 
+          : Navigator.pushNamed(context, proxima);
+        },
+        child: Text(titulo),
       ),
     );
   }
