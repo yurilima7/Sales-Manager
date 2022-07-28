@@ -43,7 +43,7 @@ class Principal extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.11,
 
                     child: IconButton(
-                      onPressed: () => {}, 
+                      onPressed: () => {Navigator.pushNamed(context, '/editarPerfil')}, 
                   
                       icon: SvgPicture.asset(
                         'assets/icons/pessoa.svg',
@@ -104,8 +104,8 @@ class Principal extends StatelessWidget {
                     children: const [
             
                       BotaoAcesso(caminho: 'assets/icons/vendas.svg', titulo: "Adicionar Vendas", proximo: '/opcaoDeVenda'),
-                      BotaoAcesso(caminho: 'assets/icons/add pagamento.svg', titulo: "Adicionar Pagamentos", proximo: ''),
-                      BotaoAcesso(caminho: 'assets/icons/clientes.svg', titulo: "Consultar Clientes", proximo: ''),
+                      BotaoAcesso(caminho: 'assets/icons/add pagamento.svg', titulo: "Adicionar Pagamentos", proximo: '/addPagamento'),
+                      BotaoAcesso(caminho: 'assets/icons/clientes.svg', titulo: "Consultar Clientes", proximo: '/clientes'),
                       
                     ],
                   ),
@@ -120,9 +120,10 @@ class Principal extends StatelessWidget {
                 children: [
 
                   Row(
-                    children: [
-                      const Text("Últimas vendas", style: TextStyle(color: Color(0xFF6D3F8C), fontWeight: FontWeight.bold, fontSize: 16)),
-                      Container()
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: const [
+                      Text("Últimas vendas", style: TextStyle(color: Color(0xFF6D3F8C), fontWeight: FontWeight.bold, fontSize: 16)),
+                      
                     ],
                   ),
                   // Listagem das vendas mais recentes do usuário
@@ -142,7 +143,7 @@ class Principal extends StatelessWidget {
               ),
             ),
             // Card de navegação no aplicativo
-            const Expanded(flex: 1, child: CardInferior(caminho: 'assets/icons/home.svg', caminho2: 'assets/icons/dados.svg', caminho3: 'assets/icons/configurações.svg'))
+            const CardInferior(ativo: true)
           
           ],
         ),

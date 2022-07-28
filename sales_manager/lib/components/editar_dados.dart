@@ -1,37 +1,44 @@
 import 'package:flutter/material.dart';
 
-class InputFormulario extends StatefulWidget {
-  final String label;
-  final bool acaoTeclado;
-  final bool edicao;
-  final String textoEditavel;
-
-  const InputFormulario({
-    Key? key,
-    required this.label,
-    this.acaoTeclado = true,
-    this.edicao = false,
-    this.textoEditavel = "",
-  }) : super(key: key);
+class EditarDados extends StatefulWidget {
+  final String nome;
+  const EditarDados({Key? key, required this.nome}) : super(key: key);
 
   @override
-  State<InputFormulario> createState() => _InputFormularioState();
+  State<EditarDados> createState() => _EditarDadosState();
 }
 
-class _InputFormularioState extends State<InputFormulario> {
+class _EditarDadosState extends State<EditarDados> {
+
+  late String nomeAtual;
+  final texto = TextEditingController();
+
+  @override
+  void initState(){
+    nomeAtual = widget.nome;
+    texto.text = nomeAtual;
+
+    return super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Material(
         elevation: 3, // elevando o input
         borderRadius: BorderRadius.circular(30.0),
 
-        child: TextFormField(
+        child: TextField(
+
+          autofocus: false,
+          controller: texto,
+
+          onChanged: (String valor) => setState(() {
+            nomeAtual = valor;
+          }),
 
           style: const TextStyle(
               color: Color(0xFF734D8C)), // coloração do texto digitado
-
-          textInputAction:
-              widget.acaoTeclado ? TextInputAction.next : TextInputAction.go,
 
           decoration: InputDecoration(
             filled: true,
@@ -49,7 +56,7 @@ class _InputFormularioState extends State<InputFormulario> {
               borderRadius: BorderRadius.circular(30.0),
             ),
 
-            labelText: widget.label, // texto a ser exibido na label
+            //labelText: widget.label, // texto a ser exibido na label
             enabledBorder: OutlineInputBorder(
               borderSide: const BorderSide(
                 color: Color(0xFFFFFFFF),
@@ -63,6 +70,7 @@ class _InputFormularioState extends State<InputFormulario> {
               color: Color(0xFF734D8C),
             ), // define a coloração do texto da label
           ),
-        ));
+        )
+    );
   }
 }

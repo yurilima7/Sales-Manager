@@ -34,23 +34,19 @@ class OpcaoVenda extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 
                 children: [
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.5),
             
                   const Text("Venda para", style: TextStyle(color: Colors.black, fontSize: 16)),
 
                   SizedBox(height: MediaQuery.of(context).size.height * 0.1),
             
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
             
-                      Column(
-
-                        children: [
-                          const Botao(titulo: 'Novo Cliente', proxima: "/addCliente"),
-                          SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                          const Botao(titulo: 'Cliente Existente', proxima: ""),
-                        ],
-                      ),
+                      const Botao(titulo: 'Novo Cliente', proxima: "/addCliente"),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                      const Botao(titulo: 'Cliente Existente', proxima: "/clienteExistente"),
                     ],
                   ),
                 ],

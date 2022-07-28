@@ -67,6 +67,7 @@ class CriarConta extends StatelessWidget {
                   const BotaoTexto(
                       mensagem: "Possui uma conta? Faça login!", 
                       proxima: '/login',
+                      tamanhoFonte: 10,
                   ),
                 ],
               ),
