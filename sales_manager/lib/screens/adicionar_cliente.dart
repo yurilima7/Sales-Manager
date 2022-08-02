@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:sales_manager/components/botao.dart';
-import 'package:sales_manager/components/input_formulario.dart';
+import 'package:sales_manager/components/novo_cliente.dart';
+import 'package:sales_manager/models/cliente.dart';
 
-class AdicionarCliente extends StatelessWidget {
+class AdicionarCliente extends StatefulWidget {
   const AdicionarCliente({Key? key}) : super(key: key);
 
   @override
+  State<AdicionarCliente> createState() => _AdicionarClienteState();
+}
+
+class _AdicionarClienteState extends State<AdicionarCliente> {
+
+  final List <Cliente> _clientes = [];
+
+  _addCliente(String nome, String bairro, String endereco, String telefone) {
+
+    final novoCliente = Cliente(
+      nome: nome,
+      bairro: bairro,
+      endereco: endereco,
+      telefone: telefone,
+    );
+
+    setState(() {
+      _clientes.add(novoCliente);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
 
       body: GestureDetector(
@@ -32,22 +55,9 @@ class AdicionarCliente extends StatelessWidget {
           
                 SizedBox(height: MediaQuery.of(context).size.height * 0.18),
           
-                Column(
-                  
-                  children: [
-                    const InputFormulario(label: "Nome do Cliente"),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                    const InputFormulario(label: "Bairro"),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                    const InputFormulario(label: "Rua e N°"),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                    const InputFormulario(label: "Telefone"),
-                  ],
-                ),
+                NovoCliente(guardaDados: _addCliente),
           
-                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-          
-                const Botao(titulo: "Prosseguir", proxima: "/addProduto")
+                
               ],
             ),
           ),

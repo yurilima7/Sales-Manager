@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 class InputFormulario extends StatefulWidget {
   final String label;
   final bool acaoTeclado;
-  final bool edicao;
-  final String textoEditavel;
+  final TextEditingController controller;
+  final TextInputType tipo;
+  final Function(String) funcaoPassada;
 
   const InputFormulario({
     Key? key,
     required this.label,
     this.acaoTeclado = true,
-    this.edicao = false,
-    this.textoEditavel = "",
+    this.tipo = TextInputType.text, 
+    required this.controller, 
+    required this.funcaoPassada,
   }) : super(key: key);
 
   @override
@@ -26,6 +28,10 @@ class _InputFormularioState extends State<InputFormulario> {
         borderRadius: BorderRadius.circular(30.0),
 
         child: TextFormField(
+
+          controller: widget.controller,
+          keyboardType: widget.tipo,
+          onFieldSubmitted: widget.funcaoPassada,
 
           style: const TextStyle(
               color: Color(0xFF734D8C)), // coloração do texto digitado

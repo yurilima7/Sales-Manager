@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "632437494938",
+    "project_id": "sales-manager-1d0dc",
+    "storage_bucket": "sales-manager-1d0dc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:632437494938:android:3f9924fefd45125de6bb23",
+        "android_client_info": {
+          "package_name": "com.example.sales_manager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "632437494938-0u6n2p0vf1u4f7grao2gkgu0j5c00mve.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOLH3mHTq5JLrZsdABboEbjQLMh4PuWYI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "632437494938-0u6n2p0vf1u4f7grao2gkgu0j5c00mve.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

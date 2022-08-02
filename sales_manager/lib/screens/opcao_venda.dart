@@ -6,6 +6,15 @@ class OpcaoVenda extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    void _addCliente(){
+      Navigator.pushNamed(context,  "/addCliente");
+    }
+
+    void _buscarExistente(){
+      Navigator.pushNamed(context,  "/clienteExistente");
+    }
+
     return Scaffold(
 
       body: Padding(
@@ -44,9 +53,9 @@ class OpcaoVenda extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
             
-                      const Botao(titulo: 'Novo Cliente', proxima: "/addCliente"),
+                      Botao(titulo: 'Novo Cliente', funcaoGeral: _addCliente),
                       SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                      const Botao(titulo: 'Cliente Existente', proxima: "/clienteExistente"),
+                      Botao(titulo: 'Cliente Existente', funcaoGeral: _buscarExistente),
                     ],
                   ),
                 ],

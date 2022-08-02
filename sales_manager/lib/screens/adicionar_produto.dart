@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
-import '../components/botao.dart';
-import '../components/input_formulario.dart';
+import 'package:sales_manager/components/novo_produto.dart';
+import 'package:sales_manager/models/produto.dart';
 
-class AdicionarProduto extends StatelessWidget {
-  const AdicionarProduto({Key? key}) : super(key: key);
+class AdicionarProduto extends StatefulWidget {
+  final String nome;
+  const AdicionarProduto({required this.nome ,Key? key}) : super(key: key);
+
+  @override
+  State<AdicionarProduto> createState() => _AdicionarProdutoState();
+}
+
+class _AdicionarProdutoState extends State<AdicionarProduto> {
+
+  final List <Produto> _produtos = [];
+
+  _addProduto(String nome, String data, double preco, int quantidade){
+
+    final novoProduto = Produto(
+      nome: nome,
+      data: data,
+      preco: preco,
+      quantidade: quantidade,
+    );
+
+    setState(() {
+      _produtos.add(novoProduto);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
 
       body: GestureDetector(
@@ -32,21 +56,9 @@ class AdicionarProduto extends StatelessWidget {
           
                 SizedBox(height: MediaQuery.of(context).size.height * 0.18),
           
-                Column(
-                 
-                  children: [
-                    const InputFormulario(label: "Produto"),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                    const InputFormulario(label: "Data"),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                    const InputFormulario(label: "Preço"),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                    const InputFormulario(label: "Quantidade"),
-                  ],
-                ),
+                NovoProduto(guardaDados: _addProduto, clienteNome: widget.nome),
       
-                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-                const Botao(titulo: "Salvar", proxima: "/principal", desempilha: true)
+                
               ],
             ),
           ),

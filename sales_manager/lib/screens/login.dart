@@ -1,11 +1,101 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sales_manager/components/botao.dart';
 import 'package:sales_manager/components/botao_social.dart';
 import 'package:sales_manager/components/botao_texto.dart';
 import 'package:sales_manager/components/input.dart';
+import 'package:sales_manager/screens/principal.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+
+  final _email = TextEditingController();
+  final _senha = TextEditingController();
+  final firebaseAuth = FirebaseAuth.instance;
+
+  void _proximaTela() async {
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Login realizado com sucesso!"),
+        backgroundColor: Colors.greenAccent,
+        duration: Duration(seconds: 1),
+      )
+    );
+
+    Navigator.pushAndRemoveUntil<void>(
+      context,
+      MaterialPageRoute<void>(builder: (BuildContext context) => const Principal()),
+      (route) => false,
+    );
+  }
+
+  _entrar() async {
+
+    if(_email.text == '' && _senha.text == ''){
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Todos os campos vazios!"),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+
+      return;
+    } else if (_email.text == '') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("E-Mail inválido!"),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+
+      return;
+    } else if (_senha.text == '') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Senha inválida!"),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+
+      return;
+    }
+
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _email.text,
+        password: _senha.text,
+      );
+
+      userCredential.user!.updateDisplayName(_email.text);
+
+      _proximaTela();
+
+    } on FirebaseAuthException catch (e) {
+
+      if (e.code == 'user-not-found') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Este e-mail não está cadastrado!"),
+            backgroundColor: Colors.redAccent,
+          )
+        );
+      } else if (e.code == 'wrong-password') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Sua senha está incorreta, tente novamente!"),
+            backgroundColor: Colors.redAccent,
+          )
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +110,7 @@ class Login extends StatelessWidget {
           child: Center(
             child: SingleChildScrollView(
               reverse: true,
+              physics: const BouncingScrollPhysics(), // remove o sombreamento da scroll
               
               child: Column(
                 children: [
@@ -49,16 +140,16 @@ class Login extends StatelessWidget {
             
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             
-                  const Input(label: "E-Mail"), // input de inserção do e-mail
+                  Input(label: "E-Mail", controller: _email), // input de inserção do e-mail
             
                   SizedBox(height: MediaQuery.of(context).size.height * 0.01),
             
-                  const Input(
-                      label: "Senha", senha: true), // input de inserção da senha
+                  Input(
+                      label: "Senha", senha: true, controller: _senha), // input de inserção da senha
             
                   SizedBox(height: MediaQuery.of(context).size.height * 0.04),
             
-                  const Botao(titulo: "Entrar", proxima: '/principal'),
+                  Botao(titulo: "Entrar", funcaoGeral: _entrar),
             
                   const BotaoTexto(
                       mensagem: "Não possui uma conta? Faça seu registro!",

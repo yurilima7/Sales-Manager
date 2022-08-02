@@ -4,8 +4,9 @@ class Input extends StatefulWidget {
   final String label;
   final bool senha;
   final bool usuario;
+  final TextEditingController controller;
 
-  const Input({required this.label, this.usuario = false, this.senha = false, Key? key})
+  const Input({required this.label, this.usuario = false, this.senha = false, Key? key, required this.controller})
       : super(key: key);
 
   @override
@@ -22,6 +23,8 @@ class _InputState extends State<Input> {
       borderRadius: BorderRadius.circular(30.0),
 
       child: TextFormField(
+        controller: widget.controller,     
+
         obscureText: widget.senha
             ? verSenha
             : false, // caso senha seja true ativa/desativa a ocultação da senha digitada
