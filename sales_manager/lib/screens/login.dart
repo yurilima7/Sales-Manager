@@ -4,7 +4,7 @@ import 'package:sales_manager/components/botao.dart';
 import 'package:sales_manager/components/botao_social.dart';
 import 'package:sales_manager/components/botao_texto.dart';
 import 'package:sales_manager/components/input.dart';
-import 'package:sales_manager/screens/principal.dart';
+import 'package:sales_manager/screens/tap_bar_telas.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -31,7 +31,7 @@ class _LoginState extends State<Login> {
 
     Navigator.pushAndRemoveUntil<void>(
       context,
-      MaterialPageRoute<void>(builder: (BuildContext context) => const Principal()),
+      MaterialPageRoute<void>(builder: (BuildContext context) => const PercorreTelas()),
       (route) => false,
     );
   }

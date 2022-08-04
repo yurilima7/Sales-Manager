@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sales_manager/components/botao_acesso.dart';
-import 'package:sales_manager/components/card_inferior.dart';
 import 'package:sales_manager/components/lista_recentes.dart';
 
 class Principal extends StatefulWidget {
@@ -15,7 +14,7 @@ class Principal extends StatefulWidget {
 
 class _PrincipalState extends State<Principal> {
   late String _nomeUsuario = "";
-  late final List _ultimasVendas = [];
+  late double _vendido = 0.0;
 
   final db = FirebaseFirestore.instance;
   final usuarioID =
@@ -25,201 +24,192 @@ class _PrincipalState extends State<Principal> {
   initState() {
     super.initState();
     _recebeUsuario();
-    _recebeVendas();
   }
 
   _recebeUsuario() async {
     late String nome;
+    late double valor;
 
     await db.collection("Usuários").doc(usuarioID.toString()).get().then((doc) => {
       if(doc.exists){
         nome = doc.data()!["Usuário"],
+        valor = doc.data()!["Vendido"],
       }
     },);
 
     setState(() {
       _nomeUsuario = nome;
+      _vendido = valor;
     });
   } 
-
-  _recebeVendas() async{
-    List vendas = [];
-
-    await db.collection("Usuários").doc(usuarioID.toString())
-    .collection("Últimas Vendas").orderBy("Id", descending: true).get().then((querySnapshot) => {
-        for (var doc in querySnapshot.docs){
-          vendas.add(doc.data()),
-        },
-      });
-
-    setState(() {
-      _ultimasVendas.add(vendas);
-    });
-
-    print(_ultimasVendas);
-  }
-
-  final _vendas = [
-    {'Nome': "Fulano", 'Produto': "Cinto", 'valor': 20},
-    {'Nome': "Siclano", 'Produto': "Cinto", 'valor': 25.5},
-    {'Nome': "Beltrano", 'Produto': "Camisa", 'valor': 50},
-    {'Nome': "Marciano", 'Produto': "Camisa", 'valor': 60},
-  ];
-
 
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
+    return Padding(
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 35, bottom: 20),
         
-        child: CustomScrollView(
-          physics: const BouncingScrollPhysics(), // remove o sombreamento da scroll
-    
-          slivers: [
-    
-            SliverFillRemaining(
-              hasScrollBody: false,
-    
-              child: Column(
-            
-                children: [
+        child: SingleChildScrollView(
+
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+
+            children: [
+              // apresenta o nome do usuário
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.042,
+
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   
-                  Expanded( // nome de usuário e perfil
-                    flex: 1,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(_nomeUsuario, style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
+                
+                    Ink(
                       
-                      children: [
-                        Text(_nomeUsuario, style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
-                  
-                        Ink(
-                          
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                  
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                blurRadius: 5
-                              )
-                            ]
-                          ),
-                  
-                          width: MediaQuery.of(context).size.width * 0.11,
-                  
-                          child: IconButton(
-                            onPressed: () => {Navigator.pushNamed(context, '/editarPerfil')}, 
-                        
-                            icon: SvgPicture.asset(
-                              'assets/icons/pessoa.svg',
-                              height: MediaQuery.of(context).size.height * 0.025,
-                              width: MediaQuery.of(context).size.width * 0.025,
-                              allowDrawingOutsideViewBox: true,
-                            ),
-                          ),
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey,
+                            blurRadius: 5
+                          )
+                        ]
+                      ),
+                
+                      child: IconButton(
+                        onPressed: () => {Navigator.pushNamed(context, '/editarPerfil')}, 
+                    
+                        icon: SvgPicture.asset(
+                          'assets/icons/pessoa.svg',
+                          height: MediaQuery.of(context).size.height * 0.022,
+                          allowDrawingOutsideViewBox: true,
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                  
-                  Expanded(
-                    flex: 4,
-                    child: Column(
-                      children: [
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                        // Card de informações de vendas
-                        Card( 
-                          color: const Color(0xFF6D3F8C),
-                          elevation: 3,
-                          
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-                  
-                          child: Padding(
-                            padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.04),
-                  
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  
-                                  children: const [
-                                    Text("Vendido", style: TextStyle(color: Colors.white, fontSize: 16)),
-                                    SizedBox(height: 2),
-                                    Text("R\$ 200", style: TextStyle(color: Colors.white, fontSize: 16)),
-                                  ],
-                                ),
-                  
-                                SvgPicture.asset(
-                                  'assets/icons/carteira.svg',
-                                  height: MediaQuery.of(context).size.height * 0.04,
-                                  width: MediaQuery.of(context).size.width * 0.04,
-                                  allowDrawingOutsideViewBox: true,
-                                ),
+                  ],
+                ),
+              ),
+              
+              SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+              // Card de informações de vendas
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.3,
+
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+                  children: [
+                    
+                    Card( 
+                      color: const Color(0xFF6D3F8C),
+                      elevation: 3,
+                      
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                
+                      child: Padding(
+                        padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.04),
+                
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              
+                              children:  [
+                                const Text("Vendido", style: TextStyle(color: Colors.white, fontSize: 16)),
+                                const SizedBox(height: 2),
+                                Text("R\$ $_vendido", style: const TextStyle(color: Colors.white, fontSize: 16)),
                               ],
                             ),
-                          ),
-                        ),
-                  
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.035),
-                        // Botões de ações do aplicativo
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                  
-                            BotaoAcesso(caminho: 'assets/icons/vendas.svg', titulo: "Adicionar Vendas", proximo: '/opcaoDeVenda'),
-                            BotaoAcesso(caminho: 'assets/icons/add pagamento.svg', titulo: "Adicionar Pagamentos", proximo: '/addPagamento'),
-                            BotaoAcesso(caminho: 'assets/icons/clientes.svg', titulo: "Consultar Clientes", proximo: '/clientes'),
-                            
+                
+                            SvgPicture.asset(
+                              'assets/icons/carteira.svg',
+                              height: MediaQuery.of(context).size.height * 0.04,
+                              allowDrawingOutsideViewBox: true,
+                            ),
                           ],
+                        ),
+                      ),
+                    ),
+              
+                    // Botões de ações do aplicativo
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                
+                        BotaoAcesso(caminho: 'assets/icons/vendas.svg', titulo: "Adicionar Vendas", proximo: '/opcaoDeVenda'),
+                        BotaoAcesso(caminho: 'assets/icons/add pagamento.svg', titulo: "Adicionar Pagamentos", proximo: '/addPagamento'),
+                        BotaoAcesso(caminho: 'assets/icons/clientes.svg', titulo: "Consultar Clientes", proximo: '/clientes'),
+                        
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              // Lista as últimas 10 vendas
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.42,
+
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end, // colocada no fim da tela
+
+                  children: [                   
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+              
+              
+                      children: const [
+                        Text("Últimas vendas", style: TextStyle(color: Color(0xFF6D3F8C), fontWeight: FontWeight.bold, fontSize: 16)),   
+                      ],
+                    ),
+                    // coluna que apresenta as últimas vendas
+                    Column( 
+                      
+                      children: [
+              
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.27,
+                          child: StreamBuilder<QuerySnapshot <Map<String,dynamic>>>(
+                            // buscando as últmas 10 vendas no banco
+                            stream: db.collection("Usuários").doc(usuarioID.toString())
+                              .collection("Últimas Vendas").orderBy("Id", descending: true).limit(10).snapshots(), 
+              
+                            builder: (context, snapshot){
+                              // Se existirem dados, os apresentam
+                              if(snapshot.hasData){ 
+                                return ListView(
+                                  
+                                  children: snapshot.data!.docs.map((doc){
+
+                                    return SizedBox(
+                                      height: MediaQuery.of(context).size.height * 0.065,
+                                      child: ListaRecentes(cliente: doc.data()["Nome"], produto: doc.data()["Produto"], valor: doc.data()["Preço"]),
+                                    );
+
+                                  }).toList(),
+                                );
+                              }
+                              // caso não hajam dados
+                              else{
+                                return const Center(
+                                  child: Text("Não existem vendas realizadas!"),
+                                );
+                              }
+                            }
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                  
-                  Expanded(
-                    flex: 4,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                  
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            Text("Últimas vendas", style: TextStyle(color: Color(0xFF6D3F8C), fontWeight: FontWeight.bold, fontSize: 16)),
-                            
-                          ],
-                        ),
-                        // Listagem das vendas mais recentes do usuário
-                        Column(
-                        
-                          children: [
-                            ListaRecentes(cliente: _vendas[0].values.elementAt(0).toString(), produto: _vendas[0].values.elementAt(1).toString(), valor: double.parse(_vendas[0].values.elementAt(2).toString())),
-                            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                            ListaRecentes(cliente: _vendas[1].values.elementAt(0).toString(), produto: _vendas[1].values.elementAt(1).toString(), valor: double.parse(_vendas[1].values.elementAt(2).toString())),
-                            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                            ListaRecentes(cliente: _vendas[2].values.elementAt(0).toString(), produto: _vendas[2].values.elementAt(1).toString(), valor: double.parse(_vendas[2].values.elementAt(2).toString())),
-                            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                            ListaRecentes(cliente: _vendas[3].values.elementAt(0).toString(), produto: _vendas[3].values.elementAt(1).toString(), valor: double.parse(_vendas[3].values.elementAt(2).toString())),
-                          ],
-                        ),
-                      ],
-                    ), 
-                  ),
-                  // Card de navegação no aplicativo
-                  const CardInferior(ativo: true)
-                
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),     
         ),
-      )
-    );
+      );
   }
 }

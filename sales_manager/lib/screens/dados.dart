@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sales_manager/components/card_dados.dart';
-import 'package:sales_manager/components/card_inferior.dart';
 
 class Dados extends StatelessWidget {
   
@@ -8,9 +7,8 @@ class Dados extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
 
-      body: Padding(
+    return Padding(
         padding: const EdgeInsets.all(20),
 
         child: Column(
@@ -42,10 +40,8 @@ class Dados extends StatelessWidget {
               ),
             ),
 
-            const CardInferior(ativo2: true)
           ],
         ),
-      ),
-    );
+      );
   }
 }

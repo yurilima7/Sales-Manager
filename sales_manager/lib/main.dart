@@ -17,6 +17,7 @@ import 'package:sales_manager/screens/principal.dart';
 import 'package:sales_manager/screens/produtos_pagos.dart';
 import 'package:sales_manager/screens/seleciona_compra.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:sales_manager/screens/tap_bar_telas.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -47,9 +48,10 @@ class SalesManager extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFE7DCF2),
       ),
       initialRoute: '/login',
-      routes: {
+      routes: { 
         '/login': (context) => const Login(),
         '/criarConta': (context) => const CriarConta(),
+        '/telas':(context) => const PercorreTelas(),
         '/principal': (context) => const Principal(),
         '/opcaoDeVenda': (context) => const OpcaoVenda(),
         '/addCliente': (context) => const AdicionarCliente(),
