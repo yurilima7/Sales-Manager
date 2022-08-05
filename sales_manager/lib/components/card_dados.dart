@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class CardDados extends StatelessWidget {
   final String nome;
-  const CardDados({Key? key, required this.nome}) : super(key: key);
+  final double valor;
+  const CardDados({Key? key, required this.nome, required this.valor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class CardDados extends StatelessWidget {
           
           children: [
             Text(nome, style: const TextStyle(color: Colors.white, fontSize: 16)),
-            const Text("R\$ 200", style: TextStyle(color: Colors.white, fontSize: 16)),
+            Text("R\$ $valor", style: const TextStyle(color: Colors.white, fontSize: 16)),
             
           ],
         ),

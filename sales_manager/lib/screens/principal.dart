@@ -20,7 +20,7 @@ class _PrincipalState extends State<Principal> {
   final usuarioID =
       FirebaseAuth.instance.currentUser!.uid; // pegando id do usuário
 
-   @override
+  @override
   initState() {
     super.initState();
     _recebeUsuario();
