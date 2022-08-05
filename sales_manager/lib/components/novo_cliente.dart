@@ -109,13 +109,13 @@ class _NovoClienteState extends State<NovoCliente> {
     return Column(
                   
       children: [
-        InputFormulario(label: "Nome do Cliente", controller: _nomeControler, funcaoPassada: (_) => _guardandoDados()),
+        InputFormulario(label: "Nome do Cliente", hint: "Digite o nome do cliente",controller: _nomeControler, funcaoPassada: (_) => _guardandoDados()),
         SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-        InputFormulario(label: "Bairro", controller: _bairroControler, funcaoPassada: (_) => _guardandoDados()),
+        InputFormulario(label: "Bairro", hint: "Digite o nome do bairro", controller: _bairroControler, funcaoPassada: (_) => _guardandoDados()),
         SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-        InputFormulario(label: "Rua e N°", controller: _enderecoControler, funcaoPassada: (_) => _guardandoDados()),
+        InputFormulario(label: "Rua e N°", hint: "Digite o nome da rua e o número", controller: _enderecoControler, funcaoPassada: (_) => _guardandoDados()),
         SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-        InputFormulario(label: "Telefone", controller: _telefoneControler, funcaoPassada: (_) => _guardandoDados()),
+        InputFormulario(label: "Telefone", hint: "Digite o seu telefone", controller: _telefoneControler, funcaoPassada: (_) => _guardandoDados()),
 
 
         SizedBox(height: MediaQuery.of(context).size.height * 0.05),

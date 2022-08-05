@@ -164,16 +164,16 @@ class _CriarContaState extends State<CriarConta> {
       
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             
-                  Input(label: "Usuário", usuario: true, controller: _usuario),
+                  Input(label: "Usuário", hint: "Digite seu nome de usuário", usuario: true, controller: _usuario),
             
                   SizedBox(height: MediaQuery.of(context).size.height * 0.01),
             
-                  Input(label: "E-Mail", controller: _email), // input de inserção do e-mail
+                  Input(label: "E-Mail", hint: "Digite seu e-mail", controller: _email), // input de inserção do e-mail
             
                   SizedBox(height: MediaQuery.of(context).size.height * 0.01),
             
                   Input(
-                      label: "Senha", senha: true, controller: _senha), // input de inserção da senha
+                      label: "Senha", hint: "Digite sua senha",senha: true, controller: _senha), // input de inserção da senha
             
                   SizedBox(height: MediaQuery.of(context).size.height * 0.04),
             

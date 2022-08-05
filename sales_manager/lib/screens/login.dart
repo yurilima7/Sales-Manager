@@ -142,12 +142,12 @@ class _LoginState extends State<Login> {
             
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             
-                  Input(label: "E-Mail", controller: _email), // input de inserção do e-mail
+                  Input(label: "E-Mail", hint: "Digite seu e-mail", controller: _email), // input de inserção do e-mail
             
                   SizedBox(height: MediaQuery.of(context).size.height * 0.01),
             
                   Input(
-                      label: "Senha", senha: true, controller: _senha), // input de inserção da senha
+                      label: "Senha", hint: "Digite sua senha", senha: true, controller: _senha), // input de inserção da senha
             
                   SizedBox(height: MediaQuery.of(context).size.height * 0.04),
             

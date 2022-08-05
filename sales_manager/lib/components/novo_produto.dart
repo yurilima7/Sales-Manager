@@ -192,21 +192,25 @@ class _NovoProdutoState extends State<NovoProduto> {
       children: [
         InputFormulario(
             label: "Produto",
+            hint: "Digite o nome do produto",
             controller: _nomeControler,
             funcaoPassada: (_) => _guardandoDados()),
         SizedBox(height: MediaQuery.of(context).size.height * 0.04),
         InputFormulario(
             label: "Data",
+            hint: "Digite a data da compra",
             controller: _dataControler,
             funcaoPassada: (_) => _guardandoDados()),
         SizedBox(height: MediaQuery.of(context).size.height * 0.04),
         InputFormulario(
             label: "Preço",
+            hint: "Digite o preço, ex: 45.00",
             controller: _precoControler,
             funcaoPassada: (_) => _guardandoDados()),
         SizedBox(height: MediaQuery.of(context).size.height * 0.04),
         InputFormulario(
             label: "Quantidade",
+            hint: "Digite a quantidade comprada",
             controller: _quantidadeControler,
             funcaoPassada: (_) => _guardandoDados()),
         SizedBox(height: MediaQuery.of(context).size.height * 0.05),

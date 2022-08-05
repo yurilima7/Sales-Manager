@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class Input extends StatefulWidget {
-  final String label;
+  final String label, hint;
   final bool senha;
   final bool usuario;
   final TextEditingController controller;
 
-  const Input({required this.label, this.usuario = false, this.senha = false, Key? key, required this.controller})
+  const Input({required this.label, this.usuario = false, this.senha = false, Key? key, required this.controller, required this.hint})
       : super(key: key);
 
   @override
@@ -46,6 +46,7 @@ class _InputState extends State<Input> {
           
           floatingLabelBehavior:
               FloatingLabelBehavior.never, // desativa a subida da label
+
           prefixIcon: widget.usuario
             ? const Icon(Icons.person, color: Color(0xFF734D8C)) 
             : widget.senha
@@ -58,6 +59,9 @@ class _InputState extends State<Input> {
           ),
 
           labelText: widget.label, // texto a ser exibido na label
+          hintText: widget.hint, // poś seleção do input
+
+
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(
                 color: Color(

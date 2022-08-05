@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class InputFormulario extends StatefulWidget {
-  final String label;
+  final String label, hint;
   final bool acaoTeclado;
   final TextEditingController controller;
   final TextInputType tipo;
@@ -13,7 +13,8 @@ class InputFormulario extends StatefulWidget {
     this.acaoTeclado = true,
     this.tipo = TextInputType.text, 
     required this.controller, 
-    required this.funcaoPassada,
+    required this.funcaoPassada, 
+    required this.hint,
   }) : super(key: key);
 
   @override
@@ -56,6 +57,8 @@ class _InputFormularioState extends State<InputFormulario> {
             ),
 
             labelText: widget.label, // texto a ser exibido na label
+            hintText: widget.hint,
+
             enabledBorder: OutlineInputBorder(
               borderSide: const BorderSide(
                 color: Color(0xFFFFFFFF),
