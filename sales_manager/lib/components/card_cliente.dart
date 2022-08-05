@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 
 class CardCliente extends StatelessWidget {
   final String proximo;
-  const CardCliente({Key? key, required this.proximo}) : super(key: key);
+  final String nome;
+  final String telefone;
+  final String bairro;
+  final String rua;
+  final double divida;
+  const CardCliente({Key? key, required this.proximo, required this.nome, required this.telefone, required this.bairro, required this.rua, required this.divida}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +38,7 @@ class CardCliente extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 
                 children: [
-                  const Text("Marciano", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                  Text(nome, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
           
                   IconButton(
                     onPressed: () => {}, 
@@ -50,11 +55,11 @@ class CardCliente extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text("99-999994444", style: TextStyle(color: Colors.white, fontSize: 12, )),
+                      Text(telefone, style: const TextStyle(color: Colors.white, fontSize: 12, )),
                       SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                      const Text("Avenida Central, N12", style: TextStyle(color: Colors.white, fontSize: 12)),
+                      Text(rua, style: const TextStyle(color: Colors.white, fontSize: 12)),
                       SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                      const Text("Centro", style: TextStyle(color: Colors.white, fontSize: 12)),
+                      Text(bairro, style: const TextStyle(color: Colors.white, fontSize: 12)),
                     ],
                   ),
                 ],
@@ -65,9 +70,9 @@ class CardCliente extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
           
-                children: const [
-                  Text("Saldo Devedor", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
-                  Text("R\$ 260", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                children: [
+                  const Text("Saldo Devedor", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                  Text("R\$ $divida", style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
                 ],
               )
             ],

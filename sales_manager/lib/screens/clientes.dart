@@ -1,9 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sales_manager/components/card_cliente.dart';
 import 'package:sales_manager/components/pesquisa.dart';
 
-class Clientes extends StatelessWidget {
+class Clientes extends StatefulWidget {
   const Clientes({Key? key}) : super(key: key);
+
+  @override
+  State<Clientes> createState() => _ClientesState();
+}
+
+class _ClientesState extends State<Clientes> {
+
+  final db = FirebaseFirestore.instance;
+  final usuarioID =
+      FirebaseAuth.instance.currentUser!.uid; // pegando id do usuário
 
   @override
   Widget build(BuildContext context) {
@@ -36,17 +48,28 @@ class Clientes extends StatelessWidget {
 
             Expanded(
               
-              child: ListView(
+              child: StreamBuilder<QuerySnapshot <Map<String, dynamic>>>(
                 
-                children: const [
-                  CardCliente(proximo: '/fichaCliente'),
-                  CardCliente(proximo: '/fichaCliente'),
-                  CardCliente(proximo: '/fichaCliente'),
-                  CardCliente(proximo: '/fichaCliente'),
-                  CardCliente(proximo: '/fichaCliente'),
-                  CardCliente(proximo: '/fichaCliente'),
-                ],
-                
+                stream: db.collection("Usuários").doc(usuarioID.toString())
+                            .collection("Clientes").snapshots(), 
+
+                builder: (context, snapshot) {
+                  
+                  if (snapshot.hasData) {
+                    return ListView(
+                      physics: const BouncingScrollPhysics(), // remove o sombreamento da scroll
+
+                      children: snapshot.data!.docs.map((doc){
+                        return CardCliente(proximo: '/fichaCliente', bairro: doc.data()["Bairro"], divida: doc.data()["Saldo Devedor"], nome: doc.data()["Nome"], rua: doc.data()["Endereço"], telefone: doc.data()["Telefone"]);
+                      }).toList(),
+                    );
+                  }
+                  else{
+                    return const Center(
+                      child: Text("Não existem clientes cadastrados!"),
+                    );
+                  }
+                },
               ),
             )
           ],
