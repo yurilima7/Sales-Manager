@@ -60,7 +60,7 @@ class _ClientesState extends State<Clientes> {
                       physics: const BouncingScrollPhysics(), // remove o sombreamento da scroll
 
                       children: snapshot.data!.docs.map((doc){
-                        return CardCliente(proximo: '/fichaCliente', bairro: doc.data()["Bairro"], divida: doc.data()["Saldo Devedor"], nome: doc.data()["Nome"], rua: doc.data()["Endereço"], telefone: doc.data()["Telefone"]);
+                        return CardCliente(id: doc.id, bairro: doc.data()["Bairro"], divida: doc.data()["Saldo Devedor"], nome: doc.data()["Nome"], rua: doc.data()["Endereço"], telefone: doc.data()["Telefone"]);
                       }).toList(),
                     );
                   }

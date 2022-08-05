@@ -45,11 +45,11 @@ class Pagos extends StatelessWidget {
                   Column(
               
                     children: const [
-                      ModeloInfo(nome: "Camisa", data: "18/06/2022", valor: "R\$ 50", icones: false),
-                      ModeloInfo(nome: "Camisa", data: "18/06/2022", valor: "R\$ 50", icones: false),
-                      ModeloInfo(nome: "Camisa", data: "18/06/2022", valor: "R\$ 50", icones: false),
-                      ModeloInfo(nome: "Camisa", data: "18/06/2022", valor: "R\$ 50", icones: false),
-                      ModeloInfo(nome: "Camisa", data: "18/06/2022", valor: "R\$ 50", icones: false),
+                      ModeloInfo(nome: "Camisa", data: "18/06/2022", valor: 50, icones: false),
+                      ModeloInfo(nome: "Camisa", data: "18/06/2022", valor: 50, icones: false),
+                      ModeloInfo(nome: "Camisa", data: "18/06/2022", valor: 50, icones: false),
+                      ModeloInfo(nome: "Camisa", data: "18/06/2022", valor: 50, icones: false),
+                      ModeloInfo(nome: "Camisa", data: "18/06/2022", valor: 50, icones: false),
                       
                     ],
                   ),

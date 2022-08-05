@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ModeloInfo extends StatelessWidget {
   final String nome;
   final String data;
-  final String valor;
+  final double valor;
   final bool icones;
   
   const ModeloInfo({Key? key, required this.nome, required this.data, required this.valor, this.icones = true}) : super(key: key);
@@ -16,7 +16,7 @@ class ModeloInfo extends StatelessWidget {
       children: [
         Text(nome, style: const TextStyle(color: Colors.black, fontSize: 16)),
         Text(data, style: const TextStyle(color: Colors.black, fontSize: 16)),
-        Text(valor, style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
+        Text(valor.toString(), style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
 
         icones ? IconButton(
           onPressed: () => {}, 

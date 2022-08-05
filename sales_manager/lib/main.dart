@@ -10,7 +10,6 @@ import 'package:sales_manager/screens/editar_cliente.dart';
 import 'package:sales_manager/screens/editar_compra.dart';
 import 'package:sales_manager/screens/editar_perfil.dart';
 import 'package:sales_manager/screens/estado_usuario.dart';
-import 'package:sales_manager/screens/ficha_cliente.dart';
 import 'package:sales_manager/screens/login.dart';
 import 'package:sales_manager/screens/opcao_venda.dart';
 import 'package:sales_manager/screens/pagamento.dart';
@@ -58,7 +57,6 @@ class SalesManager extends StatelessWidget {
         '/opcaoDeVenda': (context) => const OpcaoVenda(),
         '/addCliente': (context) => const AdicionarCliente(),
         '/clientes': (context) => const Clientes(),
-        '/fichaCliente': (context) => const FichaCliente(),
         '/dados': (context) => const Dados(),
         '/addPagamento': (context) => const AdicionarPagamento(),
         '/selecionaCompra': (context) => const SelecionaProduto(),

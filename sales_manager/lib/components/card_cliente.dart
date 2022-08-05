@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:sales_manager/screens/ficha_cliente.dart';
 
 class CardCliente extends StatelessWidget {
-  final String proximo;
+
   final String nome;
   final String telefone;
   final String bairro;
   final String rua;
   final double divida;
-  const CardCliente({Key? key, required this.proximo, required this.nome, required this.telefone, required this.bairro, required this.rua, required this.divida}) : super(key: key);
+  final String id;
+  const CardCliente({Key? key, required this.nome, required this.telefone, required this.bairro
+    , required this.rua, required this.divida, required this.id}) 
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +24,10 @@ class CardCliente extends StatelessWidget {
       child: ElevatedButton(
 
         onPressed: () { 
-          Navigator.pushNamed(context, proximo);
+          Navigator.push(
+            context, 
+            MaterialPageRoute<void>(builder: (BuildContext context) => FichaCliente(idCliente: id, nome: nome, saldoDevedor: divida)),
+          );
         },
 
         style: ElevatedButton.styleFrom(
