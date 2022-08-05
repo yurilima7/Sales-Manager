@@ -9,6 +9,7 @@ import 'package:sales_manager/screens/dados.dart';
 import 'package:sales_manager/screens/editar_cliente.dart';
 import 'package:sales_manager/screens/editar_compra.dart';
 import 'package:sales_manager/screens/editar_perfil.dart';
+import 'package:sales_manager/screens/estado_usuario.dart';
 import 'package:sales_manager/screens/ficha_cliente.dart';
 import 'package:sales_manager/screens/login.dart';
 import 'package:sales_manager/screens/opcao_venda.dart';
@@ -47,8 +48,9 @@ class SalesManager extends StatelessWidget {
         ),
         scaffoldBackgroundColor: const Color(0xFFE7DCF2),
       ),
-      initialRoute: '/login',
+      initialRoute: '/estadoDoUsuario',
       routes: { 
+        '/estadoDoUsuario':(context) => const EstadoUsuario(),
         '/login': (context) => const Login(),
         '/criarConta': (context) => const CriarConta(),
         '/telas':(context) => const PercorreTelas(),

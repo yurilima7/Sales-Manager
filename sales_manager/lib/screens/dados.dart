@@ -9,39 +9,39 @@ class Dados extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Padding(
-        padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
 
-        child: Column(
+      child: Column(
 
-          children: [
-            Expanded(
-              flex: 1,
+        children: [
+          Expanded(
+            flex: 1,
 
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-            
-                children: const [
-                  Text("Detalhes", style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
-                ],
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+          
+              children: const [
+                Text("Detalhes", style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
+              ],
             ),
+          ),
 
-            Expanded(
-              flex: 9,
+          Expanded(
+            flex: 9,
 
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
-                children: const [
-                  CardDados(nome: "Vendido",),
-                  CardDados(nome: "Recebido"),
-                  CardDados(nome: "A Receber"),
-                ],
-              ),
+              children: const [
+                CardDados(nome: "Vendido",),
+                CardDados(nome: "Recebido"),
+                CardDados(nome: "A Receber"),
+              ],
             ),
+          ),
 
-          ],
-        ),
-      );
+        ],
+      ),
+    );
   }
 }

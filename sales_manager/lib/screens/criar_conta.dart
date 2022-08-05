@@ -32,11 +32,13 @@ class _CriarContaState extends State<CriarConta> {
       )
     );
 
-    Navigator.pushAndRemoveUntil<void>(
-      context,
-      MaterialPageRoute<void>(builder: (BuildContext context) => const Login()),
-      (route) => false,
-    );
+    Future.delayed(const Duration(milliseconds: 1500), () {
+      Navigator.pushAndRemoveUntil<void>(
+        context,
+        MaterialPageRoute<void>(builder: (BuildContext context) => const Login()),
+        (route) => false,
+      );
+    }); 
   }
 
   _registrar() async{
