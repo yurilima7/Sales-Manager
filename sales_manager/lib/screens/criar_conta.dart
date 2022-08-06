@@ -32,7 +32,7 @@ class _CriarContaState extends State<CriarConta> {
       )
     );
 
-    Future.delayed(const Duration(milliseconds: 1500), () {
+    await Future.delayed(const Duration(milliseconds: 1500), () {
       Navigator.pushAndRemoveUntil<void>(
         context,
         MaterialPageRoute<void>(builder: (BuildContext context) => const Login()),
