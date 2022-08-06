@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sales_manager/screens/login.dart';
+import 'package:sales_manager/screens/estado_usuario.dart';
 
 class Configuracao extends StatefulWidget {
   const Configuracao({Key? key}) : super(key: key);
@@ -25,7 +25,7 @@ class _ConfiguracaoState extends State<Configuracao> {
     Future.delayed(const Duration(milliseconds: 1500), () {
       Navigator.pushAndRemoveUntil<void>(
         context,
-        MaterialPageRoute<void>(builder: (BuildContext context) => const Login()),
+        MaterialPageRoute<void>(builder: (BuildContext context) => const EstadoUsuario()),
         (route) => false,
       );
     }); 

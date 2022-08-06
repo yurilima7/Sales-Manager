@@ -20,9 +20,9 @@ class _EstadoUsuarioState extends State<EstadoUsuario> {
     .authStateChanges()
     .listen((User? user) {
       if (user == null) {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const Login()));
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Login()), (route) => false);
       } else {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const PercorreTelas()));
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const PercorreTelas()), (route) => false);
       }
     });
   }

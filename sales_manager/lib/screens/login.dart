@@ -29,13 +29,12 @@ class _LoginState extends State<Login> {
       )
     );
 
-    Future.delayed(const Duration(milliseconds: 1500), (() {
-      Navigator.pushAndRemoveUntil<void>(
-        context,
-        MaterialPageRoute<void>(builder: (BuildContext context) => const PercorreTelas()),
-        (route) => false,
-      );
-    }));  
+    Navigator.pushAndRemoveUntil<void>(
+      context,
+      MaterialPageRoute<void>(builder: (BuildContext context) => const PercorreTelas()),
+      (route) => false,
+    );
+      
   }
 
   _entrar() async {
