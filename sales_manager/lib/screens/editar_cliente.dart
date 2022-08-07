@@ -29,86 +29,90 @@ class _EditarClienteState extends State<EditarCliente> {
 
     void _proximaTela(String nome, String idCliente, double saldoDevedor, String bairro, String rua, String telefone) async {
 
-    Navigator.push(
-      context,
-      MaterialPageRoute<void>(builder: (BuildContext context) => 
-        FichaCliente(idCliente: idCliente, nome: nome, saldoDevedor: saldoDevedor, 
-        bairro: bairro, rua: rua, telefone: telefone)),
-    );
-  }
-
-  _editandoDados() async {
-    final nome = _nomeControler.text;
-    final bairro = _bairroControler.text;
-    final endereco = _enderecoControler.text;
-    final telefone = _telefoneControler.text;
-
-    if(_nomeControler.text == '' && _bairroControler.text == '' && _enderecoControler.text == '' && _telefoneControler.text == ''){
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Todos os campos vazios!"),
-          backgroundColor: Colors.redAccent,
-        ),
+      Navigator.push(
+        context,
+        MaterialPageRoute<void>(builder: (BuildContext context) => 
+          FichaCliente(idCliente: idCliente, nome: nome, saldoDevedor: saldoDevedor, 
+          bairro: bairro, rua: rua, telefone: telefone)),
       );
-
-      return;
     }
 
-    if(_nomeControler.text == ''){
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Campo nome vazio!"),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
+    _editandoDados() async {
+      final nome = _nomeControler.text;
+      final bairro = _bairroControler.text;
+      final endereco = _enderecoControler.text;
+      final telefone = _telefoneControler.text;
 
-      return;
+      if(_nomeControler.text == '' && _bairroControler.text == '' && _enderecoControler.text == '' && _telefoneControler.text == ''){
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Todos os campos vazios!"),
+            backgroundColor: Colors.redAccent,
+          ),
+        );
+
+        return;
+      }
+
+      if(_nomeControler.text == ''){
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Campo nome vazio!"),
+            backgroundColor: Colors.redAccent,
+          ),
+        );
+
+        return;
+      }
+
+      if(_bairroControler.text == ''){
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Campo bairro vazio!"),
+            backgroundColor: Colors.redAccent,
+          ),
+        );
+
+        return;
+      }
+
+      if(_enderecoControler.text == ''){
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Campo endereço vazio!"),
+            backgroundColor: Colors.redAccent,
+          ),
+        );
+
+        return;
+      }
+
+      if(_telefoneControler.text == ''){
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Campo telefone vazio!"),
+            backgroundColor: Colors.redAccent,
+          ),
+        );
+
+        return;
+      }
+
+      db.collection("Usuários").doc(usuarioID.toString()).collection("Clientes")
+        .doc(widget.idCliente).update({ // atualizando informações do cliente no banco de dados
+        "Nome": nome,
+        "Bairro": bairro,
+        "Endereço": endereco,
+        "Telefone": telefone,
+        "Saldo Devedor": widget.divida
+      });
+
+      db.collection("Usuários").doc(usuarioID).collection("Últimas Vendas").doc(widget.idCliente).update({
+        "Nome": nome
+      });
+
+      _proximaTela(nome, widget.idCliente, widget.divida , bairro, endereco, telefone);
     }
-
-    if(_bairroControler.text == ''){
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Campo bairro vazio!"),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
-
-      return;
-    }
-
-    if(_enderecoControler.text == ''){
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Campo endereço vazio!"),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
-
-      return;
-    }
-
-    if(_telefoneControler.text == ''){
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Campo telefone vazio!"),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
-
-      return;
-    }
-
-    db.collection("Usuários").doc(usuarioID.toString()).collection("Clientes")
-      .doc(widget.idCliente).update({ // atualizando informações do cliente no banco de dados
-      "Nome": nome,
-      "Bairro": bairro,
-      "Endereço": endereco,
-      "Telefone": telefone,
-      "Saldo Devedor": widget.divida
-    });
-
-    _proximaTela(nome, widget.idCliente, widget.divida , bairro, endereco, telefone);
-  }
 
     return Scaffold(
 

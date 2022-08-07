@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sales_manager/components/botao.dart';
 import 'package:sales_manager/components/input_formulario.dart';
-import 'package:sales_manager/screens/principal.dart';
+import 'package:sales_manager/screens/tap_bar_telas.dart';
 
 class NovoProduto extends StatefulWidget {
   final String clienteNome;
@@ -87,11 +87,11 @@ class _NovoProdutoState extends State<NovoProduto> {
 
   void _proximaTela() async {
 
-    Navigator.pushAndRemoveUntil<void>(
-      context,
-      MaterialPageRoute<void>(builder: (BuildContext context) => const Principal()),
-      (route) => false,
-    );
+    Navigator.push(
+        context,
+        MaterialPageRoute<void>(builder: (BuildContext context) => 
+          const PercorreTelas()
+      ));
   }
 
   _guardandoDados() async {
@@ -176,7 +176,7 @@ class _NovoProdutoState extends State<NovoProduto> {
       "Vendido": _totalVendido + (preco * quantidade),
     });
 
-    db.collection("Usuários").doc(usuarioID.toString()).collection("Últimas Vendas").add({
+    db.collection("Usuários").doc(usuarioID.toString()).collection("Últimas Vendas").doc(_idCliente).set({
       "Nome": widget.clienteNome,
       "Produto": nome,
       "Preço": preco,

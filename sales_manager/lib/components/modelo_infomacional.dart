@@ -1,15 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:sales_manager/screens/editar_compra.dart';
 
 class ModeloInfo extends StatelessWidget {
-  final String nome;
-  final String data;
-  final double valor;
+  final String nome, idCliente, idProduto;
+  final String data, idUsuario;
+  final double valor, saldoDevedor;
   final bool icones;
+  final int quantidade;
   
-  const ModeloInfo({Key? key, required this.nome, required this.data, required this.valor, this.icones = true}) : super(key: key);
+  const ModeloInfo({Key? key, required this.nome, required this.data, required this.valor
+  , this.icones = true, required this.idCliente, required this.idProduto
+  , required this.idUsuario, required this.saldoDevedor, required this.quantidade}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+    void _editarCompra(){
+      Navigator.push(
+        context, 
+        MaterialPageRoute<void>(builder: (BuildContext context) => 
+          EditarCompra(nome: nome, data: data, idProduto: idProduto, idCliente: idCliente, 
+              idUsuario: idUsuario, preco: valor, saldoDevedor: saldoDevedor, quantidadeAnterior: quantidade)
+      ));
+    }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
@@ -25,7 +39,7 @@ class ModeloInfo extends StatelessWidget {
         ) : const SizedBox(),
 
         icones ? IconButton(
-          onPressed: () => {Navigator.pushNamed(context, '/editarProduto')}, 
+          onPressed: () => {_editarCompra()}, 
             
           icon: const Icon(Icons.edit, color: Color(0xFF6D3F8C)),
         ) : const SizedBox()

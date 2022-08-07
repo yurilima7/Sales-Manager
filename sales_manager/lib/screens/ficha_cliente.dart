@@ -27,7 +27,7 @@ class _FichaClienteState extends State<FichaCliente> {
   @override
   Widget build(BuildContext context) {
 
-    void _proximaTela(){
+    void _editarCliente(){
       Navigator.push(
         context, 
         MaterialPageRoute<void>(builder: (BuildContext context) => 
@@ -64,7 +64,7 @@ class _FichaClienteState extends State<FichaCliente> {
                     Text(widget.nome, style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
 
                     IconButton(
-                      onPressed: () => _proximaTela(), 
+                      onPressed: () => _editarCliente(), 
                         
                       icon: const Icon(Icons.edit, color: Color(0xFF6D3F8C)),
                     ),
@@ -90,7 +90,8 @@ class _FichaClienteState extends State<FichaCliente> {
                       physics: const BouncingScrollPhysics(), // remove o sombreamento da scroll
 
                       children: snapshot.data!.docs.map((doc){
-                        return ModeloInfo(nome: doc.data()["Nome"], data: doc.data()["Data"], valor: doc.data()["Preço"] as double);
+                        return ModeloInfo(nome: doc.data()["Nome"], data: doc.data()["Data"], valor: doc.data()["Preço"] as double
+                            , idCliente: widget.idCliente, idProduto: doc.id, idUsuario: usuarioID, saldoDevedor: widget.saldoDevedor, quantidade: doc.data()["Quantidade"]);
                       }).toList(),
                     );
                   }
