@@ -5,15 +5,13 @@ class InputFormulario extends StatefulWidget {
   final bool acaoTeclado;
   final TextEditingController controller;
   final TextInputType tipo;
-  final Function(String) funcaoPassada;
-
+ 
   const InputFormulario({
     Key? key,
     required this.label,
     this.acaoTeclado = true,
     this.tipo = TextInputType.text, 
     required this.controller, 
-    required this.funcaoPassada, 
     required this.hint,
   }) : super(key: key);
 
@@ -32,7 +30,6 @@ class _InputFormularioState extends State<InputFormulario> {
 
           controller: widget.controller,
           keyboardType: widget.tipo,
-          onFieldSubmitted: widget.funcaoPassada,
 
           style: const TextStyle(
               color: Color(0xFF734D8C)), // coloração do texto digitado

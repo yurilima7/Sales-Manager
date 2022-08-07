@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sales_manager/components/novo_cliente.dart';
-import 'package:sales_manager/models/cliente.dart';
+import 'package:sales_manager/components/botao.dart';
+import 'package:sales_manager/components/input_formulario.dart';
+import 'package:sales_manager/screens/adicionar_produto.dart';
 
 class AdicionarCliente extends StatefulWidget {
   const AdicionarCliente({Key? key}) : super(key: key);
@@ -11,20 +14,91 @@ class AdicionarCliente extends StatefulWidget {
 
 class _AdicionarClienteState extends State<AdicionarCliente> {
 
-  final List <Cliente> _clientes = [];
+  final _nomeControler = TextEditingController();
+  final _bairroControler = TextEditingController();
+  final _enderecoControler = TextEditingController();
+  final _telefoneControler = TextEditingController();
+  final db = FirebaseFirestore.instance;
+  final usuarioID = FirebaseAuth.instance.currentUser!.uid; // pegando id do usuário
 
-  _addCliente(String nome, String bairro, String endereco, String telefone) {
+  void _proximaTela(String nome) async {
 
-    final novoCliente = Cliente(
-      nome: nome,
-      bairro: bairro,
-      endereco: endereco,
-      telefone: telefone,
+    Navigator.push(
+      context,
+      MaterialPageRoute<void>(builder: (BuildContext context) => AdicionarProduto(nome: nome)),
     );
+  }
 
-    setState(() {
-      _clientes.add(novoCliente);
+  _guardandoDados() async {
+    final nome = _nomeControler.text;
+    final bairro = _bairroControler.text;
+    final endereco = _enderecoControler.text;
+    final telefone = _telefoneControler.text;
+
+    if(_nomeControler.text == '' && _bairroControler.text == '' && _enderecoControler.text == '' && _telefoneControler.text == ''){
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Todos os campos vazios!"),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+
+      return;
+    }
+
+    if(_nomeControler.text == ''){
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Campo nome vazio!"),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+
+      return;
+    }
+
+    if(_bairroControler.text == ''){
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Campo bairro vazio!"),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+
+      return;
+    }
+
+    if(_enderecoControler.text == ''){
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Campo endereço vazio!"),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+
+      return;
+    }
+
+    if(_telefoneControler.text == ''){
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Campo telefone vazio!"),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+
+      return;
+    }
+    // adicionando informações do cliente no banco de dados
+    db.collection("Usuários").doc(usuarioID.toString()).collection("Clientes").add({ 
+      "Nome": nome,
+      "Bairro": bairro,
+      "Endereço": endereco,
+      "Telefone": telefone,
+      "Saldo Devedor": 0.0
     });
+
+    _proximaTela(nome);
   }
 
   @override
@@ -54,10 +128,25 @@ class _AdicionarClienteState extends State<AdicionarCliente> {
                 ),
           
                 SizedBox(height: MediaQuery.of(context).size.height * 0.18),
-          
-                NovoCliente(guardaDados: _addCliente),
-          
-                
+                // Input's de adição dos dados do cliente no banco
+                Column(
+                  
+                  children: [
+                    InputFormulario(label: "Nome do Cliente", hint: "Digite o nome do cliente",controller: _nomeControler),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                    InputFormulario(label: "Bairro", hint: "Digite o nome do bairro", controller: _bairroControler),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                    InputFormulario(label: "Rua e N°", hint: "Digite o nome da rua e o número", controller: _enderecoControler),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                    InputFormulario(label: "Telefone", hint: "Digite o seu telefone", controller: _telefoneControler),
+
+
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                      
+                    Botao(titulo: "Prosseguir", funcaoGeral: _guardandoDados)
+                  ],
+                ),
+
               ],
             ),
           ),

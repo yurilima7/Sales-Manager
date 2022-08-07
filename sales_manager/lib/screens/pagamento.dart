@@ -50,7 +50,7 @@ class _PagamentoState extends State<Pagamento> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    InputFormulario(label: "Digite o valor", hint: "Ex: 25.00",acaoTeclado: false, controller: _valor, funcaoPassada: (_) => _pegaValor()),
+                    InputFormulario(label: "Digite o valor", hint: "Ex: 25.00",acaoTeclado: false, controller: _valor),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                     const Botao(titulo: "Pagar", proxima: "/principal", desempilha: true)
                   ],
