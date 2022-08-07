@@ -9,6 +9,7 @@ class CardCliente extends StatelessWidget {
   final String rua;
   final double divida;
   final String id;
+  
   const CardCliente({Key? key, required this.nome, required this.telefone, required this.bairro
     , required this.rua, required this.divida, required this.id}) 
     : super(key: key);
@@ -26,7 +27,9 @@ class CardCliente extends StatelessWidget {
         onPressed: () { 
           Navigator.push(
             context, 
-            MaterialPageRoute<void>(builder: (BuildContext context) => FichaCliente(idCliente: id, nome: nome, saldoDevedor: divida)),
+            MaterialPageRoute<void>(builder: (BuildContext context) => 
+              FichaCliente(idCliente: id, nome: nome, saldoDevedor: divida, bairro: bairro,
+              rua: rua, telefone: telefone)),
           );
         },
 

@@ -1,12 +1,115 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sales_manager/components/botao.dart';
 import 'package:sales_manager/components/editar_dados.dart';
+import 'package:sales_manager/screens/ficha_cliente.dart';
 
-class EditarCliente extends StatelessWidget {
-  const EditarCliente({Key? key}) : super(key: key);
+class EditarCliente extends StatefulWidget {
+  final String nome, bairro, rua, telefone, idCliente; 
+  final double divida;
+
+  const EditarCliente({Key? key, required this.nome, required this.bairro, 
+    required this.rua, required this.telefone, required this.idCliente, required this.divida}) : super(key: key);
+
+  @override
+  State<EditarCliente> createState() => _EditarClienteState();
+}
+
+class _EditarClienteState extends State<EditarCliente> {
+  final _nomeControler = TextEditingController();
+  final _bairroControler = TextEditingController();
+  final _enderecoControler = TextEditingController();
+  final _telefoneControler = TextEditingController();
+  final db = FirebaseFirestore.instance;
+  final usuarioID = FirebaseAuth.instance.currentUser!.uid; // pegando id do usuário
 
   @override
   Widget build(BuildContext context) {
+
+    void _proximaTela(String nome, String idCliente, double saldoDevedor, String bairro, String rua, String telefone) async {
+
+    Navigator.push(
+      context,
+      MaterialPageRoute<void>(builder: (BuildContext context) => 
+        FichaCliente(idCliente: idCliente, nome: nome, saldoDevedor: saldoDevedor, 
+        bairro: bairro, rua: rua, telefone: telefone)),
+    );
+  }
+
+  _editandoDados() async {
+    final nome = _nomeControler.text;
+    final bairro = _bairroControler.text;
+    final endereco = _enderecoControler.text;
+    final telefone = _telefoneControler.text;
+
+    if(_nomeControler.text == '' && _bairroControler.text == '' && _enderecoControler.text == '' && _telefoneControler.text == ''){
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Todos os campos vazios!"),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+
+      return;
+    }
+
+    if(_nomeControler.text == ''){
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Campo nome vazio!"),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+
+      return;
+    }
+
+    if(_bairroControler.text == ''){
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Campo bairro vazio!"),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+
+      return;
+    }
+
+    if(_enderecoControler.text == ''){
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Campo endereço vazio!"),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+
+      return;
+    }
+
+    if(_telefoneControler.text == ''){
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Campo telefone vazio!"),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+
+      return;
+    }
+
+    db.collection("Usuários").doc(usuarioID.toString()).collection("Clientes")
+      .doc(widget.idCliente).update({ // atualizando informações do cliente no banco de dados
+      "Nome": nome,
+      "Bairro": bairro,
+      "Endereço": endereco,
+      "Telefone": telefone,
+      "Saldo Devedor": widget.divida
+    });
+
+    _proximaTela(nome, widget.idCliente, widget.divida , bairro, endereco, telefone);
+  }
+
     return Scaffold(
 
       body: GestureDetector(
@@ -35,19 +138,24 @@ class EditarCliente extends StatelessWidget {
                 Column(
                   
                   children: [
-                    const EditarDados(nome: "Marciano"),
+                    EditarDados(nome: widget.nome, texto: _nomeControler),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                    const EditarDados(nome: "Seriema"),
+                    EditarDados(nome: widget.bairro, texto: _bairroControler),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                    const EditarDados(nome: "Rua das Flores, 23"),
+                    EditarDados(nome: widget.rua, texto: _enderecoControler),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                    const EditarDados(nome: "99 9 99998888"),
+                    EditarDados(nome: widget.telefone, texto: _telefoneControler),
                   ],
                 ),
           
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
           
-                const Botao(titulo: "Salvar", proxima: "/principal")
+                Botao(
+                  titulo: "Salvar", 
+                  funcaoGeral: _editandoDados,
+                  desempilha: true,
+                ),
+            
               ],
             ),
           ),

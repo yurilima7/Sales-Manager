@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class EditarDados extends StatefulWidget {
   final String nome;
-  const EditarDados({Key? key, required this.nome}) : super(key: key);
+  final TextEditingController texto;
+
+  const EditarDados({Key? key, required this.nome, required this.texto}) : super(key: key);
 
   @override
   State<EditarDados> createState() => _EditarDadosState();
@@ -11,12 +13,11 @@ class EditarDados extends StatefulWidget {
 class _EditarDadosState extends State<EditarDados> {
 
   late String nomeAtual;
-  final texto = TextEditingController();
 
   @override
   void initState(){
     nomeAtual = widget.nome;
-    texto.text = nomeAtual;
+    widget.texto.text = nomeAtual;
 
     return super.initState();
   }
@@ -31,7 +32,7 @@ class _EditarDadosState extends State<EditarDados> {
         child: TextField(
 
           autofocus: false,
-          controller: texto,
+          controller: widget.texto,
 
           onChanged: (String valor) => setState(() {
             nomeAtual = valor;

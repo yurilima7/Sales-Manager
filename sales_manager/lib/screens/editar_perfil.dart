@@ -2,8 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:sales_manager/components/botao.dart';
 import 'package:sales_manager/components/editar_dados.dart';
 
-class EditarPerfil extends StatelessWidget {
+class EditarPerfil extends StatefulWidget {
   const EditarPerfil({Key? key}) : super(key: key);
+
+  @override
+  State<EditarPerfil> createState() => _EditarPerfilState();
+}
+
+class _EditarPerfilState extends State<EditarPerfil> {
+
+  final _perfil = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +41,7 @@ class EditarPerfil extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const EditarDados(nome: "Bob"),
+                    EditarDados(nome: "Bob", texto: _perfil),
       
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                     const Botao(titulo: "Salvar", proxima: '/principal', desempilha: true)

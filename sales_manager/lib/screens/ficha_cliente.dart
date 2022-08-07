@@ -3,13 +3,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sales_manager/components/botao_texto.dart';
 import 'package:sales_manager/components/modelo_infomacional.dart';
+import 'package:sales_manager/screens/editar_cliente.dart';
 
 class FichaCliente extends StatefulWidget {
   final String idCliente;
-  final String nome;
+  final String nome, bairro, rua, telefone;
   final double saldoDevedor;
   
-  const FichaCliente({Key? key, required this.idCliente, required this.nome, required this.saldoDevedor}) : super(key: key);
+  const FichaCliente({Key? key, required this.idCliente, required this.nome, required this.saldoDevedor, 
+    required this.bairro, required this.rua, required this.telefone}) 
+    : super(key: key);
 
   @override
   State<FichaCliente> createState() => _FichaClienteState();
@@ -23,6 +26,16 @@ class _FichaClienteState extends State<FichaCliente> {
 
   @override
   Widget build(BuildContext context) {
+
+    void _proximaTela(){
+      Navigator.push(
+        context, 
+        MaterialPageRoute<void>(builder: (BuildContext context) => 
+          EditarCliente(idCliente: widget.idCliente, nome: widget.nome, bairro: widget.bairro,
+          rua: widget.rua, telefone: widget.telefone, divida: widget.saldoDevedor)),
+      );
+    }
+
     return Scaffold(
 
       body: Padding(
@@ -51,7 +64,7 @@ class _FichaClienteState extends State<FichaCliente> {
                     Text(widget.nome, style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
 
                     IconButton(
-                      onPressed: () => {Navigator.pushNamed(context, '/editarCliente')}, 
+                      onPressed: () => _proximaTela(), 
                         
                       icon: const Icon(Icons.edit, color: Color(0xFF6D3F8C)),
                     ),
