@@ -9,9 +9,10 @@ class CardCliente extends StatelessWidget {
   final String rua;
   final double divida;
   final String id;
+  final void Function(String, double) funcao;
   
   const CardCliente({Key? key, required this.nome, required this.telefone, required this.bairro
-    , required this.rua, required this.divida, required this.id}) 
+    , required this.rua, required this.divida, required this.id, required this.funcao}) 
     : super(key: key);
 
   @override
@@ -51,7 +52,7 @@ class CardCliente extends StatelessWidget {
                   Text(nome, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
           
                   IconButton(
-                    onPressed: () => {}, 
+                    onPressed: () => funcao(id, divida), 
                     
                     icon: const Icon(Icons.delete, color: Colors.white),
                   ),

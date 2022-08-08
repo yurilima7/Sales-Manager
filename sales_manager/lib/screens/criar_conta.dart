@@ -93,7 +93,8 @@ class _CriarContaState extends State<CriarConta> {
         "Lucro": 0.0,
         "A Receber": 0.0,
         "Vendido": 0.0,
-        "Quantidade de Vendas": 0
+        "Quantidade de Vendas": 0,
+        "Valores Deletados": 0.0
       });
      
       _proximaTela();

@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 class Pesquisa extends StatefulWidget {
   final String label;
-  const Pesquisa({Key? key, required this.label}) : super(key: key);
+  final TextEditingController controller;
+  final Function(String) onChanged;
+  
+  const Pesquisa({Key? key, required this.label, required this.controller, required this.onChanged}) : super(key: key);
 
   @override
   State<Pesquisa> createState() => _PesquisaState();
@@ -16,6 +19,10 @@ class _PesquisaState extends State<Pesquisa> {
       borderRadius: BorderRadius.circular(30),
 
       child: TextFormField(
+
+        controller: widget.controller,
+
+        onChanged: widget.onChanged,
 
         style: const TextStyle(
             color: Color(0xFF734D8C)), // coloração do texto digitado

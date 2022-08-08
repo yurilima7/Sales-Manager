@@ -2,11 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:sales_manager/components/card_lista.dart';
 import 'package:sales_manager/components/pesquisa.dart';
 
-class AdicionarPagamento extends StatelessWidget {
+class AdicionarPagamento extends StatefulWidget {
   const AdicionarPagamento({Key? key}) : super(key: key);
 
   @override
+  State<AdicionarPagamento> createState() => _AdicionarPagamentoState();
+}
+
+class _AdicionarPagamentoState extends State<AdicionarPagamento> {
+  void onChanged(String text){
+    setState(() {
+      //buscando = _pesquisa.text;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final _pesquisa = TextEditingController();
+
     return Scaffold(
 
       body: Padding(
@@ -29,7 +42,7 @@ class AdicionarPagamento extends StatelessWidget {
                 ),
             
                 SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                const Pesquisa(label: "Buscar Cliente"),
+                Pesquisa(label: "Buscar Cliente", controller: _pesquisa, onChanged: onChanged),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.015),
               ],
             ),

@@ -2,11 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:sales_manager/components/card_lista.dart';
 import 'package:sales_manager/components/pesquisa.dart';
 
-class ClienteExistente extends StatelessWidget {
+class ClienteExistente extends StatefulWidget {
   const ClienteExistente({Key? key}) : super(key: key);
 
   @override
+  State<ClienteExistente> createState() => _ClienteExistenteState();
+}
+
+class _ClienteExistenteState extends State<ClienteExistente> {
+  void onChanged(String text){
+    setState(() {
+      //buscando = _pesquisa.text;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final _pesquisa = TextEditingController();
+
     return Scaffold(
 
       body: Padding(
@@ -29,7 +42,7 @@ class ClienteExistente extends StatelessWidget {
                 ),
             
                 SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                const Pesquisa(label: "Buscar Cliente"),
+                Pesquisa(label: "Buscar Cliente", controller: _pesquisa, onChanged: onChanged),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.015),
               ],
             ),
