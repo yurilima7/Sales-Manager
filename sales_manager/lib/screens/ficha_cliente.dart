@@ -79,25 +79,36 @@ class _FichaClienteState extends State<FichaCliente> {
               flex: 2,
 
               child: StreamBuilder<QuerySnapshot <Map<String, dynamic>>>(
-                
+                // Buscando compras do cliente no banco
                 stream: db.collection("Usuários").doc(usuarioID.toString())
                             .collection("Clientes").doc(widget.idCliente).collection("Produtos").snapshots(), 
 
                 builder: (context, snapshot) {
                   
-                  if (snapshot.hasData) {
-                    return ListView(
-                      physics: const BouncingScrollPhysics(), // remove o sombreamento da scroll
+                  switch (snapshot.connectionState) {
+                    
+                    case ConnectionState.none:
+                    case ConnectionState.waiting:
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
 
-                      children: snapshot.data!.docs.map((doc){
+                    case ConnectionState.active:
+                    case ConnectionState.done:
+                      // caso não existam dados no baco
+                      if(snapshot.data!.docs.isEmpty){
+                        return const Center(
+                          child: Text("Sem compras no momento!", style: TextStyle(color: Color(0xFF6D3F8C), fontSize: 16)),
+                        );
+                      }
+                      // Se existirem dados, os apresentam
+                      return ListView(
+                        physics: const BouncingScrollPhysics(), // remove o sombreamento da scroll
+
+                        children: snapshot.data!.docs.map((doc){
                         return ModeloInfo(nome: doc.data()["Nome"], data: doc.data()["Data"], valor: doc.data()["Preço"] as double
                             , idCliente: widget.idCliente, idProduto: doc.id, idUsuario: usuarioID, saldoDevedor: widget.saldoDevedor, quantidade: doc.data()["Quantidade"]);
                       }).toList(),
-                    );
-                  }
-                  else{
-                    return const Center(
-                      child: Text("Não existem produtos comprados!"),
                     );
                   }
                 },

@@ -49,25 +49,36 @@ class _ClientesState extends State<Clientes> {
             Expanded(
               
               child: StreamBuilder<QuerySnapshot <Map<String, dynamic>>>(
-                
+                // Buscando os clientes cadastrados no banco de dados
                 stream: db.collection("Usuários").doc(usuarioID.toString())
-                            .collection("Clientes").snapshots(), 
+                            .collection("Clientes").orderBy("Nome").snapshots(), 
 
                 builder: (context, snapshot) {
                   
-                  if (snapshot.hasData) {
-                    return ListView(
-                      physics: const BouncingScrollPhysics(), // remove o sombreamento da scroll
+                  switch (snapshot.connectionState) {
+                    
+                    case ConnectionState.none:
+                    case ConnectionState.waiting:
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
 
-                      children: snapshot.data!.docs.map((doc){
-                        return CardCliente(id: doc.id, bairro: doc.data()["Bairro"], divida: doc.data()["Saldo Devedor"], nome: doc.data()["Nome"], rua: doc.data()["Endereço"], telefone: doc.data()["Telefone"]);
-                      }).toList(),
-                    );
-                  }
-                  else{
-                    return const Center(
-                      child: Text("Não existem clientes cadastrados!"),
-                    );
+                    case ConnectionState.active:
+                    case ConnectionState.done:
+                      // caso não existam dados no baco
+                      if(snapshot.data!.docs.isEmpty){
+                        return const Center(
+                          child: Text("Sem clientes cadastrados!", style: TextStyle(color: Color(0xFF6D3F8C), fontSize: 16)),
+                        );
+                      }
+                      // Se existirem dados, os apresentam
+                      return ListView(
+                        physics: const BouncingScrollPhysics(), // remove o sombreamento da scroll
+
+                        children: snapshot.data!.docs.map((doc){
+                          return CardCliente(id: doc.id, bairro: doc.data()["Bairro"], divida: doc.data()["Saldo Devedor"], nome: doc.data()["Nome"], rua: doc.data()["Endereço"], telefone: doc.data()["Telefone"]);
+                        }).toList(),
+                      );
                   }
                 },
               ),

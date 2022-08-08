@@ -179,25 +179,36 @@ class _PrincipalState extends State<Principal> {
                             .collection("Últimas Vendas").orderBy("Id", descending: true).limit(10).snapshots(), 
             
                           builder: (context, snapshot){
-                            // Se existirem dados, os apresentam
-                            if(snapshot.hasData){ 
-                              return ListView(
-                                
-                                children: snapshot.data!.docs.map((doc){
+                            
+                            switch(snapshot.connectionState){
+                              
+                              case ConnectionState.none:
+                              case ConnectionState.waiting:
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
 
-                                  return SizedBox(
-                                    height: MediaQuery.of(context).size.height * 0.065,
-                                    child: ListaRecentes(cliente: doc.data()["Nome"], produto: doc.data()["Produto"], valor: doc.data()["Preço"]),
+                              case ConnectionState.active:
+                              case ConnectionState.done:
+                                // Caso não existam dados
+                                if (snapshot.data!.docs.isEmpty){
+                                  return const Center(
+                                    child: Text("Sem vendas recentes!", style: TextStyle(color: Color(0xFF6D3F8C), fontSize: 16)),
                                   );
+                                }
+                                // Se existirem dados, os apresentam
+                                return ListView(
+                                
+                                  children: snapshot.data!.docs.map((doc){
 
-                                }).toList(),
-                              );
-                            }
-                            // caso não hajam dados
-                            else{
-                              return const Center(
-                                child: Text("Não existem vendas realizadas!"),
-                              );
+                                    return SizedBox(
+                                      height: MediaQuery.of(context).size.height * 0.065,
+                                      child: ListaRecentes(cliente: doc.data()["Nome"], produto: doc.data()["Produto"], valor: doc.data()["Preço"]),
+                                    );
+
+                                  }).toList(),
+                                );
+                                
                             }
                           }
                         ),
