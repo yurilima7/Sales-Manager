@@ -88,11 +88,15 @@ class _ClientesState extends State<Clientes> {
           .where((p) => p.nome.toLowerCase().contains(buscando.toLowerCase()))
           .toList();
       // retorna a lista de cards de usuários 
-      return Column(
-        children: List.generate(filtra.length, (index) => 
-          CardCliente(nome: filtra[index].nome, telefone: filtra[index].telefone, 
-                bairro: filtra[index].bairro, rua: filtra[index].endereco, 
-                divida: filtra[index].divida, id: filtra[index].id, funcao: _deleta)
+      return Expanded(
+        child: SingleChildScrollView(
+          child: Column(
+            children: List.generate(filtra.length, (index) => 
+              CardCliente(nome: filtra[index].nome, telefone: filtra[index].telefone, 
+                    bairro: filtra[index].bairro, rua: filtra[index].endereco, 
+                    divida: filtra[index].divida, id: filtra[index].id, funcao: _deleta)
+            ),
+          ),
         ),
       );
     }
@@ -147,40 +151,35 @@ class _ClientesState extends State<Clientes> {
 
     return Scaffold(
 
-      body: SafeArea(
-        child: GestureDetector(
-           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      body: GestureDetector(
+         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
 
-          child: Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20), 
-          
-            child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 5), 
         
-              child: Column(
-            
+          child: Column(
+          
+            children: [
+              Column(
+              
                 children: [
-                  Column(
-                  
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+              
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                  
-                        children: [
-                          SizedBox(height: MediaQuery.of(context).size.height * 0.07),
-                          const Text("Consultar clientes", style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                  
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                      Pesquisa(label: "Buscar Cliente", controller: _pesquisa, onChanged: onChanged),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.07),
+                      const Text("Consultar clientes", style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
                     ],
                   ),
-            
-                  _listagem()
+              
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                  Pesquisa(label: "Buscar Cliente", controller: _pesquisa, onChanged: onChanged),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.015),
                 ],
               ),
-            ),
+          
+              _listagem()
+            ],
           ),
         ),
       ),
