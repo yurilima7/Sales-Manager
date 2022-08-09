@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:sales_manager/screens/seleciona_compra.dart';
 
 class CardLista extends StatelessWidget {
-  final String proximo;
-  const CardLista({Key? key, required this.proximo}) : super(key: key);
+  final String nome, id;
+  final double valor;
+
+  const CardLista({Key? key, required this.nome, required this.valor, 
+                  required this.id}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +20,11 @@ class CardLista extends StatelessWidget {
         child: ElevatedButton(
 
           onPressed: () { 
-            Navigator.pushNamed(context, proximo);
+            Navigator.push(
+            context, 
+            MaterialPageRoute<void>(builder: (BuildContext context) => 
+              SelecionaProduto(nomeCliente: nome, idCliente: id, divida: valor)),
+          );
           },
 
           style: ElevatedButton.styleFrom(
@@ -33,10 +41,10 @@ class CardLista extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   
-                  children: const [
-                    Text("Marciano", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                  children:  [
+                    Text(nome, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
             
-                    Text("R\$ 260", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                    Text("R\$ $valor", style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
                     
                   ],
                 ),

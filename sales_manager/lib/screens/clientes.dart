@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sales_manager/components/card_cliente.dart';
 import 'package:sales_manager/components/pesquisa.dart';
-import 'package:sales_manager/components/objects/cliente.dart';
+import 'package:sales_manager/objects/cliente.dart';
 
 class Clientes extends StatefulWidget {
   const Clientes({Key? key}) : super(key: key);

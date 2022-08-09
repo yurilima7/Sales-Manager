@@ -3,7 +3,11 @@ import 'package:sales_manager/components/botao.dart';
 import 'package:sales_manager/components/input_formulario.dart';
 
 class Pagamento extends StatefulWidget {
-  const Pagamento({Key? key}) : super(key: key);
+  final String nome;
+  final double valor;
+  
+  const Pagamento({Key? key, required this.nome, required this.valor}) 
+        : super(key: key);
 
   @override
   State<Pagamento> createState() => _PagamentoState();

@@ -53,10 +53,8 @@ class _ClienteExistenteState extends State<ClienteExistente> {
                 
                 children: const [
                   
-                  CardLista(proximo: "/addProduto"),
-                  CardLista(proximo: "/addProduto"),
-                  CardLista(proximo: "/addProduto"),
-                  CardLista(proximo: "/addProduto"),
+                  CardLista(valor: 300, nome: "Marciano", id: "asndasi"),
+                 
                 ],
                 
               ),

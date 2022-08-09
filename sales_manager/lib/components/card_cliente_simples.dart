@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:sales_manager/objects/produto.dart';
+import 'package:sales_manager/screens/pagamento.dart';
 
 class ClienteSimples extends StatelessWidget {
-  final String nome;
-  final String valor;
+  final Produto produtos;
   
-  const ClienteSimples({Key? key, required this.nome, required this.valor}) : super(key: key);
+  const ClienteSimples({Key? key, required this.produtos}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,13 +14,25 @@ class ClienteSimples extends StatelessWidget {
 
       children: [
         TextButton(
-          onPressed: () {  Navigator.pushNamed(context, '/pagamento'); },
-          child: Text(nome, style: const TextStyle(color: Colors.black, fontSize: 16)),
+          onPressed: () {
+            Navigator.push(
+              context, 
+              MaterialPageRoute<void>(builder: (BuildContext context) => 
+                Pagamento(nome: produtos.nome, valor: produtos.preco)),
+            );
+          },
+          child: Text(produtos.nome, style: const TextStyle(color: Colors.black, fontSize: 16)),
         ),
 
         TextButton(
-          onPressed: () { Navigator.pushNamed(context, '/pagamento'); },
-          child: Text(valor, style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
+          onPressed: () {
+            Navigator.push(
+              context, 
+              MaterialPageRoute<void>(builder: (BuildContext context) => 
+                Pagamento(nome: produtos.nome, valor: produtos.preco)),
+            );
+          },
+          child: Text("R\$ ${produtos.preco}", style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
         ),
         
       ],
