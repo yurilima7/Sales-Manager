@@ -185,6 +185,12 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
   @override
   Widget build(BuildContext context) {
 
+    void onChanged(String text){
+      setState(() {
+       /// _valorPago = _valorDigitado.text as double;
+      });
+    }
+
     return Scaffold(
 
       body: GestureDetector(
@@ -216,24 +222,28 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
                         label: "Produto",
                         hint: "Digite o nome do produto",
                         controller: _nomeControler,
+                        onChanged: onChanged,
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     InputFormulario(
                         label: "Data",
                         hint: "Digite a data da compra",
                         controller: _dataControler,
+                        onChanged: onChanged,
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     InputFormulario(
                         label: "Preço",
                         hint: "Digite o preço, ex: 45.00",
                         controller: _precoControler,
+                        onChanged: onChanged,
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     InputFormulario(
                         label: "Quantidade",
                         hint: "Digite a quantidade comprada",
                         controller: _quantidadeControler,
+                        onChanged: onChanged,
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                     Botao(

@@ -5,6 +5,7 @@ class InputFormulario extends StatefulWidget {
   final bool acaoTeclado;
   final TextEditingController controller;
   final TextInputType tipo;
+  final Function(String) onChanged;
  
   const InputFormulario({
     Key? key,
@@ -12,7 +13,7 @@ class InputFormulario extends StatefulWidget {
     this.acaoTeclado = true,
     this.tipo = TextInputType.text, 
     required this.controller, 
-    required this.hint,
+    required this.hint, required this.onChanged,
   }) : super(key: key);
 
   @override
@@ -30,6 +31,7 @@ class _InputFormularioState extends State<InputFormulario> {
 
           controller: widget.controller,
           keyboardType: widget.tipo,
+          onChanged: widget.onChanged,
 
           style: const TextStyle(
               color: Color(0xFF734D8C)), // coloração do texto digitado

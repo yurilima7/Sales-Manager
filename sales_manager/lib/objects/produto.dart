@@ -3,6 +3,7 @@ class Produto {
   String data;
   int quantidade;
   double preco;
+  String id;
 
-  Produto(this.nome, this.data, this.quantidade, this.preco);
+  Produto(this.nome, this.data, this.quantidade, this.preco, this.id);
 }

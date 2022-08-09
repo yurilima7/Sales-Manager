@@ -104,6 +104,12 @@ class _AdicionarClienteState extends State<AdicionarCliente> {
   @override
   Widget build(BuildContext context) {
 
+    void onChanged(String text){
+      setState(() {
+       /// _valorPago = _valorDigitado.text as double;
+      });
+    }
+
     return Scaffold(
 
       body: GestureDetector(
@@ -132,13 +138,13 @@ class _AdicionarClienteState extends State<AdicionarCliente> {
                 Column(
                   
                   children: [
-                    InputFormulario(label: "Nome do Cliente", hint: "Digite o nome do cliente",controller: _nomeControler),
+                    InputFormulario(label: "Nome do Cliente", hint: "Digite o nome do cliente",controller: _nomeControler, onChanged: onChanged),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                    InputFormulario(label: "Bairro", hint: "Digite o nome do bairro", controller: _bairroControler),
+                    InputFormulario(label: "Bairro", hint: "Digite o nome do bairro", controller: _bairroControler, onChanged: onChanged),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                    InputFormulario(label: "Rua e N°", hint: "Digite o nome da rua e o número", controller: _enderecoControler),
+                    InputFormulario(label: "Rua e N°", hint: "Digite o nome da rua e o número", controller: _enderecoControler, onChanged: onChanged),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                    InputFormulario(label: "Telefone", hint: "Digite o seu telefone", controller: _telefoneControler),
+                    InputFormulario(label: "Telefone", hint: "Digite o seu telefone", controller: _telefoneControler, onChanged: onChanged),
 
 
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05),

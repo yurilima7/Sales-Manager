@@ -46,6 +46,7 @@ class _SelecionaProdutoState extends State<SelecionaProduto> {
             doc["Data"],
             doc["Quantidade"],
             doc["Preço"],
+            doc.id,
           )).toList();
       });
 
@@ -66,7 +67,7 @@ class _SelecionaProdutoState extends State<SelecionaProduto> {
       return Expanded(
         child: Column(
           children: List.generate(filtra.length, (index) => 
-            ClienteSimples(produtos: filtra[index])
+            ClienteSimples(produtos: filtra[index], idCliente: widget.idCliente, divida: widget.divida),
           ),
         ),
       );
