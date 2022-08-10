@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:sales_manager/screens/adicionar_produto.dart';
 import 'package:sales_manager/screens/seleciona_compra.dart';
 
 class CardLista extends StatelessWidget {
   final String nome, id;
   final double valor;
+  final bool selecionaProduto;
 
   const CardLista({Key? key, required this.nome, required this.valor, 
-                  required this.id}) : super(key: key);
+                  required this.id, this.selecionaProduto = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +22,19 @@ class CardLista extends StatelessWidget {
         child: ElevatedButton(
 
           onPressed: () { 
-            Navigator.push(
-            context, 
-            MaterialPageRoute<void>(builder: (BuildContext context) => 
-              SelecionaProduto(nomeCliente: nome, idCliente: id, divida: valor)),
-          );
+            selecionaProduto
+            ?
+              Navigator.push(
+              context, 
+              MaterialPageRoute<void>(builder: (BuildContext context) => 
+                SelecionaProduto(nomeCliente: nome, idCliente: id, divida: valor))
+              )
+            :
+              Navigator.push(
+              context, 
+              MaterialPageRoute<void>(builder: (BuildContext context) => 
+                AdicionarProduto(nome: nome, clienteExistente: true, divida: valor))
+              );
           },
 
           style: ElevatedButton.styleFrom(

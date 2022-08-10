@@ -7,7 +7,11 @@ import 'package:sales_manager/screens/tap_bar_telas.dart';
 
 class AdicionarProduto extends StatefulWidget {
   final String nome;
-  const AdicionarProduto({required this.nome ,Key? key}) : super(key: key);
+  final bool clienteExistente;
+  final double divida;
+
+  const AdicionarProduto({required this.nome, this.clienteExistente = false
+    , this.divida = 0.0, Key? key}) : super(key: key);
 
   @override
   State<AdicionarProduto> createState() => _AdicionarProdutoState();
@@ -92,6 +96,23 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
     );
   }
 
+  void _atualizaDivida(double preco, int quantidade) async{
+      if(widget.clienteExistente == true){
+        // adicionando o campo de divida do cliente
+        db.collection("Usuários").doc(usuarioID.toString()).collection("Clientes") 
+          .doc(_idCliente).update({
+            "Saldo Devedor": widget.divida + (preco * quantidade),
+        });
+      }
+      else{
+        // adicionando o campo de divida do cliente
+        db.collection("Usuários").doc(usuarioID.toString()).collection("Clientes") 
+          .doc(_idCliente).update({
+            "Saldo Devedor": preco * quantidade,
+        });
+      }
+  }
+
   _guardandoDados() async {
     final nome = _nomeControler.text;
     final data = _dataControler.text;
@@ -160,11 +181,9 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
       "Preço": preco,
       "Quantidade": quantidade,
     });
-    // adicionando o campo de divida do cliente
-    db.collection("Usuários").doc(usuarioID.toString()).collection("Clientes") 
-      .doc(_idCliente).update({
-        "Saldo Devedor": preco! * quantidade!,
-    });
+    
+    _atualizaDivida(preco!, quantidade!);
+
     // Atualizando informações sobre os ganhos do usuário
     db.collection("Usuários").doc(usuarioID.toString()).update({ 
       "A Receber": _aReceber + (preco * quantidade),

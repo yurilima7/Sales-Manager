@@ -62,17 +62,23 @@ class ModeloInfo extends StatelessWidget {
         Text(data, style: const TextStyle(color: Colors.black, fontSize: 16)),
         Text(valor.toString(), style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
 
-        icones ? IconButton(
-          onPressed: () => _deletaProduto(), 
-            
-          icon: const Icon(Icons.delete, color: Color(0xFF6D3F8C)),
-        ) : const SizedBox(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-        icones ? IconButton(
-          onPressed: () => _editarCompra(), 
-            
-          icon: const Icon(Icons.edit, color: Color(0xFF6D3F8C)),
-        ) : const SizedBox()
+          children: [
+            icones ? IconButton(
+              onPressed: () => _deletaProduto(), 
+                
+              icon: const Icon(Icons.delete, color: Color(0xFF6D3F8C)),
+            ) : const SizedBox(),
+
+            icones ? IconButton(
+              onPressed: () => _editarCompra(), 
+                
+              icon: const Icon(Icons.edit, color: Color(0xFF6D3F8C)),
+            ) : const SizedBox()
+          ],
+        )
       ],
     );
   }
