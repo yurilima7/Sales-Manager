@@ -23,6 +23,36 @@ class _FichaClienteState extends State<FichaCliente> {
   final db = FirebaseFirestore.instance;
   final usuarioID =
       FirebaseAuth.instance.currentUser!.uid; // pegando id do usuário
+  late double _aReceber = 0.0, _vendido = 0.0;
+  late double _valoresDeletados = 0.0;
+
+  @override
+  initState(){ 
+    super.initState();
+
+    _dadosUsuario();
+  }
+  
+  // recebendo valores para atualização nos dados do usuário
+  void _dadosUsuario() async {
+    double temp1 = 0.0;
+    double temp2 = 0.0, temp3 = 0.0;
+
+    await db.collection("Usuários").doc(usuarioID.toString()).get()
+      .then((doc) => {
+        if(doc.exists){
+          temp1 = doc.data()!["A Receber"],
+          temp2 = doc.data()!["Valores Deletados"],
+          temp3 = doc.data()!["Vendido"],
+        }
+      });
+
+    setState(() {
+      _aReceber = temp1;
+      _valoresDeletados = temp2;
+      _vendido = temp3;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,22 +137,15 @@ class _FichaClienteState extends State<FichaCliente> {
 
                         children: snapshot.data!.docs.map((doc){
                         return ModeloInfo(nome: doc.data()["Nome"], data: doc.data()["Data"], valor: doc.data()["Preço"] as double
-                            , idCliente: widget.idCliente, idProduto: doc.id, idUsuario: usuarioID, saldoDevedor: widget.saldoDevedor, quantidade: doc.data()["Quantidade"]);
+                            , idCliente: widget.idCliente, idProduto: doc.id, idUsuario: usuarioID
+                            , saldoDevedor: widget.saldoDevedor, quantidade: doc.data()["Quantidade"]
+                            , aReceber: _aReceber, deletados: _valoresDeletados, vendido: _vendido);
                       }).toList(),
                     );
                   }
                 },
               ),
             ),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            
-              children: [
-                const Text("Saldo Devedor", style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
-                Text("R\$ ${widget.saldoDevedor}", style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
-              ],
-            )
           ],
         ),
       ),
