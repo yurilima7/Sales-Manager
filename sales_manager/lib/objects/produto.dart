@@ -1,6 +1,6 @@
 class Produto {
   String nome;
-  String data;
+  DateTime data;
   int quantidade;
   double preco;
   String id;

@@ -2,11 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sales_manager/components/botao.dart';
 import 'package:sales_manager/components/editar_dados.dart';
+import 'package:sales_manager/components/insere_data.dart';
 import 'package:sales_manager/screens/tap_bar_telas.dart';
 
 class EditarCompra extends StatefulWidget {
 
-  final String nome, data, idProduto, idCliente, idUsuario;
+  final String nome, idProduto, idCliente, idUsuario;
+  final DateTime data;
   final double preco, saldoDevedor;
   final int quantidadeAnterior;
 
@@ -20,7 +22,7 @@ class EditarCompra extends StatefulWidget {
 class _EditarCompraState extends State<EditarCompra> {
 
   final _nomeControler = TextEditingController();
-  final _dataControler = TextEditingController();
+  late DateTime _data;
   final _precoControler = TextEditingController();
   final _quantidadeControler = TextEditingController();
   final db = FirebaseFirestore.instance;
@@ -29,7 +31,14 @@ class _EditarCompraState extends State<EditarCompra> {
   @override
   initState() {
     super.initState();
+    _inicializaData();
     _recebeLucro();
+  }
+
+  _inicializaData(){
+    setState(() {
+      _data = widget.data;
+    });
   }
 
   _recebeLucro() async{
@@ -63,11 +72,11 @@ class _EditarCompraState extends State<EditarCompra> {
 
     _editandoDados() async {
       final nome = _nomeControler.text;
-      final data = _dataControler.text;
+      final data = _data;
       final preco = double.tryParse(_precoControler.text);
       final quantidade = int.tryParse(_quantidadeControler.text);
 
-      if(_nomeControler.text == '' && _dataControler.text == '' && _precoControler.text == '' && _quantidadeControler.text == ''){
+      if(_nomeControler.text == '' && _precoControler.text == '' && _quantidadeControler.text == ''){
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text("Todos os campos vazios!"),
@@ -82,17 +91,6 @@ class _EditarCompraState extends State<EditarCompra> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text("Campo nome vazio!"),
-            backgroundColor: Colors.redAccent,
-          ),
-        );
-
-        return;
-      }
-
-      if(_dataControler.text == ''){
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Campo data vazio!"),
             backgroundColor: Colors.redAccent,
           ),
         );
@@ -178,11 +176,15 @@ class _EditarCompraState extends State<EditarCompra> {
                   children: [
                     EditarDados(nome: widget.nome, texto: _nomeControler),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                    EditarDados(nome: widget.data, texto: _dataControler),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     EditarDados(nome: widget.preco.toString(), texto: _precoControler),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     EditarDados(nome: widget.quantidadeAnterior.toString(), texto: _quantidadeControler),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                    InsereData(dataSelecionada: _data, onDateChanged: (novaData){
+                      setState(() {
+                        _data = novaData;
+                      });
+                    }),
                   ],
                 ),
           

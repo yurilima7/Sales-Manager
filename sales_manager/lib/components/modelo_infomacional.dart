@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:sales_manager/screens/editar_compra.dart';
 
 class ModeloInfo extends StatelessWidget {
   final String nome, idCliente, idProduto;
-  final String data, idUsuario;
+  final String idUsuario;
+  final DateTime data;
   final double valor, saldoDevedor, aReceber, deletados, vendido;
   final bool icones;
   final int quantidade;
@@ -59,7 +61,7 @@ class ModeloInfo extends StatelessWidget {
 
       children: [
         Text(nome, style: const TextStyle(color: Colors.black, fontSize: 16)),
-        Text(data, style: const TextStyle(color: Colors.black, fontSize: 16)),
+        Text(DateFormat('dd/MM/y').format(data), style: const TextStyle(color: Colors.black, fontSize: 16)),
         Text(valor.toString(), style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
 
         Row(

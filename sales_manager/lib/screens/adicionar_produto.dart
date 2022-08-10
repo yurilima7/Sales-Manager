@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sales_manager/components/botao.dart';
 import 'package:sales_manager/components/input_formulario.dart';
+import 'package:sales_manager/components/insere_data.dart';
 import 'package:sales_manager/screens/tap_bar_telas.dart';
 
 class AdicionarProduto extends StatefulWidget {
@@ -20,7 +21,7 @@ class AdicionarProduto extends StatefulWidget {
 class _AdicionarProdutoState extends State<AdicionarProduto> {
 
   final _nomeControler = TextEditingController();
-  final _dataControler = TextEditingController();
+  DateTime _data = DateTime.now();
   final _precoControler = TextEditingController();
   final _quantidadeControler = TextEditingController();
   final db = FirebaseFirestore.instance;
@@ -115,11 +116,11 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
 
   _guardandoDados() async {
     final nome = _nomeControler.text;
-    final data = _dataControler.text;
+    final data = _data;
     final preco = double.tryParse(_precoControler.text);
     final quantidade = int.tryParse(_quantidadeControler.text);
 
-    if(_nomeControler.text == '' && _dataControler.text == '' && _precoControler.text == '' && _quantidadeControler.text == ''){
+    if(_nomeControler.text == '' && _precoControler.text == '' && _quantidadeControler.text == ''){
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("Todos os campos vazios!"),
@@ -134,17 +135,6 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("Campo produto vazio!"),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
-
-      return;
-    }
-
-    if(_dataControler.text == ''){
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Campo data vazio!"),
           backgroundColor: Colors.redAccent,
         ),
       );
@@ -206,7 +196,7 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
 
     void onChanged(String text){
       setState(() {
-       /// _valorPago = _valorDigitado.text as double;
+
       });
     }
 
@@ -243,13 +233,13 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
                         controller: _nomeControler,
                         onChanged: onChanged,
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                    InputFormulario(
-                        label: "Data",
-                        hint: "Digite a data da compra",
-                        controller: _dataControler,
-                        onChanged: onChanged,
-                    ),
+                    // SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                    // InputFormulario(
+                    //     label: "Data",
+                    //     hint: "Digite a data da compra",
+                    //     controller: _dataControler,
+                    //     onChanged: onChanged,
+                    // ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     InputFormulario(
                         label: "Preço",
@@ -264,6 +254,12 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
                         controller: _quantidadeControler,
                         onChanged: onChanged,
                     ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                    InsereData(dataSelecionada: _data, onDateChanged: (novaData){
+                      setState(() {
+                        _data = novaData;
+                      });
+                    }),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                     Botao(
                         titulo: "Salvar",

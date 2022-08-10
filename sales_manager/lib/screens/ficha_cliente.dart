@@ -136,7 +136,7 @@ class _FichaClienteState extends State<FichaCliente> {
                         physics: const BouncingScrollPhysics(), // remove o sombreamento da scroll
 
                         children: snapshot.data!.docs.map((doc){
-                        return ModeloInfo(nome: doc.data()["Nome"], data: doc.data()["Data"], valor: doc.data()["Preço"] as double
+                        return ModeloInfo(nome: doc.data()["Nome"], data: doc.data()["Data"].toDate(), valor: doc.data()["Preço"] as double
                             , idCliente: widget.idCliente, idProduto: doc.id, idUsuario: usuarioID
                             , saldoDevedor: widget.saldoDevedor, quantidade: doc.data()["Quantidade"]
                             , aReceber: _aReceber, deletados: _valoresDeletados, vendido: _vendido);
