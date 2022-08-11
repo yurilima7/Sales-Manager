@@ -170,9 +170,10 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
       "Data": data,
       "Preço": preco,
       "Quantidade": quantidade,
+      "Total": preco! * quantidade!
     });
     
-    _atualizaDivida(preco!, quantidade!);
+    _atualizaDivida(preco, quantidade);
 
     // Atualizando informações sobre os ganhos do usuário
     db.collection("Usuários").doc(usuarioID.toString()).update({ 

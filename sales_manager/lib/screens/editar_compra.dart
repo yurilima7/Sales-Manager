@@ -126,11 +126,12 @@ class _EditarCompraState extends State<EditarCompra> {
         "Data": data,
         "Endereço": preco,
         "Quantidade": quantidade,
+        "Total": preco! * quantidade!,
       });
 
       db.collection("Usuários").doc(widget.idUsuario).collection("Clientes")
         .doc(widget.idCliente).update({
-          "Saldo Devedor": (widget.saldoDevedor - widget.preco) + preco! * quantidade!,
+          "Saldo Devedor": (widget.saldoDevedor - widget.preco) + preco * quantidade,
       });
 
       db.collection("Usuários").doc(widget.idUsuario).update({

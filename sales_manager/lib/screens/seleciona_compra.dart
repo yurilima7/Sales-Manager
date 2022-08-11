@@ -43,10 +43,11 @@ class _SelecionaProdutoState extends State<SelecionaProduto> {
         busca = snapshot.docs.map(
           (doc) => Produto(
             doc["Nome"],
-            doc["Data"],
+            doc["Data"].toDate(),
             doc["Quantidade"],
             doc["Preço"],
             doc.id,
+            doc["Total"],
           )).toList();
       });
 
@@ -67,7 +68,8 @@ class _SelecionaProdutoState extends State<SelecionaProduto> {
       return Expanded(
         child: Column(
           children: List.generate(filtra.length, (index) => 
-            ClienteSimples(produtos: filtra[index], idCliente: widget.idCliente, divida: widget.divida),
+            ClienteSimples(produtos: filtra[index], idCliente: widget.idCliente
+              , divida: widget.divida, totalCompra: filtra[index].total),
           ),
         ),
       );

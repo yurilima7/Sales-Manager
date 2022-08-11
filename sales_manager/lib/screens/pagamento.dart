@@ -7,10 +7,11 @@ import 'package:sales_manager/screens/tap_bar_telas.dart';
 
 class Pagamento extends StatefulWidget {
   final String nome, idCliente, idProduto;
-  final double valor, dividaCliente; // valor é o preço do produto a ser pago
+  final double dividaCliente, totalCompra; // totalCompra é o preço do produto a ser pago
   
-  const Pagamento({Key? key, required this.nome, required this.valor, 
-        required this.idCliente, required this.idProduto, required this.dividaCliente}) 
+  const Pagamento({Key? key, required this.nome, required this.idCliente, 
+        required this.idProduto, required this.dividaCliente, 
+        required this.totalCompra}) 
         : super(key: key);
 
   @override
@@ -74,19 +75,19 @@ class _PagamentoState extends State<Pagamento> {
   }
 
   _pagamento() async{
-    // caso o valor pago seja igual o preço do produto, o debito é quitado
-    if(_valorPago == widget.valor){ 
+    // caso o valor pago seja igual o preço do total da compra, o debito é quitado
+    if(_valorPago == widget.totalCompra){ 
       await db.collection("Usuários").doc(usuarioID).collection("Clientes")
             .doc(widget.idCliente).collection("Produtos").doc(widget.idProduto)
             .delete();
 
       _atualizaPosPagamento(_valorPago);
     }// caso não seja igual ao valor e o valor seja válido
-    else if(_valorPago < widget.valor && _valorPago > 0.0){
+    else if(_valorPago < widget.totalCompra && _valorPago > 0.0){
       await db.collection("Usuários").doc(usuarioID).collection("Clientes")
             .doc(widget.idCliente).collection("Produtos").doc(widget.idProduto)
             .update({
-              "Preço": widget.valor - _valorPago,
+              "Total": widget.totalCompra - _valorPago,
             });
 
      _atualizaPosPagamento(_valorPago);
