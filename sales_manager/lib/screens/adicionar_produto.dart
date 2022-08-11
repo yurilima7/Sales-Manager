@@ -234,13 +234,6 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
                         controller: _nomeControler,
                         onChanged: onChanged,
                     ),
-                    // SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                    // InputFormulario(
-                    //     label: "Data",
-                    //     hint: "Digite a data da compra",
-                    //     controller: _dataControler,
-                    //     onChanged: onChanged,
-                    // ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     InputFormulario(
                         label: "Preço",

@@ -59,38 +59,7 @@ class _PrincipalState extends State<Principal> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.042,
 
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                
-                children: [
-                  Text(_nomeUsuario, style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
-              
-                  Ink(
-                    
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-              
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          blurRadius: 5
-                        )
-                      ]
-                    ),
-              
-                    child: IconButton(
-                      onPressed: () => {Navigator.pushNamed(context, '/editarPerfil')}, 
-                  
-                      icon: SvgPicture.asset(
-                        'assets/icons/pessoa.svg',
-                        height: MediaQuery.of(context).size.height * 0.022,
-                        allowDrawingOutsideViewBox: true,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              child: Text(_nomeUsuario, style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
             ),
             
             SizedBox(height: MediaQuery.of(context).size.height * 0.04),

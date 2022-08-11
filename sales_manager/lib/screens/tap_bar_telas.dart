@@ -80,7 +80,7 @@ class _PercorreTelasState extends State<PercorreTelas> {
                   BottomNavigationBarItem(
                     icon: SvgPicture.asset(
                         'assets/icons/home.svg',
-                        height: MediaQuery.of(context).size.height * 0.035,
+                        height: MediaQuery.of(context).size.height * 0.034,
                         allowDrawingOutsideViewBox: true,
                         color: _cores[0],
                       ),
@@ -91,7 +91,7 @@ class _PercorreTelasState extends State<PercorreTelas> {
                   BottomNavigationBarItem(
                     icon: SvgPicture.asset(
                         'assets/icons/dados.svg',
-                        height: MediaQuery.of(context).size.height * 0.035,
+                        height: MediaQuery.of(context).size.height * 0.034,
                         allowDrawingOutsideViewBox: true,
                         color: _cores[1],
                       ),
@@ -102,7 +102,7 @@ class _PercorreTelasState extends State<PercorreTelas> {
                   BottomNavigationBarItem(
                     icon: SvgPicture.asset(
                         'assets/icons/configurações.svg',
-                        height: MediaQuery.of(context).size.height * 0.035,
+                        height: MediaQuery.of(context).size.height * 0.034,
                         allowDrawingOutsideViewBox: true,
                         color: _cores[2],
                       ),
