@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sales_manager/components/botao_texto.dart';
 import 'package:sales_manager/components/modelo_infomacional.dart';
 import 'package:sales_manager/screens/editar_cliente.dart';
 
@@ -86,22 +85,15 @@ class _FichaClienteState extends State<FichaCliente> {
             SizedBox(height: MediaQuery.of(context).size.height * 0.08),
 
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
+              
               children: [
-                Row(
-                  children: [
-                    Text(widget.nome, style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
+                Text(widget.nome, style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
 
-                    IconButton(
-                      onPressed: () => _editarCliente(), 
-                        
-                      icon: const Icon(Icons.edit, color: Color(0xFF6D3F8C)),
-                    ),
-                  ],
+                IconButton(
+                  onPressed: () => _editarCliente(), 
+                    
+                  icon: const Icon(Icons.edit, color: Color(0xFF6D3F8C)),
                 ),
-
-                const BotaoTexto(mensagem: "Pagamentos", proxima: "/pagos", tamanhoFonte: 16, desempilha: false),
               ],
             ),
 

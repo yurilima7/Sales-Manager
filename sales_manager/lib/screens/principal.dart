@@ -167,7 +167,7 @@ class _PrincipalState extends State<Principal> {
                                 }
                                 // Se existirem dados, os apresentam
                                 return ListView(
-                                
+                                  physics: const BouncingScrollPhysics(), // remove o sombreamento da scroll
                                   children: snapshot.data!.docs.map((doc){
 
                                     return SizedBox(

@@ -10,7 +10,6 @@ import 'package:sales_manager/screens/estado_usuario.dart';
 import 'package:sales_manager/screens/login.dart';
 import 'package:sales_manager/screens/opcao_venda.dart';
 import 'package:sales_manager/screens/principal.dart';
-import 'package:sales_manager/screens/produtos_pagos.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sales_manager/screens/tap_bar_telas.dart';
 import 'firebase_options.dart';
@@ -56,7 +55,6 @@ class SalesManager extends StatelessWidget {
         '/addPagamento': (context) => const AdicionarPagamento(),
         '/clienteExistente': (context) => const ClienteExistente(),
         '/configuracao': (context) => const Configuracao(),
-        '/pagos': (context) => const Pagos(),
       },
     );
   }
