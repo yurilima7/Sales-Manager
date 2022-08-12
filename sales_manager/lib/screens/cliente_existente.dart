@@ -67,6 +67,9 @@ class _ClienteExistenteState extends State<ClienteExistente> {
       // retorna a lista de cards de usuários 
       return Expanded(
         child: SingleChildScrollView(
+          // desativa o teclado ao rolar a lista
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+
           child: Column(
             children: List.generate(filtra.length, (index) => 
               CardLista(nome: filtra[index].nome, valor: filtra[index].divida
@@ -87,35 +90,40 @@ class _ClienteExistenteState extends State<ClienteExistente> {
       });
     }
 
-    return Scaffold(
+    return GestureDetector(
+      // desativa o teclado ao tocar na tela
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(), 
 
-      body: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20, top: 20), 
-
-        child: Column(
-        
-          children: [
+      child: Scaffold(
+    
+        body: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 20), 
+    
+          child: Column(
           
-            Column(
+            children: [
             
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-            
-                  children: [
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.07),
-                    const Text("Clientes", style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
-                  ],
-                ),
-            
-                SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                Pesquisa(label: "Buscar Cliente", controller: _pesquisa, onChanged: onChanged),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.015),
-              ],
-            ),
-
-            _listagem()
-          ],
+              Column(
+              
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+              
+                    children: [
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.07),
+                      const Text("Clientes", style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+              
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                  Pesquisa(label: "Buscar Cliente", controller: _pesquisa, onChanged: onChanged),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+                ],
+              ),
+    
+              _listagem()
+            ],
+          ),
         ),
       ),
     );

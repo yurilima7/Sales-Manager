@@ -111,14 +111,15 @@ class _PagamentoState extends State<Pagamento> {
       });
     }
     
-    return Scaffold(
+    return GestureDetector(
+      // desativa o teclado ao tocar na tela
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(), 
 
-      body: GestureDetector(
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-
-        child: Padding(
+      child: Scaffold(
+    
+        body: Padding(
           padding: const EdgeInsets.all(20),
-      
+        
           child: Column(
             
             children: [
@@ -143,8 +144,6 @@ class _PagamentoState extends State<Pagamento> {
                   ],
                 ),
               ),
-      
-             
             ],
           ),
         ),

@@ -90,6 +90,9 @@ class _ClientesState extends State<Clientes> {
       // retorna a lista de cards de usuários 
       return Expanded(
         child: SingleChildScrollView(
+          // desativa o teclado rolar a lista
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+
           child: Column(
             children: List.generate(filtra.length, (index) => 
               CardCliente(nome: filtra[index].nome, telefone: filtra[index].telefone, 
@@ -149,12 +152,13 @@ class _ClientesState extends State<Clientes> {
       });
     }
 
-    return Scaffold(
+    return GestureDetector(
+      // desativa o teclado ao tocar na tela
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(), 
 
-      body: GestureDetector(
-         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-
-        child: Padding(
+      child: Scaffold(
+    
+        body: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 5), 
         
           child: Column(
