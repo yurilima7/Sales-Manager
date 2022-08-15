@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sales_manager/components/botao.dart';
-import 'package:sales_manager/components/botao_social.dart';
 import 'package:sales_manager/components/botao_texto.dart';
 import 'package:sales_manager/components/input.dart';
 import 'package:sales_manager/screens/login.dart';
@@ -152,16 +151,16 @@ class _CriarContaState extends State<CriarConta> {
             
                   SizedBox(height: MediaQuery.of(context).size.height * 0.03),
             
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children:  const [
-                      BotaoSocial(
-                          titulo: "Google", google: true, caminho: "assets/icons/google.svg"),
-                      BotaoSocial(
-                          titulo: "Facebook", google: false, caminho: "assets/icons/facebook.svg"),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children:  const [
+                  //     BotaoSocial(
+                  //         titulo: "Google", google: true, caminho: "assets/icons/google.svg"),
+                  //     BotaoSocial(
+                  //         titulo: "Facebook", google: false, caminho: "assets/icons/facebook.svg"),
                       
-                    ],
-                  ),
+                  //   ],
+                  // ),
       
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             

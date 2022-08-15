@@ -66,6 +66,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '632437494938',
     projectId: 'sales-manager-1d0dc',
     storageBucket: 'sales-manager-1d0dc.appspot.com',
+    androidClientId: '632437494938-c62ie1jafsr92n4og3bk1ir6mlrl32hv.apps.googleusercontent.com',
     iosClientId: '632437494938-f7qg71019hhma55c2am5kadqau0ihvvi.apps.googleusercontent.com',
     iosBundleId: 'com.example.salesManager',
   );
@@ -76,6 +77,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '632437494938',
     projectId: 'sales-manager-1d0dc',
     storageBucket: 'sales-manager-1d0dc.appspot.com',
+    androidClientId: '632437494938-c62ie1jafsr92n4og3bk1ir6mlrl32hv.apps.googleusercontent.com',
     iosClientId: '632437494938-f7qg71019hhma55c2am5kadqau0ihvvi.apps.googleusercontent.com',
     iosBundleId: 'com.example.salesManager',
   );

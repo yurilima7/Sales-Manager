@@ -21,19 +21,32 @@ class _PrincipalState extends State<Principal> {
       FirebaseAuth.instance.currentUser!.uid; // pegando id do usuário
 
   @override
-  initState() {
-    super.initState();
+  initState() {   
     _recebeUsuario();
+    super.initState();
   }
 
   _recebeUsuario() async {
     late String nome;
     late double valor;
+    final usuario = FirebaseAuth.instance.currentUser?.displayName.toString();
 
     await db.collection("Usuários").doc(usuarioID.toString()).get().then((doc) => {
       if(doc.exists){
         nome = doc.data()!["Usuário"],
         valor = doc.data()!["Vendido"],
+      }
+      else{
+        db.collection("Usuários").doc(usuarioID).set({ // adicionando informações do usuário no banco de dados
+          "Usuário": usuario,
+          "Lucro": 0.0,
+          "A Receber": 0.0,
+          "Vendido": 0.0,
+          "Quantidade de Vendas": 0,
+          "Valores Deletados": 0.0
+        }),
+        valor = 0.0,
+        nome = usuario.toString(),
       }
     },);
 

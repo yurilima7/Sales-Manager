@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sales Manager</string> 
+    <string name="facebook_app_id">452271096798040</string>
+    <string name="fb_login_protocol_scheme">fb452271096798040</string>
+    <string name="facebook_client_token">de0b61b217062a0cb13806f7a5231414</string>
+</resources>

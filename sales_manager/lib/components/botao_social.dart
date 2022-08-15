@@ -5,9 +5,11 @@ class BotaoSocial extends StatelessWidget {
   final String titulo;
   final String caminho;
   final bool google;
+  final Function() loginSocial;
 
-  const BotaoSocial({required this.titulo, required this.google, required this.caminho, Key? key})
-      : super(key: key);
+  const BotaoSocial({required this.titulo, required this.google, 
+    required this.caminho, Key? key, required this.loginSocial})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class BotaoSocial extends StatelessWidget {
       height: MediaQuery.of(context).size.height *
           0.07, // definindo a altuta do botão
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () async => loginSocial(),
         style: botaoDeSelecao, 
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

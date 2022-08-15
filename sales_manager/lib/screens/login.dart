@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sales_manager/components/botao.dart';
@@ -5,6 +6,7 @@ import 'package:sales_manager/components/botao_social.dart';
 import 'package:sales_manager/components/botao_texto.dart';
 import 'package:sales_manager/components/input.dart';
 import 'package:sales_manager/screens/tap_bar_telas.dart';
+import 'package:sales_manager/util/autenticacao.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -18,6 +20,7 @@ class _LoginState extends State<Login> {
   final _email = TextEditingController();
   final _senha = TextEditingController();
   final firebaseAuth = FirebaseAuth.instance;
+  final db = FirebaseFirestore.instance;
 
   void _proximaTela() async {
 
@@ -99,6 +102,22 @@ class _LoginState extends State<Login> {
     }
   }
 
+  _loginGoogle() async{
+    User? usuario = await Autenticacao.registrarGoogle(context: context);
+
+    if(usuario != null){
+      _proximaTela();
+    }
+  }
+
+  _loginFacebook() async{
+    User? usuario = await Autenticacao.registrarFacebook(context: context);
+    
+    if(usuario != null){
+      _proximaTela();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,11 +150,11 @@ class _LoginState extends State<Login> {
             
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children:  const [
+                    children: [
                       BotaoSocial(
-                          titulo: "Google", google: true, caminho: "assets/icons/google.svg"),
+                          titulo: "Google", google: true, caminho: "assets/icons/google.svg", loginSocial: _loginGoogle),
                       BotaoSocial(
-                          titulo: "Facebook", google: false, caminho: "assets/icons/facebook.svg"),
+                          titulo: "Facebook", google: false, caminho: "assets/icons/facebook.svg", loginSocial: _loginFacebook),
                       
                     ],
                   ),

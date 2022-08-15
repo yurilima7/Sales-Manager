@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sales_manager/screens/login.dart';
@@ -12,11 +14,22 @@ class EstadoUsuario extends StatefulWidget {
 
 class _EstadoUsuarioState extends State<EstadoUsuario> {
 
+  late StreamSubscription streamSubscription;
+
   @override
   void initState() {
+    _verifica();    
     super.initState();
+  }
 
-    FirebaseAuth.instance
+  @override
+  void dispose(){
+    streamSubscription.cancel();
+    super.dispose();
+  }
+
+  _verifica() async{
+    streamSubscription = FirebaseAuth.instance
     .authStateChanges()
     .listen((User? user) {
       if (user == null) {
