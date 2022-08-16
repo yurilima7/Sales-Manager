@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sales_manager/util/mensagens.dart';
 import 'package:sales_manager/widgets/card_cliente.dart';
 import 'package:sales_manager/widgets/pesquisa.dart';
 import 'package:sales_manager/objects/cliente.dart';
@@ -105,42 +106,38 @@ class _ClientesState extends State<Clientes> {
     }
   }
 
-  // função que deleta o usuário do banco
+  // função que deleta o cliente do banco
   void _deleta(String idCliente, double divida) async { 
+    // deletando o cliente
     await db.collection("Usuários").doc(usuarioID).collection("Clientes").doc(idCliente).delete().then(
-      (doc) => ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Deletado com sucesso!"),
-            backgroundColor: Colors.greenAccent,
-          )
+      (doc) => {
+        // coleções do cliente
+        db.collection("Usuários").doc(usuarioID).collection("Clientes").doc(idCliente)
+          .collection("Produtos").get().then((QuerySnapshot querySnapshot) => {
+            for (var doc in querySnapshot.docs){
+              doc.reference.delete()
+            },
+          }
         ),
-      onError: (e) => ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Problemas ao deletar, tente novamente!"),
-            backgroundColor: Colors.redAccent,
-          )
-        ),
-    );
-    // coleções do cliente
-    await db.collection("Usuários").doc(usuarioID).collection("Clientes").doc(idCliente)
-      .collection("Produtos").get().then((QuerySnapshot querySnapshot) => {
-        for (var doc in querySnapshot.docs){
-          doc.reference.delete()
-        },
-      }
-    );
-    // atualizando dados do usuário
-    await db.collection("Usuários").doc(usuarioID.toString()).update({
-      "A Receber": _aReceber - divida,
-      "Valores Deletados": _valoresDeletados + divida,
-      "Vendido": _vendido - divida,
-    });
+        // venda reccente feita para o cliente
+        db.collection("Usuários").doc(usuarioID).collection("Últimas Vendas").doc(idCliente).delete(),
+        // atualizando dados do usuário
+        db.collection("Usuários").doc(usuarioID.toString()).update({
+          "A Receber": _aReceber - divida,
+          "Valores Deletados": _valoresDeletados + divida,
+          "Vendido": _vendido - divida,
+        }),
 
-    setState(() { // atualiza a tela pós deletar os dados do cliente
-      for(var i = 0; i < _clientes.length; i++){
-        if(_clientes[i].id == idCliente){_clientes.removeAt(i);}
-      }
-    });
+        setState(() { // atualiza a tela pós deletar os dados do cliente
+          for(var i = 0; i < _clientes.length; i++){
+            if(_clientes[i].id == idCliente){_clientes.removeAt(i);}
+          }
+        }),
+
+        Mensagens().mensagem("Deletado com sucesso!", false, context),
+      },
+      onError: (e) => Mensagens().mensagem("Problemas ao deletar, tente novamente!", true, context),
+    );
   }
 
   @override

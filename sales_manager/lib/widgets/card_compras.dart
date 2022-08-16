@@ -70,7 +70,7 @@ class ClienteSimples extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                   
                     children: [
-                      const Divider(),
+                      const Divider(color: Colors.white),
 
                       Text(
                         "Quantidade: ${produtos.quantidade}",

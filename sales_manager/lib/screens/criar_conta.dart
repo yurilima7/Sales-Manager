@@ -125,7 +125,7 @@ class _CriarContaState extends State<CriarConta> {
                   const BotaoTexto(
                       mensagem: "Possui uma conta? Faça login!", 
                       proxima: '/login',
-                      tamanhoFonte: 10,
+                      tamanhoFonte: 12,
                   ),
                 ],
               ),

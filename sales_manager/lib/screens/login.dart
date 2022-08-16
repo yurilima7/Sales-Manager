@@ -22,13 +22,7 @@ class _LoginState extends State<Login> {
 
   void _proximaTela() async {
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text("Login realizado com sucesso!"),
-        backgroundColor: Colors.greenAccent,
-        duration: Duration(seconds: 1),
-      )
-    );
+    Mensagens().mensagemCronometrada("Login realizado com sucesso!", false, context);
 
     await Future.delayed(const Duration(milliseconds: 1500), (() {
       Navigator.pushAndRemoveUntil<void>(
@@ -146,7 +140,7 @@ class _LoginState extends State<Login> {
                   const BotaoTexto(
                       mensagem: "Não possui uma conta? Faça seu registro!",
                       proxima: '/criarConta',
-                      tamanhoFonte: 10,
+                      tamanhoFonte: 12,
                   ),
                 ],
               ),
