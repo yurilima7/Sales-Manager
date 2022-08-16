@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sales_manager/components/botao.dart';
@@ -19,8 +18,6 @@ class _LoginState extends State<Login> {
 
   final _email = TextEditingController();
   final _senha = TextEditingController();
-  final firebaseAuth = FirebaseAuth.instance;
-  final db = FirebaseFirestore.instance;
 
   void _proximaTela() async {
 
@@ -72,33 +69,14 @@ class _LoginState extends State<Login> {
       return;
     }
 
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _email.text,
-        password: _senha.text,
-      );
+    User? usuario = await Autenticacao.loginEmail(
+      context: context, 
+      email: _email.text, 
+      senha: _senha.text,
+    );
 
-      userCredential.user!.updateDisplayName(_email.text);
-
+    if(usuario != null){
       _proximaTela();
-
-    } on FirebaseAuthException catch (e) {
-
-      if (e.code == 'user-not-found') {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Este e-mail não está cadastrado!"),
-            backgroundColor: Colors.redAccent,
-          )
-        );
-      } else if (e.code == 'wrong-password') {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Sua senha está incorreta, tente novamente!"),
-            backgroundColor: Colors.redAccent,
-          )
-        );
-      }
     }
   }
 
@@ -116,6 +94,13 @@ class _LoginState extends State<Login> {
     if(usuario != null){
       _proximaTela();
     }
+  }
+
+   @override
+  void dispose(){
+    _email.dispose();
+    _senha.dispose();
+    super.dispose();
   }
 
   @override

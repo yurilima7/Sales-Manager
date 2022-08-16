@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sales_manager/components/botao.dart';
 import 'package:sales_manager/components/editar_dados.dart';
 import 'package:sales_manager/screens/tap_bar_telas.dart';
+import 'package:sales_manager/util/mensagens.dart';
 
 class EditarPerfil extends StatefulWidget {
   final String nome;
@@ -30,12 +31,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
   _editaPerfil() async{
 
     if(_perfil.text == ""){
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Campo vazio!"),
-            backgroundColor: Colors.redAccent,
-          ),
-        );
+      Mensagens().mensagem("Campo vazio!", true, context);
       return ;
     }
 

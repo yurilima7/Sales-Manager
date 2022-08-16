@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sales_manager/components/botao.dart';
 import 'package:sales_manager/components/editar_dados.dart';
 import 'package:sales_manager/screens/ficha_cliente.dart';
+import 'package:sales_manager/util/mensagens.dart';
 
 class EditarCliente extends StatefulWidget {
   final String nome, bairro, rua, telefone, idCliente; 
@@ -44,56 +45,31 @@ class _EditarClienteState extends State<EditarCliente> {
       final telefone = _telefoneControler.text;
 
       if(_nomeControler.text == '' && _bairroControler.text == '' && _enderecoControler.text == '' && _telefoneControler.text == ''){
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Todos os campos vazios!"),
-            backgroundColor: Colors.redAccent,
-          ),
-        );
+        Mensagens().mensagem("Todos os campos vazios!", true, context);
 
         return;
       }
 
       if(_nomeControler.text == ''){
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Campo nome vazio!"),
-            backgroundColor: Colors.redAccent,
-          ),
-        );
+        Mensagens().mensagem("Campo nome vazio!", true, context);
 
         return;
       }
 
       if(_bairroControler.text == ''){
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Campo bairro vazio!"),
-            backgroundColor: Colors.redAccent,
-          ),
-        );
+        Mensagens().mensagem("Campo bairro vazio!", true, context);
 
         return;
       }
 
       if(_enderecoControler.text == ''){
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Campo endereço vazio!"),
-            backgroundColor: Colors.redAccent,
-          ),
-        );
+        Mensagens().mensagem("Campo endereço vazio!", true, context);
 
         return;
       }
 
       if(_telefoneControler.text == ''){
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Campo telefone vazio!"),
-            backgroundColor: Colors.redAccent,
-          ),
-        );
+        Mensagens().mensagem("Campo telefone vazio!", true, context);
 
         return;
       }

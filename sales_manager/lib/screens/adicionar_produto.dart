@@ -5,6 +5,7 @@ import 'package:sales_manager/components/botao.dart';
 import 'package:sales_manager/components/input_formulario.dart';
 import 'package:sales_manager/components/insere_data.dart';
 import 'package:sales_manager/screens/tap_bar_telas.dart';
+import 'package:sales_manager/util/mensagens.dart';
 
 class AdicionarProduto extends StatefulWidget {
   final String nome;
@@ -121,45 +122,25 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
     final quantidade = int.tryParse(_quantidadeControler.text);
 
     if(_nomeControler.text == '' && _precoControler.text == '' && _quantidadeControler.text == ''){
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Todos os campos vazios!"),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
+      Mensagens().mensagem("Todos os campos vazios!", true, context);
 
       return;
     }
 
     if(_nomeControler.text == ''){
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Campo produto vazio!"),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
+      Mensagens().mensagem("Campo produto vazio!", true, context);
 
       return;
     }
 
     if(_precoControler.text == ''){
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Campo preço vazio!"),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
+      Mensagens().mensagem("Campo preço vazio!", true, context);
 
       return;
     }
 
     if(_quantidadeControler.text == ''){
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Campo quantidade vazio!"),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
+      Mensagens().mensagem("Campo quantidade vazio!", true, context);
 
       return;
     }

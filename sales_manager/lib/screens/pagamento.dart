@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sales_manager/components/botao.dart';
 import 'package:sales_manager/components/input_formulario.dart';
 import 'package:sales_manager/screens/tap_bar_telas.dart';
+import 'package:sales_manager/util/mensagens.dart';
 
 class Pagamento extends StatefulWidget {
   final String nome, idCliente, idProduto;
@@ -75,6 +76,7 @@ class _PagamentoState extends State<Pagamento> {
   }
 
   _pagamento() async{
+    
     // caso o valor pago seja igual o preço do total da compra, o debito é quitado
     if(_valorPago == widget.totalCompra){ 
       await db.collection("Usuários").doc(usuarioID).collection("Clientes")
@@ -93,12 +95,7 @@ class _PagamentoState extends State<Pagamento> {
      _atualizaPosPagamento(_valorPago);
     }// caso o valor não seja válido mensagem de erro
     else{
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Não foi possivel pagar, tente novamente!"),
-          backgroundColor: Colors.redAccent,
-        )
-      );
+      Mensagens().mensagem("Não foi possivel pagar, tente novamente!", true, context);
     }
   }
 

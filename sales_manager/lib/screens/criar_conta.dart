@@ -1,10 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sales_manager/components/botao.dart';
 import 'package:sales_manager/components/botao_texto.dart';
 import 'package:sales_manager/components/input.dart';
 import 'package:sales_manager/screens/login.dart';
+import 'package:sales_manager/util/autenticacao.dart';
+import 'package:sales_manager/util/mensagens.dart';
 
 class CriarConta extends StatefulWidget {
   const CriarConta({Key? key}) : super(key: key);
@@ -19,17 +20,10 @@ class _CriarContaState extends State<CriarConta> {
   final _senha = TextEditingController();
   final _usuario = TextEditingController();
   final firebaseAuth = FirebaseAuth.instance;
-  final db = FirebaseFirestore.instance;
 
   void _proximaTela() async {
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text("Cadastrado com sucesso!"),
-        backgroundColor: Colors.greenAccent,
-        duration: Duration(seconds: 1),
-      )
-    );
+    Mensagens().mensagemCronometrada("Cadastrado com sucesso!", false, context);
 
     await Future.delayed(const Duration(milliseconds: 1500), () {
       Navigator.pushAndRemoveUntil<void>(
@@ -43,82 +37,42 @@ class _CriarContaState extends State<CriarConta> {
   _registrar() async{
 
     if(_email.text == '' && _senha.text == '' && _usuario.text == ''){
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Todos os campos vazios!"),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
+      Mensagens().mensagem("Todos os campos vazios!", true, context);
 
       return;
     } else if (_email.text == '') {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("E-Mail inválido!"),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
+      Mensagens().mensagem("E-Mail inválido!", true, context);
 
       return;
     } else if (_senha.text == '') {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Senha inválida!"),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
+      Mensagens().mensagem("Senha inválida!", true, context);
 
       return;
     } else if (_usuario.text == '') {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Usuário inválido!"),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
+      Mensagens().mensagem("Usuário inválido!", true, context);
 
       return;
     }
+
+    User? usuario = await Autenticacao.criarConta(
+      context: context, 
+      email: _email.text, 
+      senha: _senha.text, 
+      usuario: _usuario.text,
+    );
     
-    try {
-
-      UserCredential userCredential = await firebaseAuth
-          .createUserWithEmailAndPassword(email: _email.text, password: _senha.text); // cadastrando usuário
-
-      userCredential.user!.updateDisplayName(_usuario.text);
-
-      db.collection("Usuários").doc(userCredential.user!.uid).set({ // adicionando informações do usuário no banco de dados
-        "Usuário": _usuario.text,
-        "Lucro": 0.0,
-        "A Receber": 0.0,
-        "Vendido": 0.0,
-        "Quantidade de Vendas": 0,
-        "Valores Deletados": 0.0
-      });
-     
+    if(usuario != null){
       _proximaTela();
-
-    } on FirebaseAuthException catch (e) {
-
-      if(e.code == 'weak-password'){
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Senha não aceita, crie uma mais forte!"),
-            backgroundColor: Colors.redAccent,
-          )
-        );
-
-      }else if(e.code == 'email-already-in-use'){
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Este e-mail já está cadastrado!"),
-            backgroundColor: Colors.redAccent,
-          )
-        );
-
-      }
-    } 
+    }
     
+  }
+
+  @override
+  void dispose(){
+    _email.dispose();
+    _senha.dispose();
+    _usuario.dispose();
+    super.dispose();
   }
 
   @override
@@ -147,20 +101,9 @@ class _CriarContaState extends State<CriarConta> {
       
                   SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                   
-                  const Text("Cadastre-se com", style: TextStyle(fontSize: 18, color: Color(0xFF734D8C))),
+                  const Text("Cadastre-se", style: TextStyle(fontSize: 18, color: Color(0xFF734D8C))),
             
                   SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-            
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children:  const [
-                  //     BotaoSocial(
-                  //         titulo: "Google", google: true, caminho: "assets/icons/google.svg"),
-                  //     BotaoSocial(
-                  //         titulo: "Facebook", google: false, caminho: "assets/icons/facebook.svg"),
-                      
-                  //   ],
-                  // ),
       
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             
