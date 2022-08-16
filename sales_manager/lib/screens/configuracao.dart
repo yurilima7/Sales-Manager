@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sales_manager/screens/editar_perfil.dart';
 import 'package:sales_manager/screens/estado_usuario.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:sales_manager/util/autenticacao.dart';
 import 'package:sales_manager/util/mensagens.dart';
 
@@ -24,8 +22,6 @@ class _ConfiguracaoState extends State<Configuracao> {
   final usuarioID =
       FirebaseAuth.instance.currentUser!.uid; // pegando id do usuário
   var usuario = FirebaseAuth.instance.currentUser;
-  final googleSignIn = GoogleSignIn();
-  final facebookAuth = FacebookAuth.instance;
 
   @override
   initState() {

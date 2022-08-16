@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sales_manager/components/botao.dart';
-import 'package:sales_manager/components/botao_texto.dart';
-import 'package:sales_manager/components/input.dart';
+import 'package:sales_manager/widgets/botao.dart';
+import 'package:sales_manager/widgets/botao_texto.dart';
+import 'package:sales_manager/widgets/input.dart';
 import 'package:sales_manager/screens/login.dart';
 import 'package:sales_manager/util/autenticacao.dart';
 import 'package:sales_manager/util/mensagens.dart';

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sales_manager/components/card_dados.dart';
+import 'package:sales_manager/widgets/card_dados.dart';
 
 class Dados extends StatefulWidget {
   

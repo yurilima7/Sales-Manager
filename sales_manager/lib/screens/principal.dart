@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sales_manager/components/botao_acesso.dart';
-import 'package:sales_manager/components/lista_recentes.dart';
+import 'package:sales_manager/widgets/botao_acesso.dart';
+import 'package:sales_manager/widgets/lista_recentes.dart';
 
 class Principal extends StatefulWidget {
   const Principal({Key? key}) : super(key: key);

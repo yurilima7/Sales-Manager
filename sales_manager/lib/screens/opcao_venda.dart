@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sales_manager/components/botao.dart';
+import 'package:sales_manager/widgets/botao.dart';
 
 class OpcaoVenda extends StatelessWidget {
   const OpcaoVenda({Key? key}) : super(key: key);

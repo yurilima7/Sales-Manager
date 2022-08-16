@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sales_manager/components/botao.dart';
-import 'package:sales_manager/components/input_formulario.dart';
+import 'package:sales_manager/widgets/botao.dart';
+import 'package:sales_manager/widgets/input_formulario.dart';
 import 'package:sales_manager/screens/adicionar_produto.dart';
 import 'package:sales_manager/util/mensagens.dart';
 
@@ -82,7 +82,7 @@ class _AdicionarClienteState extends State<AdicionarCliente> {
 
     void onChanged(String text){
       setState(() {
-        
+
       });
     }
 

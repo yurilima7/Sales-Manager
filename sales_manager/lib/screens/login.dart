@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sales_manager/components/botao.dart';
-import 'package:sales_manager/components/botao_social.dart';
-import 'package:sales_manager/components/botao_texto.dart';
-import 'package:sales_manager/components/input.dart';
+import 'package:sales_manager/widgets/botao.dart';
+import 'package:sales_manager/widgets/botao_social.dart';
+import 'package:sales_manager/widgets/botao_texto.dart';
+import 'package:sales_manager/widgets/input.dart';
 import 'package:sales_manager/screens/tap_bar_telas.dart';
 import 'package:sales_manager/util/autenticacao.dart';
+import 'package:sales_manager/util/mensagens.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -41,30 +42,15 @@ class _LoginState extends State<Login> {
   _entrar() async {
 
     if(_email.text == '' && _senha.text == ''){
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Todos os campos vazios!"),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
+      Mensagens().mensagem("Todos os campos vazios!", true, context);
 
       return;
     } else if (_email.text == '') {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("E-Mail inválido!"),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
+      Mensagens().mensagem("E-Mail inválido!", true, context);
 
       return;
     } else if (_senha.text == '') {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Senha inválida!"),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
+      Mensagens().mensagem("Senha inválida!", true, context);
 
       return;
     }
@@ -96,7 +82,7 @@ class _LoginState extends State<Login> {
     }
   }
 
-   @override
+  @override
   void dispose(){
     _email.dispose();
     _senha.dispose();

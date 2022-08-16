@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sales_manager/components/modelo_infomacional.dart';
+import 'package:sales_manager/widgets/modelo_infomacional.dart';
 import 'package:sales_manager/screens/editar_cliente.dart';
 
 class FichaCliente extends StatefulWidget {

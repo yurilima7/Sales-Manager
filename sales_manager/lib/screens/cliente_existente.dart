@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sales_manager/components/card_lista.dart';
-import 'package:sales_manager/components/pesquisa.dart';
+import 'package:sales_manager/widgets/card_lista.dart';
+import 'package:sales_manager/widgets/pesquisa.dart';
 import 'package:sales_manager/objects/cliente.dart';
 
 class ClienteExistente extends StatefulWidget {
