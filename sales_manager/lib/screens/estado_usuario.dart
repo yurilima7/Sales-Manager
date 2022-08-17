@@ -1,9 +1,8 @@
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sales_manager/screens/login.dart';
-import 'package:sales_manager/screens/tap_bar_telas.dart';
+import 'package:sales_manager/screens/principal.dart';
 
 class EstadoUsuario extends StatefulWidget {
   const EstadoUsuario({Key? key}) : super(key: key);
@@ -35,7 +34,7 @@ class _EstadoUsuarioState extends State<EstadoUsuario> {
       if (user == null) {
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Login()), (route) => false);
       } else {
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const PercorreTelas()), (route) => false);
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Principal()), (route) => false);
       }
     });
   }

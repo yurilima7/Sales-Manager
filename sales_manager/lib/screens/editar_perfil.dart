@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sales_manager/screens/principal.dart';
 import 'package:sales_manager/widgets/botao.dart';
 import 'package:sales_manager/widgets/editar_dados.dart';
-import 'package:sales_manager/screens/tap_bar_telas.dart';
 import 'package:sales_manager/util/mensagens.dart';
 
 class EditarPerfil extends StatefulWidget {
@@ -24,7 +24,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
 
   _proximaTela(){
     Navigator.pushAndRemoveUntil(
-      context, MaterialPageRoute<void>(builder: (BuildContext context) => const PercorreTelas()), 
+      context, MaterialPageRoute<void>(builder: (BuildContext context) => const Principal()), 
       (route) => false);
   }
 

@@ -12,54 +12,44 @@ class CardLista extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+
+    _proximaTela(){
+      selecionaProduto
+        ?
+          Navigator.push(
+          context, 
+          MaterialPageRoute<void>(builder: (BuildContext context) => 
+            SelecionaProduto(nomeCliente: nome, idCliente: id, divida: valor))
+          )
+        :
+          Navigator.push(
+          context, 
+          MaterialPageRoute<void>(builder: (BuildContext context) => 
+            AdicionarProduto(nome: nome, clienteExistente: true, divida: valor))
+          );
+    }
+
+    return GestureDetector(
+      onTap: _proximaTela,
+
       child: Card(
         color: const Color(0xFF6D3F8C),
         elevation: 3,
         
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         
-        child: ElevatedButton(
-
-          onPressed: () { 
-            selecionaProduto
-            ?
-              Navigator.push(
-              context, 
-              MaterialPageRoute<void>(builder: (BuildContext context) => 
-                SelecionaProduto(nomeCliente: nome, idCliente: id, divida: valor))
-              )
-            :
-              Navigator.push(
-              context, 
-              MaterialPageRoute<void>(builder: (BuildContext context) => 
-                AdicionarProduto(nome: nome, clienteExistente: true, divida: valor))
-              );
-          },
-
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-            elevation: 3,
+        child: Container(
+          padding: EdgeInsets.only(
+            left: 20, 
+            right: 20, 
+            top: MediaQuery.of(context).size.height * 0.001, 
+            bottom: MediaQuery.of(context).size.height * 0.001,
           ),
-
-          child: Padding(
-            padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
-            
-            child: Column(
-              
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  
-                  children:  [
-                    Text(nome, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
-            
-                    Text("R\$ $valor", style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
-                    
-                  ],
-                ),
-              ],
-            ),
+    
+          child: ListTile(
+            title: Text(nome, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+        
+            trailing: Text("R\$ $valor", style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
           ),
         ),
       ),

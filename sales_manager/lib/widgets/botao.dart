@@ -34,7 +34,7 @@ class Botao extends StatelessWidget {
           }
           
         },
-        child: Text(titulo),
+        child: Text(titulo, textAlign: TextAlign.center),
       ),
     );
   }

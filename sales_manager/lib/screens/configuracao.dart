@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sales_manager/screens/editar_perfil.dart';
 import 'package:sales_manager/screens/estado_usuario.dart';
+import 'package:sales_manager/widgets/tap_bar_telas.dart';
 import 'package:sales_manager/util/autenticacao.dart';
 import 'package:sales_manager/util/mensagens.dart';
 
@@ -139,67 +140,71 @@ class _ConfiguracaoState extends State<Configuracao> {
   @override
   Widget build(BuildContext context) {
 
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-
-        children: [
-
-          Expanded(
-            flex: 1,
-
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+    
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+    
+          children: [
+    
+            Expanded(
+              flex: 1,
+    
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                
+                children: [
+            
+                  Ink(
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.007),
+                    
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
               
-              children: [
-          
-                Ink(
-                  padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.007),
-                  
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-            
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 5
-                      )
-                    ]
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 5
+                        )
+                      ]
+                    ),
+              
+                    child: const Icon(
+                      Icons.person,
+                      color: Color(0xFF734D8C),
+                    ),
                   ),
-            
-                  child: const Icon(
-                    Icons.person,
-                    color: Color(0xFF734D8C),
-                  ),
-                ),
-            
-                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                Text(_nomeUsuario, style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
-              ],
+              
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                  Text(_nomeUsuario, style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
+                ],
+              ),
             ),
-          ),
-
-          Expanded(
-            flex: 5,
-
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-
-              children: [
-                opcoes("Editar perfil", _alteraPerfil),
-                opcoes("Reiniciar dados", _restaurar),
-                opcoes("Deletar sua conta", _encerraConta),
-                opcoes("LOGOUT", _sair),
-              ],
+    
+            Expanded(
+              flex: 5,
+    
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+    
+                children: [
+                  opcoes("Editar perfil", _alteraPerfil),
+                  opcoes("Reiniciar dados", _restaurar),
+                  opcoes("Deletar sua conta", _encerraConta),
+                  opcoes("LOGOUT", _sair),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
+
+      bottomNavigationBar: const TabBarInferior(telaAtual: 2),
     );
   }
 }

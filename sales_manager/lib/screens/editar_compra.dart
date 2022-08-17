@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sales_manager/screens/principal.dart';
 import 'package:sales_manager/widgets/botao.dart';
 import 'package:sales_manager/widgets/editar_dados.dart';
 import 'package:sales_manager/widgets/insere_data.dart';
-import 'package:sales_manager/screens/tap_bar_telas.dart';
 import 'package:sales_manager/util/mensagens.dart';
 
 class EditarCompra extends StatefulWidget {
@@ -64,11 +64,11 @@ class _EditarCompraState extends State<EditarCompra> {
 
     void _proximaTela() async {
 
-      Navigator.push(
+      Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute<void>(builder: (BuildContext context) => 
-          const PercorreTelas()
-      ));
+          const Principal()
+      ),(route) => false,);
     }
 
     _editandoDados() async {
@@ -105,8 +105,8 @@ class _EditarCompraState extends State<EditarCompra> {
         .doc(widget.idCliente).collection("Produtos").doc(widget.idProduto).update({ // atualizando informações do produto no banco de dados
         "Nome": nome,
         "Data": data,
-        "Endereço": preco,
         "Quantidade": quantidade,
+        "Preço": preco,
         "Total": preco! * quantidade!,
       });
 

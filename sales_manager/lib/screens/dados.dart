@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sales_manager/widgets/tap_bar_telas.dart';
 import 'package:sales_manager/widgets/card_dados.dart';
 
 class Dados extends StatefulWidget {
@@ -51,40 +52,44 @@ class _DadosState extends State<Dados> {
   @override
   Widget build(BuildContext context) {
 
-    return Padding(
-      padding: const EdgeInsets.all(20),
-
-      child: Column(
-
-        children: [
-          Expanded(
-            flex: 1,
-
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-          
-              children: const [
-                Text("Detalhes", style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
-              ],
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+    
+        child: Column(
+    
+          children: [
+            Expanded(
+              flex: 1,
+    
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+            
+                children: const [
+                  Text("Detalhes", style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
+                ],
+              ),
             ),
-          ),
-
-          Expanded(
-            flex: 9,
-
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-              children: [
-                CardDados(nome: "Vendido", valor: _vendido),
-                CardDados(nome: "Lucro", valor: _lucro),
-                CardDados(nome: "A Receber", valor: _aReceber),
-              ],
+    
+            Expanded(
+              flex: 9,
+    
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    
+                children: [
+                  CardDados(nome: "Vendido", valor: _vendido),
+                  CardDados(nome: "Lucro", valor: _lucro),
+                  CardDados(nome: "A Receber", valor: _aReceber),
+                ],
+              ),
             ),
-          ),
-
-        ],
+    
+          ],
+        ),
       ),
+
+      bottomNavigationBar: const TabBarInferior(telaAtual: 1),
     );
   }
 }

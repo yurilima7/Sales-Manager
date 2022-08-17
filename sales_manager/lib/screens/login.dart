@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sales_manager/screens/principal.dart';
 import 'package:sales_manager/widgets/botao.dart';
 import 'package:sales_manager/widgets/botao_social.dart';
 import 'package:sales_manager/widgets/botao_texto.dart';
 import 'package:sales_manager/widgets/input.dart';
-import 'package:sales_manager/screens/tap_bar_telas.dart';
 import 'package:sales_manager/util/autenticacao.dart';
 import 'package:sales_manager/util/mensagens.dart';
 
@@ -27,7 +27,7 @@ class _LoginState extends State<Login> {
     await Future.delayed(const Duration(milliseconds: 1500), (() {
       Navigator.pushAndRemoveUntil<void>(
         context,
-        MaterialPageRoute<void>(builder: (BuildContext context) => const PercorreTelas()),
+        MaterialPageRoute<void>(builder: (BuildContext context) => const Principal()),
         (route) => false,
       );
     }));  

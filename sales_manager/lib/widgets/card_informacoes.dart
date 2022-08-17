@@ -26,12 +26,11 @@ class ModeloInfo extends StatelessWidget {
       FirebaseAuth.instance.currentUser!.uid; // pegando id do usuário
 
     void _editarCompra(){
-      Navigator.pushAndRemoveUntil(
+      Navigator.push(
         context, 
         MaterialPageRoute<void>(builder: (BuildContext context) => 
           EditarCompra(nome: nome, data: data, idProduto: idProduto, idCliente: idCliente, 
               idUsuario: idUsuario, preco: valor, saldoDevedor: saldoDevedor, quantidadeAnterior: quantidade)), 
-        (route) => false,
       );
     }
 
@@ -57,68 +56,64 @@ class ModeloInfo extends StatelessWidget {
       await db.collection("Usuários").doc(usuarioID.toString()).collection("Últimas Vendas").doc(idCliente).delete();
     }
 
-    return SizedBox(
-       height: MediaQuery.of(context).size.height * 0.22, // altura do card
+    return Card(
+      elevation: 3,
+      color: const Color(0xFF6D3F8C),
 
-      child: Card(
-        elevation: 3,
-        color: const Color(0xFF6D3F8C),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
 
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+      child: Container(
+        padding: const EdgeInsets.all(10), // afastamento
 
-        child: Container(
-          padding: const EdgeInsets.all(10), // afastamento
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
 
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ListTile(
 
-            children: [
-              ListTile(
+              title: Row(                 
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-                title: Row(                 
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(nome, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
 
-                  children: [
-                    Text(nome, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
-
-                    IconButton(
-                      onPressed: () => {
-                        _deletaProduto(),
-                         Mensagens().mensagem("Compra deletada com sucesso!", false, context),
-                      }, 
-                      alignment: Alignment.topCenter,
-                      icon: const Icon(Icons.delete, color: Colors.white),
-                    ),
-                  ],
-                ),
-
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-
-                  children: [
-                    const Divider(color: Colors.white),
-
-                    Text("Data: ${DateFormat('dd/MM/y').format(data)}", style: const TextStyle(color: Colors.white, fontSize: 16)),
-                    Text("Quantidade: $quantidade", style: const TextStyle(color: Colors.white, fontSize: 16)),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                      children: [
-                        Text("Unidade: R\$ $valor", style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
-
-                        IconButton(
-                          onPressed: () => _editarCompra(), 
-                          alignment: Alignment.topCenter,
-                          icon: const Icon(Icons.edit, color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                  IconButton(
+                    onPressed: () => {
+                      _deletaProduto(),
+                       Mensagens().mensagem("Compra deletada com sucesso!", false, context),
+                    }, 
+                    alignment: Alignment.topCenter,
+                    icon: const Icon(Icons.delete, color: Colors.white),
+                  ),
+                ],
               ),
-            ],
-          ),
+
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+
+                children: [
+                  const Divider(color: Colors.white),
+
+                  Text("Data: ${DateFormat('dd/MM/y').format(data)}", style: const TextStyle(color: Colors.white, fontSize: 16)),
+                  Text("Quantidade: $quantidade", style: const TextStyle(color: Colors.white, fontSize: 16)),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                    children: [
+                      Text("Unidade: R\$ $valor", style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+
+                      IconButton(
+                        onPressed: () => _editarCompra(), 
+                        alignment: Alignment.topCenter,
+                        icon: const Icon(Icons.edit, color: Colors.white),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

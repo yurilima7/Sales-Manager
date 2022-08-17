@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sales_manager/screens/principal.dart';
 import 'package:sales_manager/widgets/botao.dart';
 import 'package:sales_manager/widgets/input_formulario.dart';
 import 'package:sales_manager/widgets/insere_data.dart';
-import 'package:sales_manager/screens/tap_bar_telas.dart';
 import 'package:sales_manager/util/mensagens.dart';
 
 class AdicionarProduto extends StatefulWidget {
@@ -93,7 +93,7 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
 
     Navigator.pushAndRemoveUntil<void>(
       context,
-      MaterialPageRoute<void>(builder: (BuildContext context) => const PercorreTelas()),
+      MaterialPageRoute<void>(builder: (BuildContext context) => const Principal()),
       (route) => false,
     );
   }
