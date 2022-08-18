@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sales_manager/objects/produto.dart';
 import 'package:sales_manager/screens/pagamento.dart';
+import 'package:sales_manager/util/formato_numero.dart';
 
 class ClienteSimples extends StatelessWidget {
   final Produto produtos;
@@ -57,7 +58,7 @@ class ClienteSimples extends StatelessWidget {
                     ),
                 
                     Text(
-                      "R\$ ${produtos.preco}", 
+                      produtos.exibePreco(), 
                       style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -75,7 +76,7 @@ class ClienteSimples extends StatelessWidget {
                     ),
                 
                     Text(
-                      "Restam: R\$ $totalCompra",
+                      "Restam: ${FormatoNumero().formatoBR(totalCompra)}",
                       style: const TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ],

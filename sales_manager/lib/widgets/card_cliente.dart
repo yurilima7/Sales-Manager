@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sales_manager/screens/ficha_cliente.dart';
+import 'package:sales_manager/util/formato_numero.dart';
 
 class CardCliente extends StatelessWidget {
 
@@ -79,7 +80,7 @@ class CardCliente extends StatelessWidget {
                 
                       children: [
                         const Text("Saldo Devedor", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
-                        Text("R\$ $divida", style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                        Text(FormatoNumero().formatoBR(divida), style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
                       ],
                     )
                   ],

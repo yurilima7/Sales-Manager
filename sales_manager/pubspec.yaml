@@ -29,7 +29,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  flutter_localizations:
+    sdk: flutter
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -43,6 +44,23 @@ dependencies:
   intl: ^0.17.0
   google_sign_in: ^5.4.1
   flutter_facebook_auth: ^4.4.1
+  flutter_native_splash: ^2.2.7
+  flutter_launcher_icons: "^0.10.0"
+  flutter_masked_text: ^0.8.0
+
+flutter_native_splash:
+  color: "#E7DCF2"
+  image: "assets/app/splash.png"
+  android: true
+  ios: true
+
+flutter_icons:
+  image_path: "assets/app/icon.png"
+  ios: true
+  remove_alpha_ios: true
+  android: "launcher_icon"
+  adaptive_icon_background: "#E7DCF2"
+  adaptive_icon_foreground: "assets/app/icon android.png"
 
 dev_dependencies:
   flutter_test:
@@ -68,7 +86,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/sales manager.png
+    - assets/images/sales manager.svg
     - assets/icons/google.svg
     - assets/icons/facebook.svg
     - assets/icons/carteira.svg

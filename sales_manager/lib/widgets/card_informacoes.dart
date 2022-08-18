@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sales_manager/screens/editar_compra.dart';
+import 'package:sales_manager/util/formato_numero.dart';
 import 'package:sales_manager/util/mensagens.dart';
 
 class ModeloInfo extends StatelessWidget {
@@ -101,7 +102,7 @@ class ModeloInfo extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
                     children: [
-                      Text("Unidade: R\$ $valor", style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                      Text("Unidade: ${FormatoNumero().formatoBR(valor)}", style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
 
                       IconButton(
                         onPressed: () => _editarCompra(), 

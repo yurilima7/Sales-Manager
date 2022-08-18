@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sales_manager/screens/adicionar_cliente.dart';
 import 'package:sales_manager/screens/adicionar_pagamentos.dart';
 import 'package:sales_manager/screens/cliente_existente.dart';
@@ -31,6 +32,13 @@ class SalesManager extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [Locale('pt', 'BR')],
+      
       debugShowCheckedModeBanner: false,
       theme: tema.copyWith(
 

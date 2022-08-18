@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sales_manager/screens/principal.dart';
 import 'package:sales_manager/widgets/botao.dart';
 import 'package:sales_manager/widgets/botao_social.dart';
@@ -100,12 +101,11 @@ class _LoginState extends State<Login> {
               
               child: Column(
                 children: [
-                  Image.asset(
-                    'assets/images/sales manager.png',
-                     width: MediaQuery.of(context).size.width * 0.3,
+                  SvgPicture.asset(
+                    'assets/images/sales manager.svg',
+                    height: MediaQuery.of(context).size.height * 0.15,
+                    allowDrawingOutsideViewBox: true,
                   ),
-                  
-                  const Text("SALES MANAGER", style: TextStyle(fontSize: 20, fontFamily: 'Audiowide-Regular', color: Color(0xFF6D3F8C))),
       
                   SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                   

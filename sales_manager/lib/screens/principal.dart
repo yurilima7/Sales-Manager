@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sales_manager/util/formato_numero.dart';
 import 'package:sales_manager/widgets/tap_bar_telas.dart';
 import 'package:sales_manager/widgets/botao_acesso.dart';
 import 'package:sales_manager/widgets/lista_recentes.dart';
@@ -104,7 +105,7 @@ class _PrincipalState extends State<Principal> {
                               children:  [
                                 const Text("Vendido", style: TextStyle(color: Colors.white, fontSize: 16)),
                                 const SizedBox(height: 2),
-                                Text("R\$ $_vendido", style: const TextStyle(color: Colors.white, fontSize: 16)),
+                                Text(FormatoNumero().formatoBR(_vendido), style: const TextStyle(color: Colors.white, fontSize: 16)),
                               ],
                             ),
                                       

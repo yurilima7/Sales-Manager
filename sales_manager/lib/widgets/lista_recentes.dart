@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sales_manager/util/formato_numero.dart';
 
 class ListaRecentes extends StatelessWidget {
   final String cliente;
@@ -32,7 +33,7 @@ class ListaRecentes extends StatelessWidget {
         ),
         
         Text(
-          "R\$ $valor",
+          FormatoNumero().formatoBR(valor),
           
           style: const TextStyle(
             color: Color(0xFF6D3F8C),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CardDados extends StatelessWidget {
   final String nome;
@@ -27,7 +28,7 @@ class CardDados extends StatelessWidget {
           
           title: Text(nome, style: const TextStyle(color: Colors.white, fontSize: 16)),
         
-          trailing: Text("R\$ $valor", style: const TextStyle(color: Colors.white, fontSize: 16)),
+          trailing: Text(NumberFormat.simpleCurrency(locale: 'pt_BR').format(valor), style: const TextStyle(color: Colors.white, fontSize: 16)),
         ),
       ),
     );

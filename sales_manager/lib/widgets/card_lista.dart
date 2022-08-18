@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sales_manager/screens/adicionar_produto.dart';
 import 'package:sales_manager/screens/seleciona_compra.dart';
+import 'package:sales_manager/util/formato_numero.dart';
 
 class CardLista extends StatelessWidget {
   final String nome, id;
@@ -49,7 +50,7 @@ class CardLista extends StatelessWidget {
           child: ListTile(
             title: Text(nome, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
         
-            trailing: Text("R\$ $valor", style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+            trailing: Text(FormatoNumero().formatoBR(valor), style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
           ),
         ),
       ),
