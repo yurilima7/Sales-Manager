@@ -8,13 +8,16 @@ import 'package:sales_manager/util/mensagens.dart';
 
 class EditarCompra extends StatefulWidget {
 
-  final String nome, idProduto, idCliente, idUsuario;
+  final String nome, idProduto, idCliente, idUsuario ;
   final DateTime data;
   final double preco, saldoDevedor;
-  final int quantidadeAnterior;
+  final int quantidadeAnterior, idVenda;
 
-  const EditarCompra({Key? key, required this.nome, required this.data, required this.idProduto, required this.idCliente, 
-    required this.idUsuario, required this.preco, required this.quantidadeAnterior, required this.saldoDevedor}) : super(key: key);
+  const EditarCompra({Key? key, required this.nome, required this.data, 
+    required this.idProduto, required this.idCliente, 
+    required this.idUsuario, required this.preco, 
+    required this.quantidadeAnterior, required this.saldoDevedor,
+    required this.idVenda}) : super(key: key);
 
   @override
   State<EditarCompra> createState() => _EditarCompraState();
@@ -101,7 +104,7 @@ class _EditarCompraState extends State<EditarCompra> {
         return;
       }
 
-      db.collection("Usuários").doc(widget.idUsuario).collection("Clientes")
+      await db.collection("Usuários").doc(widget.idUsuario).collection("Clientes")
         .doc(widget.idCliente).collection("Produtos").doc(widget.idProduto).update({ // atualizando informações do produto no banco de dados
         "Nome": nome,
         "Data": data,
@@ -110,19 +113,29 @@ class _EditarCompraState extends State<EditarCompra> {
         "Total": preco! * quantidade!,
       });
 
-      db.collection("Usuários").doc(widget.idUsuario).collection("Clientes")
+      await db.collection("Usuários").doc(widget.idUsuario).collection("Clientes")
         .doc(widget.idCliente).update({
           "Saldo Devedor": (widget.saldoDevedor - (widget.preco * widget.quantidadeAnterior)) + preco * quantidade,
       });
 
-      db.collection("Usuários").doc(widget.idUsuario).update({
+      await db.collection("Usuários").doc(widget.idUsuario).update({
         "A Receber": (_aReceber - (widget.preco * widget.quantidadeAnterior)) + preco * quantidade,
         "Vendido": (_totalVendido  - (widget.preco * widget.quantidadeAnterior)) + preco * quantidade,
       });
 
-      db.collection("Usuários").doc(widget.idUsuario).collection("Últimas Vendas").doc(widget.idCliente).update({
-        "Produto": nome,
-        "Preço": preco,
+            
+      await db.collection("Usuários").doc(widget.idUsuario).collection("Últimas Vendas").orderBy("Id", descending: true).get()
+      .then((QuerySnapshot snapshot) => {
+        for(var doc in snapshot.docs){
+  
+          if(doc["Id"] == widget.idVenda){
+            db.collection("Usuários").doc(widget.idUsuario).collection("Últimas Vendas")
+            .doc(doc.id).update({
+              "Produto": nome,
+              "Preço": preco,
+            }),
+          }
+        }
       });
 
       _proximaTela();

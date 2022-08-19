@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sales_manager/screens/principal.dart';
 import 'package:sales_manager/widgets/botao.dart';
 import 'package:sales_manager/widgets/editar_dados.dart';
-import 'package:sales_manager/screens/ficha_cliente.dart';
 import 'package:sales_manager/util/mensagens.dart';
 
 class EditarCliente extends StatefulWidget {
@@ -30,11 +30,10 @@ class _EditarClienteState extends State<EditarCliente> {
 
     void _proximaTela(String nome, String idCliente, double saldoDevedor, String bairro, String rua, String telefone) async {
 
-      Navigator.push(
+      Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute<void>(builder: (BuildContext context) => 
-          FichaCliente(idCliente: idCliente, nome: nome, saldoDevedor: saldoDevedor, 
-          bairro: bairro, rua: rua, telefone: telefone)),
+          const Principal()),(route) => false,
       );
     }
 
@@ -74,7 +73,7 @@ class _EditarClienteState extends State<EditarCliente> {
         return;
       }
 
-      db.collection("Usuários").doc(usuarioID.toString()).collection("Clientes")
+      await db.collection("Usuários").doc(usuarioID.toString()).collection("Clientes")
         .doc(widget.idCliente).update({ // atualizando informações do cliente no banco de dados
         "Nome": nome,
         "Bairro": bairro,
@@ -83,8 +82,17 @@ class _EditarClienteState extends State<EditarCliente> {
         "Saldo Devedor": widget.divida
       });
 
-      db.collection("Usuários").doc(usuarioID).collection("Últimas Vendas").doc(widget.idCliente).update({
-        "Nome": nome
+      await db.collection("Usuários").doc(usuarioID).collection("Últimas Vendas").orderBy("Id", descending: true).get()
+      .then((QuerySnapshot snapshot) => {
+        for(var doc in snapshot.docs){
+  
+          if(doc["Cliente Id"] == widget.idCliente){
+            db.collection("Usuários").doc(usuarioID).collection("Últimas Vendas")
+            .doc(doc.id).update({
+              "Nome": nome,
+            }),
+          }
+        }
       });
 
       _proximaTela(nome, widget.idCliente, widget.divida , bairro, endereco, telefone);

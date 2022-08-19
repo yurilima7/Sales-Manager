@@ -10,7 +10,7 @@ class CardCliente extends StatelessWidget {
   final String rua;
   final double divida;
   final String id;
-  final void Function(String, double) funcao;
+  final void Function(String, double, String) funcao;
   
   const CardCliente({Key? key, required this.nome, required this.telefone, required this.bairro
     , required this.rua, required this.divida, required this.id, required this.funcao}) 
@@ -54,7 +54,7 @@ class CardCliente extends StatelessWidget {
                     Text(nome, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
         
                     IconButton(
-                      onPressed: () => funcao(id, divida), 
+                      onPressed: () => funcao(id, divida, nome), 
                       alignment:  Alignment.topCenter,
                       icon: const Icon(Icons.delete, color: Colors.white),
                     ),

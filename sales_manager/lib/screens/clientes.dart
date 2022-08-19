@@ -107,7 +107,7 @@ class _ClientesState extends State<Clientes> {
   }
 
   // função que deleta o cliente do banco
-  void _deleta(String idCliente, double divida) async { 
+  void _deleta(String idCliente, double divida, String nome) async { 
     // deletando o cliente
     await db.collection("Usuários").doc(usuarioID).collection("Clientes").doc(idCliente).delete().then(
       (doc) => {
@@ -120,7 +120,15 @@ class _ClientesState extends State<Clientes> {
           }
         ),
         // venda reccente feita para o cliente
-        db.collection("Usuários").doc(usuarioID).collection("Últimas Vendas").doc(idCliente).delete(),
+        db.collection("Usuários").doc(usuarioID).collection("Últimas Vendas").get()
+        .then((QuerySnapshot snapshot) => {
+          for(var doc in snapshot.docs){
+
+            if(doc["Nome"] == nome && doc["Cliente Id"] == idCliente){
+              doc.reference.delete(),
+            }
+          }
+        }),
         // atualizando dados do usuário
         db.collection("Usuários").doc(usuarioID.toString()).update({
           "A Receber": _aReceber - divida,

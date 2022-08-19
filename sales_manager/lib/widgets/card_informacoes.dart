@@ -11,12 +11,13 @@ class ModeloInfo extends StatelessWidget {
   final String idUsuario;
   final DateTime data;
   final double valor, saldoDevedor, aReceber, deletados, vendido;
-  final int quantidade;
+  final int quantidade, idVenda;
   
   const ModeloInfo({Key? key, required this.nome, required this.data, required this.valor
   , required this.idCliente, required this.idProduto
   , required this.idUsuario, required this.saldoDevedor, required this.quantidade
-  , required this.aReceber, required this.deletados, required this.vendido}) 
+  , required this.aReceber, required this.deletados, required this.vendido
+  , required this.idVenda}) 
   : super(key: key);
 
   @override
@@ -31,11 +32,13 @@ class ModeloInfo extends StatelessWidget {
         context, 
         MaterialPageRoute<void>(builder: (BuildContext context) => 
           EditarCompra(nome: nome, data: data, idProduto: idProduto, idCliente: idCliente, 
-              idUsuario: idUsuario, preco: valor, saldoDevedor: saldoDevedor, quantidadeAnterior: quantidade)), 
+              idUsuario: idUsuario, preco: valor, saldoDevedor: saldoDevedor, 
+              quantidadeAnterior: quantidade, idVenda: idVenda)), 
       );
     }
 
     void _deletaProduto() async{
+      bool deletou = false;
       // deletando produto comprado
       await db.collection("Usuários").doc(usuarioID).collection("Clientes").doc(idCliente)
         .collection("Produtos").doc(idProduto).delete();
@@ -54,7 +57,17 @@ class ModeloInfo extends StatelessWidget {
       });
 
       // deletando das vendas feitas
-      await db.collection("Usuários").doc(usuarioID.toString()).collection("Últimas Vendas").doc(idCliente).delete();
+      await db.collection("Usuários").doc(usuarioID).collection("Últimas Vendas").orderBy("Id", descending: true).get()
+      .then((QuerySnapshot snapshot) => {
+        for(var doc in snapshot.docs){
+  
+          if(doc["Produto"] == nome && doc["Cliente Id"] == idCliente 
+            && doc["Preço"] == valor && deletou == false){
+            doc.reference.delete(),
+            deletou = true,
+          }
+        }
+      });
     }
 
     return Card(

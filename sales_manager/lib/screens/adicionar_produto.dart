@@ -101,14 +101,14 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
   void _atualizaDivida(double preco, int quantidade) async{
       if(widget.clienteExistente == true){
         // adicionando o campo de divida do cliente
-        db.collection("Usuários").doc(usuarioID.toString()).collection("Clientes") 
+        db.collection("Usuários").doc(usuarioID).collection("Clientes") 
           .doc(_idCliente).update({
             "Saldo Devedor": widget.divida + (preco * quantidade),
         });
       }
       else{
         // adicionando o campo de divida do cliente
-        db.collection("Usuários").doc(usuarioID.toString()).collection("Clientes") 
+        db.collection("Usuários").doc(usuarioID).collection("Clientes") 
           .doc(_idCliente).update({
             "Saldo Devedor": preco * quantidade,
         });
@@ -145,29 +145,31 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
       return;
     }
     // adicionando informações da compra no banco de dados
-    db.collection("Usuários").doc(usuarioID.toString()).collection("Clientes")
+    await db.collection("Usuários").doc(usuarioID.toString()).collection("Clientes")
       .doc(_idCliente).collection("Produtos").add({ 
       "Nome": nome,
       "Data": data,
       "Preço": preco,
       "Quantidade": quantidade,
-      "Total": preco! * quantidade!
+      "Total": preco! * quantidade!,
+      "Id": _qtdVenda + 1,
     });
     
     _atualizaDivida(preco, quantidade);
 
     // Atualizando informações sobre os ganhos do usuário
-    db.collection("Usuários").doc(usuarioID.toString()).update({ 
+    await db.collection("Usuários").doc(usuarioID.toString()).update({ 
       "A Receber": _aReceber + (preco * quantidade),
       "Quantidade de Vendas": _qtdVenda + 1,
       "Vendido": _totalVendido + (preco * quantidade),
     });
     // Adicionando uma coleção que conta com informações sobre últimas vendas
-    db.collection("Usuários").doc(usuarioID.toString()).collection("Últimas Vendas").doc(_idCliente).set({
+    await db.collection("Usuários").doc(usuarioID).collection("Últimas Vendas").add({
       "Nome": widget.nome,
       "Produto": nome,
       "Preço": preco,
-      "Id": _qtdVenda + 1 
+      "Id": _qtdVenda + 1, 
+      "Cliente Id": _idCliente,
     });
 
     _proximaTela();

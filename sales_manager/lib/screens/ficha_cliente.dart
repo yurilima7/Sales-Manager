@@ -131,7 +131,7 @@ class _FichaClienteState extends State<FichaCliente> {
                         return ModeloInfo(nome: doc.data()["Nome"], data: doc.data()["Data"].toDate(), valor: doc.data()["Preço"] as double
                             , idCliente: widget.idCliente, idProduto: doc.id, idUsuario: usuarioID
                             , saldoDevedor: widget.saldoDevedor, quantidade: doc.data()["Quantidade"]
-                            , aReceber: _aReceber, deletados: _valoresDeletados, vendido: _vendido);
+                            , aReceber: _aReceber, deletados: _valoresDeletados, vendido: _vendido, idVenda: doc.data()["Id"]);
                       }).toList(),
                     );
                   }
