@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sales_manager/mascaras/mascara_preco.dart';
+import 'package:sales_manager/mascaras/mascara_telefone.dart';
 
 class InputFormulario extends StatefulWidget {
   final String label, hint;
-  final bool acaoTeclado;
+  final bool acaoTeclado, mascara, maskPreco;
   final TextEditingController controller;
   final TextInputType tipo;
   final Function(String) onChanged;
@@ -10,7 +12,7 @@ class InputFormulario extends StatefulWidget {
   const InputFormulario({
     Key? key,
     required this.label,
-    this.acaoTeclado = true,
+    this.acaoTeclado = true, this.mascara = false, this.maskPreco = false,
     this.tipo = TextInputType.text, 
     required this.controller, 
     required this.hint, required this.onChanged,
@@ -32,6 +34,9 @@ class _InputFormularioState extends State<InputFormulario> {
           controller: widget.controller,
           keyboardType: widget.tipo,
           onChanged: widget.onChanged,
+          inputFormatters: widget.mascara 
+            ? [widget.maskPreco? MaskPreco() : MaskTelefone()] 
+            : [],
 
           style: const TextStyle(
               color: Color(0xFF734D8C)), // coloração do texto digitado

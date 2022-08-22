@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sales_manager/screens/principal.dart';
+import 'package:sales_manager/util/formato_numero.dart';
 import 'package:sales_manager/widgets/botao.dart';
 import 'package:sales_manager/widgets/editar_dados.dart';
 import 'package:sales_manager/widgets/insere_data.dart';
@@ -77,7 +78,7 @@ class _EditarCompraState extends State<EditarCompra> {
     _editandoDados() async {
       final nome = _nomeControler.text;
       final data = _data;
-      final preco = double.tryParse(_precoControler.text);
+      final preco = double.tryParse(_precoControler.text.replaceAll(',', '.'));
       final quantidade = int.tryParse(_quantidadeControler.text);
 
       if(_nomeControler.text == '' && _precoControler.text == '' && _quantidadeControler.text == ''){
@@ -171,9 +172,11 @@ class _EditarCompraState extends State<EditarCompra> {
                   children: [
                     EditarDados(nome: widget.nome, texto: _nomeControler),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                    EditarDados(nome: widget.preco.toString(), texto: _precoControler),
+                    EditarDados(nome: FormatoNumero().formatoBR(widget.preco), texto: _precoControler, 
+                      mascara: true, maskPreco: true, tipo: TextInputType.number),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                    EditarDados(nome: widget.quantidadeAnterior.toString(), texto: _quantidadeControler),
+                    EditarDados(nome: widget.quantidadeAnterior.toString(), 
+                      texto: _quantidadeControler, tipo: TextInputType.number),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     InsereData(dataSelecionada: _data, onDateChanged: (novaData){
                       setState(() {

@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:sales_manager/mascaras/mascara_preco.dart';
+import 'package:sales_manager/mascaras/mascara_telefone.dart';
 
 class EditarDados extends StatefulWidget {
   final String nome;
   final TextEditingController texto;
+  final bool mascara, maskPreco;
+  final TextInputType tipo;
 
-  const EditarDados({Key? key, required this.nome, required this.texto}) : super(key: key);
+  const EditarDados({Key? key, required this.nome, required this.texto
+    , this.mascara = false, this.tipo = TextInputType.text
+    , this.maskPreco = false}) : super(key: key);
 
   @override
   State<EditarDados> createState() => _EditarDadosState();
@@ -29,10 +35,14 @@ class _EditarDadosState extends State<EditarDados> {
         elevation: 3, // elevando o input
         borderRadius: BorderRadius.circular(30.0),
 
-        child: TextField(
+        child: TextFormField(
 
           autofocus: false,
+          keyboardType: widget.tipo,
           controller: widget.texto,
+          inputFormatters: widget.mascara 
+            ? [widget.maskPreco ? MaskPreco() : MaskTelefone()]
+            : [],
 
           onChanged: (String valor) => setState(() {
             nomeAtual = valor;

@@ -46,7 +46,6 @@ dependencies:
   flutter_facebook_auth: ^4.4.1
   flutter_native_splash: ^2.2.7
   flutter_launcher_icons: "^0.10.0"
-  flutter_masked_text: ^0.8.0
 
 flutter_native_splash:
   color: "#E7DCF2"

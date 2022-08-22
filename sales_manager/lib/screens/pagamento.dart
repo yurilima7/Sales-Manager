@@ -104,7 +104,7 @@ class _PagamentoState extends State<Pagamento> {
     // atualiza o valor do pagamento
     void onChanged(String text){
       setState(() {
-        _valorPago = double.tryParse(_valorDigitado.text)!;
+        _valorPago = double.tryParse(_valorDigitado.text.replaceAll(',', '.'))!;
       });
     }
     
@@ -135,7 +135,10 @@ class _PagamentoState extends State<Pagamento> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    InputFormulario(label: "Digite o valor", hint: "Ex: 25.00",acaoTeclado: false, controller: _valorDigitado, onChanged: onChanged),
+                    InputFormulario(label: "Digite o valor", hint: "Ex: 25,00",
+                      acaoTeclado: false, controller: _valorDigitado, 
+                      onChanged: onChanged, mascara: true, maskPreco: true, 
+                      tipo: TextInputType.number),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                     Botao(titulo: "Pagar", funcaoGeral: _pagamento)
                   ],

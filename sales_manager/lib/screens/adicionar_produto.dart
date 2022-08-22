@@ -116,9 +116,10 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
   }
 
   _guardandoDados() async {
+  
     final nome = _nomeControler.text;
     final data = _data;
-    final preco = double.tryParse(_precoControler.text);
+    final preco = double.tryParse(_precoControler.text.replaceAll(',', '.'));
     final quantidade = int.tryParse(_quantidadeControler.text);
 
     if(_nomeControler.text == '' && _precoControler.text == '' && _quantidadeControler.text == ''){
@@ -184,14 +185,14 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
       });
     }
 
-    return Scaffold(
-
-      body: GestureDetector(
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-
-        child: Padding(
-          padding: const EdgeInsets.all(20),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       
+      child: Scaffold(
+    
+        body: Padding(
+          padding: const EdgeInsets.all(20),
+        
           child: SingleChildScrollView(
             reverse: true,
             child: Column(
@@ -220,9 +221,12 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     InputFormulario(
                         label: "Preço",
-                        hint: "Digite o preço, ex: 45.00",
+                        hint: "Digite o preço, ex: 45,00",
                         controller: _precoControler,
                         onChanged: onChanged,
+                        tipo: TextInputType.number,
+                        mascara: true,
+                        maskPreco: true,
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     InputFormulario(
@@ -230,6 +234,7 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
                         hint: "Digite a quantidade comprada",
                         controller: _quantidadeControler,
                         onChanged: onChanged,
+                        tipo: TextInputType.number
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     InsereData(dataSelecionada: _data, onDateChanged: (novaData){
