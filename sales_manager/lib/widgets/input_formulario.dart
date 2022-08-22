@@ -8,13 +8,14 @@ class InputFormulario extends StatefulWidget {
   final TextEditingController controller;
   final TextInputType tipo;
   final Function(String) onChanged;
+  final Function(String)? salvandoDados;
  
   const InputFormulario({
     Key? key,
     required this.label,
     this.acaoTeclado = true, this.mascara = false, this.maskPreco = false,
     this.tipo = TextInputType.text, 
-    required this.controller, 
+    required this.controller, this.salvandoDados,
     required this.hint, required this.onChanged,
   }) : super(key: key);
 
@@ -37,12 +38,13 @@ class _InputFormularioState extends State<InputFormulario> {
           inputFormatters: widget.mascara 
             ? [widget.maskPreco? MaskPreco() : MaskTelefone()] 
             : [],
+          onFieldSubmitted: widget.salvandoDados,
 
           style: const TextStyle(
               color: Color(0xFF734D8C)), // coloração do texto digitado
 
           textInputAction:
-              widget.acaoTeclado ? TextInputAction.next : TextInputAction.go,
+              widget.acaoTeclado ? TextInputAction.next : TextInputAction.done,
 
           decoration: InputDecoration(
             filled: true,

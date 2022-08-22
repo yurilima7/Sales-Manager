@@ -138,7 +138,7 @@ class _PagamentoState extends State<Pagamento> {
                     InputFormulario(label: "Digite o valor", hint: "Ex: 25,00",
                       acaoTeclado: false, controller: _valorDigitado, 
                       onChanged: onChanged, mascara: true, maskPreco: true, 
-                      tipo: TextInputType.number),
+                      tipo: TextInputType.number, salvandoDados: (_) => _pagamento()),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                     Botao(titulo: "Pagar", funcaoGeral: _pagamento)
                   ],

@@ -176,7 +176,8 @@ class _EditarCompraState extends State<EditarCompra> {
                       mascara: true, maskPreco: true, tipo: TextInputType.number),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     EditarDados(nome: widget.quantidadeAnterior.toString(), 
-                      texto: _quantidadeControler, tipo: TextInputType.number),
+                      texto: _quantidadeControler, tipo: TextInputType.number,
+                      salvandoDados: (_) => _editandoDados(), acaoTeclado: false),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     InsereData(dataSelecionada: _data, onDateChanged: (novaData){
                       setState(() {

@@ -133,7 +133,8 @@ class _EditarClienteState extends State<EditarCliente> {
                     EditarDados(nome: widget.rua, texto: _enderecoControler),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     EditarDados(nome: widget.telefone, texto: _telefoneControler, 
-                      mascara: true, tipo: TextInputType.number),
+                      mascara: true, tipo: TextInputType.number, 
+                      salvandoDados: (_) => _editandoDados(), acaoTeclado: false),
                   ],
                 ),
           

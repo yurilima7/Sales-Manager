@@ -234,7 +234,9 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
                         hint: "Digite a quantidade comprada",
                         controller: _quantidadeControler,
                         onChanged: onChanged,
-                        tipo: TextInputType.number
+                        tipo: TextInputType.number,
+                        acaoTeclado: false,
+                        salvandoDados: (_) => _guardandoDados(),
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     InsereData(dataSelecionada: _data, onDateChanged: (novaData){

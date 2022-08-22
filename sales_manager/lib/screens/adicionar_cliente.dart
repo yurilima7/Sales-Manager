@@ -121,7 +121,8 @@ class _AdicionarClienteState extends State<AdicionarCliente> {
                     InputFormulario(label: "Rua e N°", hint: "Digite o nome da rua e o número", controller: _enderecoControler, onChanged: onChanged),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     InputFormulario(label: "Telefone", hint: "Telefone", controller: _telefoneControler
-                      , onChanged: onChanged, mascara: true, tipo: TextInputType.number),
+                      , onChanged: onChanged, mascara: true, tipo: TextInputType.number
+                      , acaoTeclado: false, salvandoDados: (_) => _guardandoDados()),
 
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                       

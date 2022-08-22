@@ -70,7 +70,8 @@ class _EditarPerfilState extends State<EditarPerfil> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    EditarDados(nome: widget.nome, texto: _perfil),
+                    EditarDados(nome: widget.nome, texto: _perfil
+                      , acaoTeclado: false, salvandoDados: (_) => _editaPerfil()),
       
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                     Botao(titulo: "Salvar", desempilha: true, funcaoGeral: _editaPerfil)

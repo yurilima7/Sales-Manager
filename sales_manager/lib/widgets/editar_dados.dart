@@ -5,12 +5,14 @@ import 'package:sales_manager/mascaras/mascara_telefone.dart';
 class EditarDados extends StatefulWidget {
   final String nome;
   final TextEditingController texto;
-  final bool mascara, maskPreco;
+  final bool mascara, maskPreco, acaoTeclado;
   final TextInputType tipo;
+  final Function(String)? salvandoDados;
 
   const EditarDados({Key? key, required this.nome, required this.texto
     , this.mascara = false, this.tipo = TextInputType.text
-    , this.maskPreco = false}) : super(key: key);
+    , this.maskPreco = false, this.salvandoDados
+    , this.acaoTeclado = true}) : super(key: key);
 
   @override
   State<EditarDados> createState() => _EditarDadosState();
@@ -37,12 +39,12 @@ class _EditarDadosState extends State<EditarDados> {
 
         child: TextFormField(
 
-          autofocus: false,
           keyboardType: widget.tipo,
           controller: widget.texto,
           inputFormatters: widget.mascara 
             ? [widget.maskPreco ? MaskPreco() : MaskTelefone()]
             : [],
+          onFieldSubmitted: widget.salvandoDados,
 
           onChanged: (String valor) => setState(() {
             nomeAtual = valor;
@@ -50,6 +52,9 @@ class _EditarDadosState extends State<EditarDados> {
 
           style: const TextStyle(
               color: Color(0xFF734D8C)), // coloração do texto digitado
+
+          textInputAction:
+              widget.acaoTeclado ? TextInputAction.next : TextInputAction.done,
 
           decoration: InputDecoration(
             filled: true,
