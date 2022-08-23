@@ -177,6 +177,14 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
   }
 
   @override
+  void dispose(){
+    _nomeControler.dispose();
+    _precoControler.dispose();
+    _quantidadeControler.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     void onChanged(String text){

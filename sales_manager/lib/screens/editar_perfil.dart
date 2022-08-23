@@ -43,6 +43,12 @@ class _EditarPerfilState extends State<EditarPerfil> {
   }
 
   @override
+  void dispose(){
+    _perfil.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
 

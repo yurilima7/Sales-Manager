@@ -64,6 +64,14 @@ class _EditarCompraState extends State<EditarCompra> {
   }
 
   @override
+  void dispose(){
+    _nomeControler.dispose();
+    _precoControler.dispose();
+    _quantidadeControler.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     void _proximaTela() async {

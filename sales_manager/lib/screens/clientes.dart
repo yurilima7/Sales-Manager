@@ -149,6 +149,12 @@ class _ClientesState extends State<Clientes> {
   }
 
   @override
+  void dispose(){
+    _pesquisa.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // responśvel por ver cada letra digitada
     void onChanged(String text){

@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 class Input extends StatefulWidget {
   final String label, hint;
   final bool senha;
-  final bool usuario;
+  final bool usuario, acaoTeclado;
   final TextEditingController controller;
+  final TextInputType tipo;
+  final Function(String)? prossegue;
 
-  const Input({required this.label, this.usuario = false, this.senha = false, Key? key, required this.controller, required this.hint})
-      : super(key: key);
+  const Input({required this.label, this.usuario = false, this.senha = false
+    , this.tipo = TextInputType.text, this.acaoTeclado = true
+    , Key? key, required this.controller, required this.hint, this.prossegue})
+    : super(key: key);
 
   @override
   State<Input> createState() => _InputState();
@@ -35,6 +39,11 @@ class _InputState extends State<Input> {
                 ? TextInputType.text
                 : TextInputType
                     .emailAddress, // definindo o tipo de teclado com base no tipo de entrada
+
+        onFieldSubmitted: widget.prossegue,
+
+        textInputAction:
+              widget.acaoTeclado ? TextInputAction.next : TextInputAction.done,
 
         style: const TextStyle(
             color: Color(0xFF734D8C)), // coloração do texto digitado

@@ -82,6 +82,12 @@ class _ClienteExistenteState extends State<ClienteExistente> {
   }
 
   @override
+  void dispose(){
+    _pesquisa.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     void onChanged(String text){

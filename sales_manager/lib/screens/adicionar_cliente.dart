@@ -78,6 +78,15 @@ class _AdicionarClienteState extends State<AdicionarCliente> {
   }
 
   @override
+  void dispose(){
+    _nomeControler.dispose();
+    _bairroControler.dispose();
+    _enderecoControler.dispose();
+    _telefoneControler.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     void onChanged(String text){

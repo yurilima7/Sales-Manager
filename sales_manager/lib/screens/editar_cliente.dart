@@ -25,10 +25,7 @@ class _EditarClienteState extends State<EditarCliente> {
   final db = FirebaseFirestore.instance;
   final usuarioID = FirebaseAuth.instance.currentUser!.uid; // pegando id do usuário
 
-  @override
-  Widget build(BuildContext context) {
-
-    void _proximaTela(String nome, String idCliente, double saldoDevedor, String bairro, String rua, String telefone) async {
+  void _proximaTela(String nome, String idCliente, double saldoDevedor, String bairro, String rua, String telefone) async {
 
       Navigator.pushAndRemoveUntil(
         context,
@@ -97,6 +94,18 @@ class _EditarClienteState extends State<EditarCliente> {
 
       _proximaTela(nome, widget.idCliente, widget.divida , bairro, endereco, telefone);
     }
+
+    @override
+    void dispose(){
+      _nomeControler.dispose();
+      _bairroControler.dispose();
+      _enderecoControler.dispose();
+      _telefoneControler.dispose();
+      super.dispose();
+    }
+
+  @override
+  Widget build(BuildContext context) {
 
     return Scaffold(
 

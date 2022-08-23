@@ -111,7 +111,7 @@ class _LoginState extends State<Login> {
                   
                   const Text("Entre com", style: TextStyle(fontSize: 18, color: Color(0xFF734D8C))),
             
-                 SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.03),
             
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -126,12 +126,14 @@ class _LoginState extends State<Login> {
             
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             
-                  Input(label: "E-Mail", hint: "Digite seu e-mail", controller: _email), // input de inserção do e-mail
+                  Input(label: "E-Mail", hint: "Digite seu e-mail"
+                    , controller: _email), // input de inserção do e-mail
             
                   SizedBox(height: MediaQuery.of(context).size.height * 0.01),
             
-                  Input(
-                      label: "Senha", hint: "Digite sua senha", senha: true, controller: _senha), // input de inserção da senha
+                  Input(label: "Senha", hint: "Digite sua senha", senha: true
+                    , controller: _senha, prossegue: (_) => _entrar()
+                    , acaoTeclado: false), // input de inserção da senha
             
                   SizedBox(height: MediaQuery.of(context).size.height * 0.04),
             

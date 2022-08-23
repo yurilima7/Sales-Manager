@@ -100,6 +100,12 @@ class _PagamentoState extends State<Pagamento> {
   }
 
   @override
+  void dispose(){
+    _valorDigitado.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // atualiza o valor do pagamento
     void onChanged(String text){

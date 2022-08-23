@@ -51,6 +51,12 @@ class _AdicionarPagamentoState extends State<AdicionarPagamento> {
     return busca;
   }
 
+  @override
+  void dispose(){
+    _pesquisa.dispose();
+    super.dispose();
+  }
+
   // função que retorna um widget 
   Widget _listagem(){ 
     // retorna a mensagem de campo vázio
