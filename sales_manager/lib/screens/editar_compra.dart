@@ -11,14 +11,14 @@ class EditarCompra extends StatefulWidget {
 
   final String nome, idProduto, idCliente, idUsuario ;
   final DateTime data;
-  final double preco, saldoDevedor;
+  final double preco, saldoDevedor, totalAtual;
   final int quantidadeAnterior, idVenda;
 
   const EditarCompra({Key? key, required this.nome, required this.data, 
     required this.idProduto, required this.idCliente, 
     required this.idUsuario, required this.preco, 
     required this.quantidadeAnterior, required this.saldoDevedor,
-    required this.idVenda}) : super(key: key);
+    required this.idVenda, required this.totalAtual}) : super(key: key);
 
   @override
   State<EditarCompra> createState() => _EditarCompraState();
@@ -111,7 +111,7 @@ class _EditarCompraState extends State<EditarCompra> {
         "Data": data,
         "Quantidade": quantidade,
         "Preço": preco,
-        "Total": preco! * quantidade!,
+        "Total": widget.totalAtual + ((preco! * quantidade!) - (widget.preco * widget.quantidadeAnterior)),
       });
 
       await db.collection("Usuários").doc(widget.idUsuario).collection("Clientes")

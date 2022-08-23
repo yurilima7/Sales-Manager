@@ -10,14 +10,14 @@ class ModeloInfo extends StatelessWidget {
   final String nome, idCliente, idProduto;
   final String idUsuario;
   final DateTime data;
-  final double valor, saldoDevedor, aReceber, deletados, vendido;
+  final double valor, saldoDevedor, aReceber, deletados, vendido, totalAtual;
   final int quantidade, idVenda;
   
   const ModeloInfo({Key? key, required this.nome, required this.data, required this.valor
   , required this.idCliente, required this.idProduto
   , required this.idUsuario, required this.saldoDevedor, required this.quantidade
   , required this.aReceber, required this.deletados, required this.vendido
-  , required this.idVenda}) 
+  , required this.idVenda, required this.totalAtual}) 
   : super(key: key);
 
   @override
@@ -33,7 +33,7 @@ class ModeloInfo extends StatelessWidget {
         MaterialPageRoute<void>(builder: (BuildContext context) => 
           EditarCompra(nome: nome, data: data, idProduto: idProduto, idCliente: idCliente, 
               idUsuario: idUsuario, preco: valor, saldoDevedor: saldoDevedor, 
-              quantidadeAnterior: quantidade, idVenda: idVenda)), 
+              quantidadeAnterior: quantidade, idVenda: idVenda, totalAtual: totalAtual)), 
       );
     }
 
