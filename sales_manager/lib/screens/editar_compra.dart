@@ -63,6 +63,82 @@ class _EditarCompraState extends State<EditarCompra> {
 
   }
 
+  void _proximaTela() async {
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute<void>(builder: (BuildContext context) => 
+        const Principal()
+    ),(route) => false,);
+  }
+
+  _editandoDados() async {
+    final nome = _nomeControler.text;
+    final data = _data;
+    final preco = double.tryParse(_precoControler.text.replaceAll(',', '.'));
+    final quantidade = int.tryParse(_quantidadeControler.text);
+
+    if(_nomeControler.text == '' && _precoControler.text == '' && _quantidadeControler.text == ''){
+      Mensagens().mensagem("Todos os campos vazios!", true, context);
+
+      return;
+    }
+
+    if(_nomeControler.text == ''){
+      Mensagens().mensagem("Campo produto vazio!", true, context);
+
+      return;
+    }
+
+    if(_precoControler.text == ''){
+      Mensagens().mensagem("Campo preço vazio!", true, context);
+
+      return;
+    }
+
+    if(_quantidadeControler.text == ''){
+      Mensagens().mensagem("Campo quantidade vazio!", true, context);
+
+      return;
+    }
+
+    await db.collection("Usuários").doc(widget.idUsuario).collection("Clientes")
+      .doc(widget.idCliente).collection("Produtos").doc(widget.idProduto).update({ // atualizando informações do produto no banco de dados
+      "Nome": nome,
+      "Data": data,
+      "Quantidade": quantidade,
+      "Preço": preco,
+      "Total": widget.totalAtual + ((preco! * quantidade!) - (widget.preco * widget.quantidadeAnterior)),
+    });
+
+    await db.collection("Usuários").doc(widget.idUsuario).collection("Clientes")
+      .doc(widget.idCliente).update({
+        "Saldo Devedor": (widget.saldoDevedor - (widget.preco * widget.quantidadeAnterior)) + preco * quantidade,
+    });
+
+    await db.collection("Usuários").doc(widget.idUsuario).update({
+      "A Receber": (_aReceber - (widget.preco * widget.quantidadeAnterior)) + preco * quantidade,
+      "Vendido": (_totalVendido  - (widget.preco * widget.quantidadeAnterior)) + preco * quantidade,
+    });
+
+          
+    await db.collection("Usuários").doc(widget.idUsuario).collection("Últimas Vendas").orderBy("Id", descending: true).get()
+    .then((QuerySnapshot snapshot) => {
+      for(var doc in snapshot.docs){
+
+        if(doc["Id"] == widget.idVenda){
+          db.collection("Usuários").doc(widget.idUsuario).collection("Últimas Vendas")
+          .doc(doc.id).update({
+            "Produto": nome,
+            "Preço": preco,
+          }),
+        }
+      }
+    });
+
+    _proximaTela();
+  }
+
   @override
   void dispose(){
     _nomeControler.dispose();
@@ -73,82 +149,6 @@ class _EditarCompraState extends State<EditarCompra> {
 
   @override
   Widget build(BuildContext context) {
-
-    void _proximaTela() async {
-
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute<void>(builder: (BuildContext context) => 
-          const Principal()
-      ),(route) => false,);
-    }
-
-    _editandoDados() async {
-      final nome = _nomeControler.text;
-      final data = _data;
-      final preco = double.tryParse(_precoControler.text.replaceAll(',', '.'));
-      final quantidade = int.tryParse(_quantidadeControler.text);
-
-      if(_nomeControler.text == '' && _precoControler.text == '' && _quantidadeControler.text == ''){
-        Mensagens().mensagem("Todos os campos vazios!", true, context);
-
-        return;
-      }
-
-      if(_nomeControler.text == ''){
-        Mensagens().mensagem("Campo produto vazio!", true, context);
-
-        return;
-      }
-
-      if(_precoControler.text == ''){
-        Mensagens().mensagem("Campo preço vazio!", true, context);
-
-        return;
-      }
-
-      if(_quantidadeControler.text == ''){
-        Mensagens().mensagem("Campo quantidade vazio!", true, context);
-
-        return;
-      }
-
-      await db.collection("Usuários").doc(widget.idUsuario).collection("Clientes")
-        .doc(widget.idCliente).collection("Produtos").doc(widget.idProduto).update({ // atualizando informações do produto no banco de dados
-        "Nome": nome,
-        "Data": data,
-        "Quantidade": quantidade,
-        "Preço": preco,
-        "Total": widget.totalAtual + ((preco! * quantidade!) - (widget.preco * widget.quantidadeAnterior)),
-      });
-
-      await db.collection("Usuários").doc(widget.idUsuario).collection("Clientes")
-        .doc(widget.idCliente).update({
-          "Saldo Devedor": (widget.saldoDevedor - (widget.preco * widget.quantidadeAnterior)) + preco * quantidade,
-      });
-
-      await db.collection("Usuários").doc(widget.idUsuario).update({
-        "A Receber": (_aReceber - (widget.preco * widget.quantidadeAnterior)) + preco * quantidade,
-        "Vendido": (_totalVendido  - (widget.preco * widget.quantidadeAnterior)) + preco * quantidade,
-      });
-
-            
-      await db.collection("Usuários").doc(widget.idUsuario).collection("Últimas Vendas").orderBy("Id", descending: true).get()
-      .then((QuerySnapshot snapshot) => {
-        for(var doc in snapshot.docs){
-  
-          if(doc["Id"] == widget.idVenda){
-            db.collection("Usuários").doc(widget.idUsuario).collection("Últimas Vendas")
-            .doc(doc.id).update({
-              "Produto": nome,
-              "Preço": preco,
-            }),
-          }
-        }
-      });
-
-      _proximaTela();
-    }
 
     return Scaffold(
 
@@ -180,7 +180,7 @@ class _EditarCompraState extends State<EditarCompra> {
                   children: [
                     EditarDados(nome: widget.nome, texto: _nomeControler),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                    EditarDados(nome: FormatoNumero().formatoBR(widget.preco), texto: _precoControler, 
+                    EditarDados(nome: FormatoNumero().semSimboloBR(widget.preco), texto: _precoControler, 
                       mascara: true, maskPreco: true, tipo: TextInputType.number),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     EditarDados(nome: widget.quantidadeAnterior.toString(), 
