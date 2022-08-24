@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sales_manager/screens/estado_usuario.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,6 +11,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   runApp(SalesManager());
 }
