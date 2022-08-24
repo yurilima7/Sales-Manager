@@ -117,13 +117,21 @@ class _ConfiguracaoState extends State<Configuracao> {
     _apagaClientes();
 
     // deleta todos os dados do usuário no banco
-    await db.collection("Usuários").doc(usuarioID).delete();
+    await db.collection("Usuários").doc(usuarioID).delete().then(
+      (doc) {
+        usuario?.delete().then(
+          (doc2) {
+            Autenticacao.signOut(context: context);
 
-    usuario?.delete();
-    
-    Autenticacao.signOut(context: context);
-
-    _proximaTela("Conta Encerrada com sucesso!");
+            _proximaTela("Conta Encerrada com sucesso!");
+          },
+          onError: (error) => Mensagens().mensagem("Falha ao deletar", 
+            true, context),
+        );
+      },
+      onError: (error) => Mensagens().mensagem("Falha ao deletar", 
+        true, context),
+    );
   }
 
   _alteraPerfil(){
@@ -149,44 +157,16 @@ class _ConfiguracaoState extends State<Configuracao> {
     
           children: [
     
-            Expanded(
-              flex: 1,
-    
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                
-                children: [
-            
-                  Ink(
-                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.007),
-                    
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          blurRadius: 5
-                        )
-                      ]
-                    ),
-              
-                    child: const Icon(
-                      Icons.person,
-                      color: Color(0xFF734D8C),
-                    ),
-                  ),
-              
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                  Text(_nomeUsuario, style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
-                ],
-              ),
+              children: [              
+                SizedBox(height: MediaQuery.of(context).size.height * 0.07),
+                const Text("Configurações", style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
+              ],
             ),
     
             Expanded(
-              flex: 5,
     
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
