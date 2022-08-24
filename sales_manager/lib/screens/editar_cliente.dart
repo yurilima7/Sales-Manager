@@ -152,7 +152,6 @@ class _EditarClienteState extends State<EditarCliente> {
                 Botao(
                   titulo: "Salvar", 
                   funcaoGeral: _editandoDados,
-                  desempilha: true,
                 ),
             
               ],

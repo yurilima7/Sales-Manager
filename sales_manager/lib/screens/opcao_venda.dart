@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sales_manager/screens/adicionar_cliente.dart';
+import 'package:sales_manager/screens/cliente_existente.dart';
 import 'package:sales_manager/widgets/botao.dart';
 
 class OpcaoVenda extends StatelessWidget {
@@ -8,11 +10,17 @@ class OpcaoVenda extends StatelessWidget {
   Widget build(BuildContext context) {
 
     void _addCliente(){
-      Navigator.pushNamed(context,  "/addCliente");
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (BuildContext context) => const AdicionarCliente()),
+      );
     }
 
     void _buscarExistente(){
-      Navigator.pushNamed(context,  "/clienteExistente");
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (BuildContext context) => const ClienteExistente()),
+      );
     }
 
     return Scaffold(

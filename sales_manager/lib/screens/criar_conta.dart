@@ -99,6 +99,14 @@ class _CriarContaState extends State<CriarConta> {
     }
   }
 
+  _passaTela(){
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (BuildContext context) => const Login()),
+      (route) => false,
+    );
+  }
+
   @override
   void dispose(){
     _email.dispose();
@@ -167,10 +175,10 @@ class _CriarContaState extends State<CriarConta> {
             
                   Botao(titulo: "Registrar", funcaoGeral: _registrar),
                  
-                  const BotaoTexto(
-                      mensagem: "Possui uma conta? Faça login!", 
-                      proxima: '/login',
-                      tamanhoFonte: 12,
+                  BotaoTexto(
+                    mensagem: "Possui uma conta? Faça login!", 
+                    tamanhoFonte: 12,
+                    passaTela: _passaTela,
                   ),
                 ],
               ),

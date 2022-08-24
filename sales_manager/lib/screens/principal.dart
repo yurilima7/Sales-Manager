@@ -123,9 +123,9 @@ class _PrincipalState extends State<Principal> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
                 
-                        BotaoAcesso(caminho: 'assets/icons/vendas.svg', titulo: "Adicionar Vendas", proximo: '/opcaoDeVenda'),
-                        BotaoAcesso(caminho: 'assets/icons/add pagamento.svg', titulo: "Adicionar Pagamentos", proximo: '/addPagamento'),
-                        BotaoAcesso(caminho: 'assets/icons/clientes.svg', titulo: "Consultar Clientes", proximo: '/clientes'),
+                        BotaoAcesso(caminho: 'assets/icons/vendas.svg', titulo: "Adicionar Vendas", proximo: 0),
+                        BotaoAcesso(caminho: 'assets/icons/add pagamento.svg', titulo: "Adicionar Pagamentos", proximo: 1),
+                        BotaoAcesso(caminho: 'assets/icons/clientes.svg', titulo: "Consultar Clientes", proximo: 2),
                         
                       ],
                     ),

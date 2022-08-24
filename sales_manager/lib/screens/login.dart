@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sales_manager/screens/criar_conta.dart';
 import 'package:sales_manager/screens/principal.dart';
 import 'package:sales_manager/widgets/botao.dart';
 import 'package:sales_manager/widgets/botao_social.dart';
@@ -32,6 +33,13 @@ class _LoginState extends State<Login> {
         (route) => false,
       );
     }));  
+  }
+
+  _passaTela(){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (BuildContext context) => const CriarConta()),
+    );
   }
 
   _entrar() async {
@@ -139,10 +147,10 @@ class _LoginState extends State<Login> {
             
                   Botao(titulo: "Entrar", funcaoGeral: _entrar),
             
-                  const BotaoTexto(
-                      mensagem: "Não possui uma conta? Faça seu registro!",
-                      proxima: '/criarConta',
-                      tamanhoFonte: 12,
+                  BotaoTexto(
+                    mensagem: "Não possui uma conta? Faça seu registro!",
+                    tamanhoFonte: 12,
+                    passaTela: _passaTela,
                   ),
                 ],
               ),

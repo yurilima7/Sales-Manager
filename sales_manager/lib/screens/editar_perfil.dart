@@ -80,7 +80,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                       , acaoTeclado: false, salvandoDados: (_) => _editaPerfil()),
       
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-                    Botao(titulo: "Salvar", desempilha: true, funcaoGeral: _editaPerfil)
+                    Botao(titulo: "Salvar", funcaoGeral: _editaPerfil)
                   ],
                 ),
               ),      

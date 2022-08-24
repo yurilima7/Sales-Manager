@@ -246,7 +246,6 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                     Botao(
                         titulo: "Salvar",
-                        desempilha: true,
                         funcaoGeral: _guardandoDados,
                     )
                   ],

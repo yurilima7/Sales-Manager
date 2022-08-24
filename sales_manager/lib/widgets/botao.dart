@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 
 class Botao extends StatelessWidget {
   final String titulo;
-  final String? proxima;
-  final bool desempilha;
   final Function()? funcaoGeral;
 
-  const Botao({required this.titulo, this.desempilha = false, this.funcaoGeral , this.proxima , Key? key})
+  const Botao({required this.titulo, this.funcaoGeral, Key? key})
       : super(key: key);
 
   @override
@@ -25,14 +23,7 @@ class Botao extends StatelessWidget {
       child: ElevatedButton(
         style: botaoDeSelecao,
         onPressed: () {
-          funcaoGeral!();
-
-          if(proxima != null){
-            desempilha
-                ? Navigator.pushNamedAndRemoveUntil(context, proxima!, (route) => false) 
-                : Navigator.pushNamed(context, proxima!);
-          }
-          
+          funcaoGeral!();     
         },
         child: Text(titulo, textAlign: TextAlign.center),
       ),

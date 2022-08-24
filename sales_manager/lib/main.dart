@@ -1,16 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:sales_manager/screens/adicionar_cliente.dart';
-import 'package:sales_manager/screens/adicionar_pagamentos.dart';
-import 'package:sales_manager/screens/cliente_existente.dart';
-import 'package:sales_manager/screens/clientes.dart';
-import 'package:sales_manager/screens/configuracao.dart';
-import 'package:sales_manager/screens/criar_conta.dart';
-import 'package:sales_manager/screens/dados.dart';
 import 'package:sales_manager/screens/estado_usuario.dart';
-import 'package:sales_manager/screens/login.dart';
-import 'package:sales_manager/screens/opcao_venda.dart';
-import 'package:sales_manager/screens/principal.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -51,16 +41,6 @@ class SalesManager extends StatelessWidget {
       initialRoute: '/estadoDoUsuario',
       routes: { 
         '/estadoDoUsuario':(context) => const EstadoUsuario(),
-        '/login': (context) => const Login(),
-        '/criarConta': (context) => const CriarConta(),
-        '/principal': (context) => const Principal(),
-        '/opcaoDeVenda': (context) => const OpcaoVenda(),
-        '/addCliente': (context) => const AdicionarCliente(),
-        '/clientes': (context) => const Clientes(),
-        '/dados': (context) => const Dados(),
-        '/addPagamento': (context) => const AdicionarPagamento(),
-        '/clienteExistente': (context) => const ClienteExistente(),
-        '/configuracao': (context) => const Configuracao(),
       },
     );
   }
