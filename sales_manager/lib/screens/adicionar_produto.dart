@@ -187,12 +187,6 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
   @override
   Widget build(BuildContext context) {
 
-    void onChanged(String text){
-      setState(() {
-
-      });
-    }
-
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       
@@ -224,14 +218,12 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
                         label: "Produto",
                         hint: "Digite o nome do produto",
                         controller: _nomeControler,
-                        onChanged: onChanged,
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     InputFormulario(
                         label: "Preço",
                         hint: "Digite o preço, ex: 45,00",
                         controller: _precoControler,
-                        onChanged: onChanged,
                         tipo: TextInputType.number,
                         mascara: true,
                         maskPreco: true,
@@ -241,7 +233,6 @@ class _AdicionarProdutoState extends State<AdicionarProduto> {
                         label: "Quantidade",
                         hint: "Digite a quantidade comprada",
                         controller: _quantidadeControler,
-                        onChanged: onChanged,
                         tipo: TextInputType.number,
                         acaoTeclado: false,
                         salvandoDados: (_) => _guardandoDados(),

@@ -7,7 +7,7 @@ class InputFormulario extends StatefulWidget {
   final bool acaoTeclado, mascara, maskPreco;
   final TextEditingController controller;
   final TextInputType tipo;
-  final Function(String) onChanged;
+  final Function(String)? onChanged;
   final Function(String)? salvandoDados;
  
   const InputFormulario({
@@ -16,7 +16,7 @@ class InputFormulario extends StatefulWidget {
     this.acaoTeclado = true, this.mascara = false, this.maskPreco = false,
     this.tipo = TextInputType.text, 
     required this.controller, this.salvandoDados,
-    required this.hint, required this.onChanged,
+    required this.hint, this.onChanged,
   }) : super(key: key);
 
   @override
