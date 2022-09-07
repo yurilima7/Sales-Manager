@@ -20,7 +20,7 @@
 ## :closed_lock_with_key: Segurança
 * Regras do Firebase
 
-## :computer: Bibliotecas e ferramentas
+## :computer: Bibliotecas e Ferramentas
 * Google SignIn
 * Facebook SignIn
 
@@ -34,5 +34,5 @@ Para executar corretamente esta aplicação você precisará:
 ## :memo: Licença
 Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes
 
-## :dart: Status do projeto
+## :dart: Status do Projeto
 Realização de testes e melhorias.
