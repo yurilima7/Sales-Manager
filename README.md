@@ -29,7 +29,7 @@
 Para executar corretamente esta aplicação você precisará:
 * Git e Node JS instalados
 * Flutter já configurado
-* Criar um projeto Firebase e configura-lo ao flutter
+* Criar um projeto Firebase e configura-lo ao Flutter
 
 ## :memo: Licença
 Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes
