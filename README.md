@@ -14,22 +14,22 @@
 * Flutter
 * Firebase
 
-### :globe_with_meridians: Autenticação
+## :globe_with_meridians: Autenticação
 * Firebase Auth
 
-### :closed_lock_with_key: Segurança
+## :closed_lock_with_key: Segurança
 * Regras do Firebase
 
-### :computer: Bibliotecas e ferramentas
+## :computer: Bibliotecas e ferramentas
 * Google SignIn
 * Facebook SignIn
 
-### :information_source: Como Usar
+## :information_source: Como Usar
 
 Para executar corretamente esta aplicação você precisará:
 * Git e Node JS instalados
 * Flutter já configurado
-* Criar um projeto Firebase e configura-lo ao Flutter
+* Criar um projeto Firebase e configura-lo ao flutter
 
 ## :memo: Licença
 Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes
