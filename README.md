@@ -21,8 +21,8 @@
 * Regras do Firebase
 
 ## :computer: Bibliotecas e Ferramentas
-* Google SignIn
-* Facebook SignIn
+* Google Sign In
+* Facebook Sign In
 
 ## :information_source: Como Usar
 
